@@ -1,20 +1,6 @@
 <?php
 Class FormValidator
 {
-    protected $_db;
-    protected $_login;
-    protected $_email;
-    protected $_password;
-    protected $_firstname;
-    protected $_lastname;
-    protected $_birthdate;
-    protected $_gender;
-
-    protected $_street;
-    protected $_city_id;
-    protected $_departement_id;
-    protected $_region_id;
-
     public function __construct($db)
     {
         $this->_db = $db;
@@ -25,69 +11,14 @@ Class FormValidator
         $this->_db = null;
     }
 
-    public function getLogin()
+    public function validateLogin()
     {
-        return $this->_login;
-    }
-
-    public function getEmail()
-    {
-        return $this->_email;
-    }
-
-    public function getPassword()
-    {
-        return $this->_password;
-    }
-
-    public function getFirstname()
-    {
-        return $this->_firstname;
-    }
-
-    public function getLastname()
-    {
-        return $this->_lastname;
-    }
-
-    public function getBirthdate()
-    {
-        return $this->_birthdate;
-    }
-
-    public function getGender()
-    {
-        return $this->_gender;
-    }
-
-    public function getStreet()
-    {
-        return $this->_street;
-    }
-
-    public function getCityId()
-    {
-        return $this->_city_id;
-    }
-
-    public function getDepartementId()
-    {
-        return $this->_departement_id;
-    }
-
-    public function getRegionId()
-    {
-        return $this->_region_id;
-    }
-
-    public function validateLogin($login)
-    {
-        $login = htmlspecialchars(strtolower($login));
-
-        if (!empty($login) && strlen($login) >= 3)
+        if (!empty($_POST["login"]) && strlen($_POST["login"]) >= 3)
         {
-            if (strlen($login) < 21)
+            if (strlen($_POST["login"]) < 21)
             {
+                $login = htmlspecialchars(strtolower($_POST["login"]));
+
                 $sql = "SELECT u.user_login FROM users AS u WHERE u.user_login = :login";
                 $queryLogin = $this->_db->prepare($sql);
                 $queryLogin->bindParam(":login", $login, PDO::PARAM_STR);
@@ -101,7 +32,7 @@ Class FormValidator
                 }
                 else
                 {
-                    $this->_login = $login;
+                    return $login;
                 }
             }
             else
@@ -115,15 +46,16 @@ Class FormValidator
         }
     }
 
-    public function validateEmail($email1, $email2)
+    public function validateEmail()
     {
-        $email1 = htmlspecialchars(strtolower($email1));
-        $email2 = htmlspecialchars(strtolower($email2));
 
-        if (!empty($email1) && strlen($email1) >= 3)
+        if (!empty($_POST["email1"]) && strlen($_POST["email1"]) >= 3)
         {
-            if (!empty($email2) && strlen($email2) >= 3)
+            if (!empty($_POST["email2"]) && strlen($_POST["email2"]) >= 3)
             {
+                $email1 = htmlspecialchars(strtolower($_POST["email1"]));
+                $email2 = htmlspecialchars(strtolower($_POST["email2"]));
+
                 if (strcmp($email1, $email2) == 0)
                 {
                     $sql = "SELECT u.user_email FROM users AS u WHERE u.user_email = :email";
@@ -139,7 +71,7 @@ Class FormValidator
                     }
                     else
                     {
-                        $this->_email = $email1;
+                       return $email1;
                     }
                 }
                 else
@@ -158,19 +90,22 @@ Class FormValidator
         }
     }
 
-    public function validatePassword($password1, $password2)
+    public function validatePassword()
     {
-        if (!empty($password1) && strlen($password1) >= 6)
+        if (!empty($_POST["password1"]) && strlen($_POST["password1"]) >= 6)
         {
-            if (!empty($password2) && strlen($password2) >= 6)
+            if (!empty($_POST["password1"]) && strlen($_POST["password1"]) >= 6)
             {
+                $password1 = $_POST["password1"];
+                $password2 = $_POST["password2"];
+
                 if (strcmp($password1, $password2) != 0)
                 {
                     $_SESSION["ERROR"]["password_match"] = "Le mot de passe de confirmation indiqué ne correspond pas.";
                 }
                 else
                 {
-                    $this->_password = md5($password1);
+                    return md5($password1);
                 }
             }
             else
@@ -184,39 +119,38 @@ Class FormValidator
         }
     }
 
-    public function validateFirstname($firstname)
+    public function validateFirstname()
     {
-        $firstname = htmlspecialchars(ucwords($firstname, " -"));
-        if (empty($firstname))
+        if (empty($_POST["firstname"]))
         {
             $_SESSION["ERROR"]["firstname"] = "Le prénom indiqué est trop court.";
         }
         else
         {
-            $this->_firstname = $firstname;
+            $firstname = htmlspecialchars(ucwords($_POST["firstname"], " -"));
+            return $firstname;
         }
     }
 
-    public function validateLastname($lastname)
+    public function validateLastname()
     {
-        $lastname = htmlspecialchars(ucwords($lastname, " -"));
-        if (empty($lastname))
+        if (empty($_POST["lastname"]))
         {
             $_SESSION["ERROR"]["lastname"] = "Le nom indiqué est trop court.";
         }
         else
         {
-            $this->_lastname = $lastname;
+            $lastname = htmlspecialchars(ucwords($_POST["lastname"], " -"));
+            return $lastname;
         }
     }
 
-    public function validateBirthdate($birthdate)
+    public function validateBirthdate()
     {
-        $birthdate = htmlspecialchars($birthdate);
-        $regDate = "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/";
-
-        if (!empty($birthdate))
+        if (!empty($_POST["birthdate"]))
         {
+            $regDate = "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/";
+            $birthdate = htmlspecialchars($_POST["birthdate"]);
             if (preg_match($regDate, $birthdate))
             {
                 $now = strtotime($birthdate);
@@ -228,7 +162,7 @@ Class FormValidator
                 }
                 else
                 {
-                    $this->_birthdate = $birthdate;
+                    return $birthdate;
                 }
             }
             else
@@ -242,13 +176,13 @@ Class FormValidator
         }
     }
 
-    public function validateGender($gender)
+    public function validateGender()
     {
-        $gender = intval($gender);
 
-        if ($gender == 0 || $gender == 1)
+        if (isset($_POST["gender"]) && ($_POST["gender"] == 0 || $_POST["gender"] == 1))
         {
-            $this->_gender = $gender;
+            $gender = intval($_POST["gender"]);
+            return $gender;
         }
         else
         {
@@ -256,102 +190,124 @@ Class FormValidator
         }
     }
 
-    public function validateStreet($number, $street)
+    public function validateStreet()
     {
-        $number = htmlspecialchars($number);
-        $street = htmlspecialchars($street);
 
-        if (!empty($number) && !empty($street))
+        if (!empty($_POST["ad_number"]) && !empty($_POST["street"]))
         {
-            $this->_street = $number . " " . $street;
+            $number = htmlspecialchars($_POST["ad_number"]);
+            $street = htmlspecialchars($_POST["street"]);
+            return $number . " " . $street;
         }
-        elseif (empty($number))
+        if (empty($_POST["ad_number"]))
         {
             $_SESSION["ERROR"]["ad_number"] = "Veuillez indiquer un numéro de rue.";
         }
-        elseif (empty($street))
+        if (empty($_POST["street"]))
         {
             $_SESSION["ERROR"]["street"] = "Veuillez indiquer une rue.";
         }
     }
 
-    public function validateCity($city)
+    public function validateCity()
     {
-        $city = htmlspecialchars($city);
-
-        $cp = substr($city, 0, 5);
-        $city = substr($city, 8);
-
-        $sql = "SELECT v.id AS id FROM villes AS v WHERE v.ville_nom = :v_nom AND v.ville_code_postal = :v_cp";
-        $queryCity = $this->_db->prepare($sql);
-        $queryCity->bindParam(":v_nom", $city, PDO::PARAM_STR);
-        $queryCity->bindParam(":v_cp", $cp, PDO::PARAM_INT);
-        $queryCity->execute();
-        $data = $queryCity->fetch();
-        $queryCity->closeCursor();
-
-        if ($data)
+        if (isset($_POST["city"]))
         {
-            $this->_city_id = $data["id"];
+            $city = htmlspecialchars($_POST["city"]);
+
+            $cp = substr($city, 0, 5);
+            $city = substr($city, 8);
+
+            $sql = "SELECT v.id AS id FROM villes AS v WHERE v.ville_nom = :v_nom AND v.ville_code_postal = :v_cp";
+            $queryCity = $this->_db->prepare($sql);
+            $queryCity->bindParam(":v_nom", $city, PDO::PARAM_STR);
+            $queryCity->bindParam(":v_cp", $cp, PDO::PARAM_INT);
+            $queryCity->execute();
+            $data = $queryCity->fetch();
+            $queryCity->closeCursor();
+
+            if ($data)
+            {
+                return $data["id"];
+            }
+            else
+            {
+                $_SESSION["ERROR"]["city"] = "Veuillez choisir une des villes de la liste.";
+            }
         }
         else
         {
-            $_SESSION["ERROR"]["city"] = "Veuillez choisir une des villes de la liste.";
+                $_SESSION["ERROR"]["city"] = "Veuillez spécifier une ville.";
         }
+
     }
 
-    public function validateDepartement($departement)
+    public function validateDepartement()
     {
-        $departement = htmlspecialchars($departement);
-        $departement_num = substr($departement, 0, 2);
-        $departement = substr($departement, 5);
-
-        $sql = "SELECT d.id AS id FROM departements AS d WHERE d.departement_nom = :d_nom AND d.departement_num = :d_num";
-        $queryDep = $this->_db->prepare($sql);
-        $queryDep->bindParam(":d_nom", $departement, PDO::PARAM_STR);
-        $queryDep->bindParam(":d_num", $departement_num, PDO::PARAM_INT);
-        $queryDep->execute();
-        $data = $queryDep->fetch();
-        $queryDep->closeCursor();
-
-        if ($data)
+        if (isset($_POST["departement"]))
         {
-            $this->_departement_id = $data["id"];
+            $departement = htmlspecialchars($_POST["departement"]);
+            $departement_num = substr($departement, 0, 2);
+            $departement = substr($departement, 5);
+
+            $sql = "SELECT d.id AS id FROM departements AS d WHERE d.departement_nom = :d_nom AND d.departement_num = :d_num";
+            $queryDep = $this->_db->prepare($sql);
+            $queryDep->bindParam(":d_nom", $departement, PDO::PARAM_STR);
+            $queryDep->bindParam(":d_num", $departement_num, PDO::PARAM_INT);
+            $queryDep->execute();
+            $data = $queryDep->fetch();
+            $queryDep->closeCursor();
+
+            if ($data)
+            {
+                return $data["id"];
+            }
+            else
+            {
+                $_SESSION["ERROR"]["departement"] = "Veuillez choisir un des départements de la liste.";
+            }
         }
         else
         {
-            $_SESSION["ERROR"]["departement"] = "Veuillez choisir un des départements de la liste.";
+            $_SESSION["ERROR"]["departement"] = "Veuillez spécifier un département.";
         }
     }
 
-    public function validateRegion($region)
+    public function validateRegion()
     {
-        $region = htmlspecialchars($region);
-
-        $sql = "SELECT r.id AS id FROM regions AS r WHERE r.region_nom = :r_nom";
-        $queryRegion = $this->_db->prepare($sql);
-        $queryRegion->bindParam(":r_nom", $region, PDO::PARAM_STR);
-        $queryRegion->execute();
-        $data = $queryRegion->fetch();
-        $queryRegion->closeCursor();
-
-        if ($data)
+        if (isset($_POST["region"]))
         {
-            $this->_region_id = $data["id"];
+            $region = htmlspecialchars($_POST["region"]);
+
+            $sql = "SELECT r.id AS id FROM regions AS r WHERE r.region_nom = :r_nom";
+            $queryRegion = $this->_db->prepare($sql);
+            $queryRegion->bindParam(":r_nom", $region, PDO::PARAM_STR);
+            $queryRegion->execute();
+            $data = $queryRegion->fetch();
+            $queryRegion->closeCursor();
+
+            if ($data)
+            {
+                return $data["id"];
+            }
+            else
+            {
+                $_SESSION["ERROR"]["region"] = "Veuillez choisir une des régions de la liste.";
+            }
         }
         else
         {
-            $_SESSION["ERROR"]["region"] = "Veuillez choisir une des régions de la liste.";
+            $_SESSION["ERROR"]["region"] = "Veuillez spécifier une région.";
         }
     }
 
-    public function validateLogLogin($login)
+    public function validateLogLogin()
     {
-        $login = htmlspecialchars($login);
 
-        if (!empty($login))
+        if (!empty($_POST["connexion_login"]))
         {
-            $this->_login = $login;
+            $login = htmlspecialchars($_POST["connexion_login"]);
+            return $login;
         }
         else
         {
@@ -359,13 +315,13 @@ Class FormValidator
         }
     }
 
-    public function validateLogPassword($password)
+    public function validateLogPassword()
     {
-        $password = htmlspecialchars($password);
 
-        if (!empty($password))
+        if (!empty($_POST["connexion_password"]))
         {
-            $this->_password = md5($password);
+            $password = md5(htmlspecialchars($_POST["connexion_password"]));
+            return $password;
         }
         else
         {

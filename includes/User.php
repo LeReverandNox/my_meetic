@@ -25,9 +25,13 @@ Class User
     protected $_region_id;
     protected $_pays;
 
+    protected $_validator;
+
     public function __construct($db, $id = null)
     {
         $this->_db = $db;
+        $this->_validator = new FormValidator($db);
+
         if ($id)
         {
             $this->_id = $id;
@@ -178,36 +182,61 @@ Class User
         $this->_region_id = $region_id;
     }
 
+    public function prepareRegister()
+    {
+        $this->setLogin($this->_validator->validateLogin());
+        $this->setEmail($this->_validator->validateEmail());
+        $this->setPassword($this->_validator->validatePassword());
+        $this->setFirstname($this->_validator->validateFirstname());
+        $this->setLastname($this->_validator->validateLastname());
+        $this->setBirthdate($this->_validator->validateBirthdate());
+        $this->setGender($this->_validator->validateGender());
+        $this->setStreet($this->_validator->validateStreet());
+        $this->setCityId($this->_validator->validateCity());
+        $this->setDepartementId($this->_validator->validateDepartement());
+        $this->setRegionId($this->_validator->validateRegion());
+
+        if (empty($_SESSION["ERROR"]))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function register()
     {
-        $this->generateToken();
+        if ($this->prepareRegister())
+        {
+            $this->generateToken();
 
-        $sql = "INSERT INTO adresses (adresse_rue, id_ville) VALUES (:street, :city_id)";
-        $queryAddress = $this->_db->prepare($sql);
-        $queryAddress->bindParam(":street", $this->_street, PDO::PARAM_STR);
-        $queryAddress->bindParam(":city_id", $this->_city_id, PDO::PARAM_INT);
-        $queryAddress->execute();
-        $id_address = $this->_db->lastInsertId();
+            $sql = "INSERT INTO adresses (adresse_rue, id_ville) VALUES (:street, :city_id)";
+            $queryAddress = $this->_db->prepare($sql);
+            $queryAddress->bindParam(":street", $this->_street, PDO::PARAM_STR);
+            $queryAddress->bindParam(":city_id", $this->_city_id, PDO::PARAM_INT);
+            $queryAddress->execute();
+            $id_address = $this->_db->lastInsertId();
 
-        $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, id_adresse, user_activation_token)
-        VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :id_address, :activation_token)";
-        $queryRegister = $this->_db->prepare($sql);
-        $queryRegister->bindParam(":login", $this->_login, PDO::PARAM_STR);
-        $queryRegister->bindParam(":email", $this->_email, PDO::PARAM_STR);
-        $queryRegister->bindParam(":password", $this->_password, PDO::PARAM_STR);
-        $queryRegister->bindParam(":firstname", $this->_firstname, PDO::PARAM_STR);
-        $queryRegister->bindParam(":lastname", $this->_lastname, PDO::PARAM_STR);
-        $queryRegister->bindParam(":birthdate", $this->_birthdate, PDO::PARAM_STR);
-        $queryRegister->bindParam(":gender", $this->_gender, PDO::PARAM_INT);
-        $queryRegister->bindParam(":id_address", $id_address, PDO::PARAM_INT);
-        $queryRegister->bindParam(":activation_token", $this->_activation_token, PDO::PARAM_STR);
-        $queryRegister->execute();
+            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, id_adresse, user_activation_token)
+            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :id_address, :activation_token)";
+            $queryRegister = $this->_db->prepare($sql);
+            $queryRegister->bindParam(":login", $this->_login, PDO::PARAM_STR);
+            $queryRegister->bindParam(":email", $this->_email, PDO::PARAM_STR);
+            $queryRegister->bindParam(":password", $this->_password, PDO::PARAM_STR);
+            $queryRegister->bindParam(":firstname", $this->_firstname, PDO::PARAM_STR);
+            $queryRegister->bindParam(":lastname", $this->_lastname, PDO::PARAM_STR);
+            $queryRegister->bindParam(":birthdate", $this->_birthdate, PDO::PARAM_STR);
+            $queryRegister->bindParam(":gender", $this->_gender, PDO::PARAM_INT);
+            $queryRegister->bindParam(":id_address", $id_address, PDO::PARAM_INT);
+            $queryRegister->bindParam(":activation_token", $this->_activation_token, PDO::PARAM_STR);
+            $queryRegister->execute();
 
-        $this->_id = $this->_db->lastInsertId();
-        $this->sendActivationMail();
+            $this->_id = $this->_db->lastInsertId();
+            $this->sendActivationMail();
 
-        $_SESSION["INFOS"] = "Votre compte a été créé. Cependant, il doit être activé. Une clé d’activation vous a été envoyée par e-mail. Vérifiez vos e-mails pour plus d’informations.";
-        return true;
+            $_SESSION["INFOS"] = "Votre compte a été créé. Cependant, il doit être activé. Une clé d’activation vous a été envoyée par e-mail. Vérifiez vos e-mails pour plus d’informations.";
+            return true;
+        }
+        return false;
     }
 
     public function sendActivationMail()
@@ -242,29 +271,33 @@ Class User
         return true;
     }
 
-    public function activateUser($token)
+    public function activateUser()
     {
-        if ($this->_status == 1)
+        if (isset($_GET["token"]))
         {
-            $_SESSION["INFOS"] = "Votre compte est déjà activé";
-            return false;
-        }
-        elseif ($token === $this->_activation_token)
-        {
-            $sql = "UPDATE users AS u
-            SET u.user_status = 1
-            WHERE u.id = :id";
-            $queryActivate = $this->_db->prepare($sql);
-            $queryActivate->bindParam(":id", $this->_id, PDO::PARAM_INT);
-            $queryActivate->execute();
+            $token = htmlspecialchars($_GET["token"]);
+            if ($this->_status == 1)
+            {
+                $_SESSION["INFOS"] = "Votre compte est déjà activé";
+                return false;
+            }
+            elseif ($token === $this->_activation_token)
+            {
+                $sql = "UPDATE users AS u
+                SET u.user_status = 1
+                WHERE u.id = :id";
+                $queryActivate = $this->_db->prepare($sql);
+                $queryActivate->bindParam(":id", $this->_id, PDO::PARAM_INT);
+                $queryActivate->execute();
 
-            $_SESSION["INFOS"] = "Votre compte a bien été activé.";
-            return true;
-        }
-        else
-        {
-            $_SESSION["INFOS"] = "Erreur lors de l'activation du compte";
-            return false;
+                $_SESSION["INFOS"] = "Votre compte a bien été activé.";
+                return true;
+            }
+            else
+            {
+                $_SESSION["INFOS"] = "Erreur lors de l'activation du compte";
+                return false;
+            }
         }
     }
 
@@ -280,35 +313,52 @@ Class User
         return true;
     }
 
+    public function prepareConnexion()
+    {
+        $this->setLogin($this->_validator->validateLogLogin());
+        $this->setPassword($this->_validator->validateLogPassword());
+
+        if (empty($_SESSION["ERROR"]))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public function connexion()
     {
-        $sql = "SELECT u.id, u.user_status, u.user_disabled
-                    FROM users AS u
-                    WHERE u.user_login = :login AND u.user_password = :password";
-        $queryLogin = $this->_db->prepare($sql);
-        $queryLogin->bindParam(":login", $this->_login, PDO::PARAM_STR);
-        $queryLogin->bindParam(":password", $this->_password, PDO::PARAM_STR);
-        $queryLogin->execute();
-        $dataLogin = $queryLogin->fetch();
-        $queryLogin->closeCursor();
+        if ($this->prepareConnexion())
+        {
+            $sql = "SELECT u.id, u.user_status, u.user_disabled
+                        FROM users AS u
+                        WHERE u.user_login = :login AND u.user_password = :password";
+            $queryLogin = $this->_db->prepare($sql);
+            $queryLogin->bindParam(":login", $this->_login, PDO::PARAM_STR);
+            $queryLogin->bindParam(":password", $this->_password, PDO::PARAM_STR);
+            $queryLogin->execute();
+            $dataLogin = $queryLogin->fetch();
+            $queryLogin->closeCursor();
 
-        if (!$dataLogin)
-        {
-            $_SESSION["ERROR"]["connexion_fail"] = "Mot de passe incorrect";
-            return false;
-        }
-        elseif($dataLogin["user_status"] == 0)
-        {
-            $_SESSION["ERROR"]["inactive_account"] = "Votre compte n'est pas encore activé";
-            return false;
-        }
-        elseif($dataLogin["user_disabled"] == 1)
-        {
-            $_SESSION["ERROR"]["disabled_account"] = "Votre compte est supprimé";
-            return false;
-        }
+            if (!$dataLogin)
+            {
+                $_SESSION["ERROR"]["connexion_fail"] = "Mot de passe incorrect";
+                return false;
+            }
+            elseif($dataLogin["user_status"] == 0)
+            {
+                $_SESSION["ERROR"]["inactive_account"] = "Votre compte n'est pas encore activé";
+                return false;
+            }
+            elseif($dataLogin["user_disabled"] == 1)
+            {
+                $_SESSION["ERROR"]["disabled_account"] = "Votre compte est supprimé";
+                return false;
+            }
 
-        $_SESSION["id"] = $dataLogin["id"];
+            $_SESSION["id"] = $dataLogin["id"];
+            return true;
+        }
+        return false;
     }
 
 }
