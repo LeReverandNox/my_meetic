@@ -21,7 +21,7 @@
         <?php
 
         $queryUpdateVille = $database->prepare("UPDATE villes_france_free
-            SET ville_departement = :id_departement
+            SET id_departement = :id_departement
             WHERE ville_departement = :departement_num");
 
         foreach ($departements as $dep)

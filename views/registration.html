@@ -20,8 +20,8 @@
                 </li>
 
                 <li>
-                    <label for="email">Email : </label>
-                    <input type="email" name="email" id="email" />
+                    <label for="email1">Email : </label>
+                    <input type="email" name="email1" id="email1" />
                 </li>
 
                 <li>
@@ -30,13 +30,68 @@
                 </li>
 
                 <li>
-                    <label for="password">Mot de passe : </label>
-                    <input type="password" name="password" id="password" />
+                    <label for="password1">Mot de passe : </label>
+                    <input type="password" name="password1" id="password1" />
                 </li>
 
                 <li>
                     <label for="password2">Confirmation du mot de passe : </label>
                     <input type="password" name="password2" id="password2" />
+                </li>
+
+                <li>
+                    <label for="firstname">Prénom : </label>
+                    <input type="text" name="firstname" id="firstname" />
+                </li>
+
+                <li>
+                    <label for="lastname">Nom : </label>
+                    <input type="text" name="lastname" id="lastname" />
+                </li>
+
+                <li>
+                    <label for="birthdate">Date de naissance : </label>
+                    <input type="date" name="birthdate" id="birthdate" />
+                </li>
+
+                <li>
+                    <label>Sexe : </label>
+                    <input type="radio" name="gender" id="gender_male" value="0" checked />
+                    <label for="gender_male">Homme</label>
+                    <input type="radio" name="gender" id="gender_female" value="1" />
+                    <label for="gender_female">Femme</label>
+                </li>
+
+                <li>
+                    <label>Adresse : </label>
+                    <label for="ad_number">&#8470;</label>
+                    <input type="text" name="ad_number" id="ad_number" />
+                    <label for="street">Rue : </label>
+                    <input type="text" name="street" id="street" />
+                </li>
+
+                <li>
+                    <label for="city">Ville : </label>
+                    <input type="text" list="cities" name="city">
+                    <datalist id="cities">
+                        <option value="93400 - Saint-Ouen"></option>
+                    </datalist>
+                </li>
+
+                <li>
+                    <label for="departement">Departement : </label>
+                    <input type="text" list="departements" name="departement">
+                    <datalist id="departements">
+                        <option value="93 - Seine-Saint-Denis"></option>
+                    </datalist>
+                </li>
+
+                <li>
+                    <label for="departement">Region : </label>
+                    <input type="text" list="regions" name="region">
+                    <datalist id="regions">
+                        <option value="Île-de-France"></option>
+                    </datalist>
                 </li>
 
                 <li>
@@ -46,6 +101,20 @@
             </ul>
             </form>
         </div>
+        <form method="POST" action="#">
+            <label for="connexion_login">Pseudo : </label>
+            <input type="text" name="connexion_login" id="connexion_login" />
+
+            <label for="connexion_password">Mot de passe : </label>
+            <input type="text" name="connexion_password" id="connexion_password" />
+
+            <input type="hidden" name="connexion" />
+            <input type="submit" value="Connexion" />
+        </form>
+        <form method="POST" action="#">
+            <input type="hidden" name="deconnexion" />
+            <input type="submit" value="Deconnexion" />
+        </form>
     </section>
 
     <footer>
