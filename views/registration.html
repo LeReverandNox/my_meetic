@@ -16,71 +16,73 @@
             <ul>
                 <li>
                     <label for="login">Pseudo : </label>
-                    <input type="text" name="login" id="login" />
+                    <input type="text" name="login" id="login" placeholder="Ex: Anthony, Mathias..." value="<?php if (isset($_POST["login"])) echo htmlspecialchars($_POST["login"]); ?>" />
                 </li>
 
                 <li>
                     <label for="email1">Email : </label>
-                    <input type="email" name="email1" id="email1" />
+                    <input type="email" name="email1" id="email1" placeholder="Ex: mathias@epitech.eu" value="<?php if (isset($_POST["email1"])) echo htmlspecialchars($_POST["email1"]); ?>" />
                 </li>
 
                 <li>
                     <label for="email2">Confirmation d'email : </label>
-                    <input type="email" name="email2" id="email2" />
+                    <input type="email" name="email2" id="email2" value="<?php if (isset($_POST["email2"])) echo htmlspecialchars($_POST["email2"]); ?>" />
                 </li>
 
                 <li>
                     <label for="password1">Mot de passe : </label>
-                    <input type="password" name="password1" id="password1" />
+                    <input type="password" name="password1" id="password1" placeholder="6 caractères minimum" value="<?php if (isset($_POST["password1"])) echo htmlspecialchars($_POST["password1"]); ?>" />
                 </li>
 
                 <li>
                     <label for="password2">Confirmation du mot de passe : </label>
-                    <input type="password" name="password2" id="password2" />
+                    <input type="password" name="password2" id="password2" value="<?php if (isset($_POST["password2"])) echo htmlspecialchars($_POST["password2"]); ?>" />
                 </li>
 
                 <li>
                     <label for="firstname">Prénom : </label>
-                    <input type="text" name="firstname" id="firstname" />
+                    <input type="text" name="firstname" id="firstname" value="<?php if (isset($_POST["firstname"])) echo htmlspecialchars($_POST["firstname"]); ?>" />
                 </li>
 
                 <li>
                     <label for="lastname">Nom : </label>
-                    <input type="text" name="lastname" id="lastname" />
+                    <input type="text" name="lastname" id="lastname" value="<?php if (isset($_POST["lastname"])) echo htmlspecialchars($_POST["lastname"]); ?>" />
                 </li>
 
                 <li>
                     <label for="birthdate">Date de naissance : </label>
-                    <input type="date" name="birthdate" id="birthdate" />
+                    <input type="date" name="birthdate" id="birthdate" placeholder="AAAA/MM/JJ" value="<?php if (isset($_POST["birthdate"])) echo htmlspecialchars($_POST["birthdate"]); ?>" />
                 </li>
 
                 <li>
-                    <label>Je suis : </label>
-                    <input type="radio" name="gender" id="gender_male" value="0" checked />
-                    <label for="gender_male">un homme</label>
-                    <input type="radio" name="gender" id="gender_female" value="1" />
-                    <label for="gender_female">une femme</label>
+                    <label for="gender">Je suis : </label>
+                    <select name="gender" id="gender">
+                        <option value="">Sélectionner dans la liste</option>
+                        <option value="0" <?php if (isset($_POST["gender"]) && $_POST["gender"] == "0") echo "selected"; ?>>un homme</option>
+                        <option value="1" <?php if (isset($_POST["gender"]) && $_POST["gender"] == "1") echo "selected"; ?>>une femme</option>
+                    </select>
                 </li>
 
                 <li>
-                    <label>Je recherche : </label>
-                    <input type="radio" name="orientation" id="orientation_male" value="0" />
-                    <label for="lf_male">des hommes</label>
-                    <input type="radio" name="orientation" id="orientation_female" value="1" checked/>
-                    <label for="lf_female">des femmes</label>
+                    <label for="orientation">Et je recherche : </label>
+                    <select name="orientation" id="orientation">
+                        <option value="">Sélectionner dans la liste</option>
+                        <option value="0" <?php if (isset($_POST["orientation"]) && $_POST["orientation"] == "0") echo "selected"; ?>>un homme</option>
+                        <option value="1" <?php if (isset($_POST["orientation"]) && $_POST["orientation"] == "1") echo "selected"; ?>>une femme</option>
+                    </select>
                 </li>
 
                 <li>
                     <label>Adresse : </label>
                     <label for="ad_number">&#8470;</label>
-                    <input type="text" name="ad_number" id="ad_number" />
+                    <input type="text" name="ad_number" id="ad_number" placeholder="Ex: 14" value="<?php if (isset($_POST["ad_number"])) echo htmlspecialchars($_POST["ad_number"]); ?>" />
                     <label for="street">Rue : </label>
-                    <input type="text" name="street" id="street" />
+                    <input type="text" name="street" id="street" placeholder="Ex: Rue Fructidor" value="<?php if (isset($_POST["street"])) echo htmlspecialchars($_POST["street"]); ?>" />
                 </li>
 
                 <li>
                     <label for="city">Ville : </label>
-                    <input type="text" list="cities" name="city">
+                    <input type="text" list="cities" name="city" placeholder="Ex: 93400 - Saint-Ouen" value="<?php if (isset($_POST["city"])) echo htmlspecialchars($_POST["city"]); ?>" />
                     <datalist id="cities">
                         <?php foreach ($cities as $city): ?>
 
@@ -92,17 +94,21 @@
 
                 <li>
                     <label for="departement">Departement : </label>
-                    <input type="text" list="departements" name="departement">
+                    <input type="text" list="departements" name="departement" placeholder="Ex: 93 - Seine-Saint-Denis" value="<?php if (isset($_POST["departement"])) echo htmlspecialchars($_POST["departement"]); ?>" />
                     <datalist id="departements">
-                        <option value="93 - Seine-Saint-Denis"></option>
+                        <?php foreach ($departements as $departement): ?>
+                            <option value="<?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?>"></option>
+                        <?php endforeach ?>
                     </datalist>
                 </li>
 
                 <li>
-                    <label for="departement">Region : </label>
-                    <input type="text" list="regions" name="region">
+                    <label for="regions">Region : </label>
+                    <input type="text" list="regions" name="region" placeholder="Ex: Île-de-France" value="<?php if (isset($_POST["region"])) echo htmlspecialchars($_POST["region"]); ?>" />
                     <datalist id="regions">
-                        <option value="Île-de-France"></option>
+                        <?php foreach ($regions as $region): ?>
+                            <option value="<?php echo $region["nom"] ?>"></option>
+                        <?php endforeach ?>
                     </datalist>
                 </li>
 
@@ -114,6 +120,7 @@
             </form>
         </div>
         <form method="POST" action="#">
+            <h2>Connexion</h2>
             <label for="connexion_login">Pseudo : </label>
             <input type="text" name="connexion_login" id="connexion_login" />
 

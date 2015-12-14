@@ -15,7 +15,6 @@ if (isset($_POST["connexion"]))
 {
     $user = new User($db);
     $user->connexion();
-    $_SESSION["INFOS"] = "Vous êtes à présent connecté.";
 }
 
 if (isset($_POST["deconnexion"]))
@@ -73,10 +72,6 @@ $cities = $address->getCities();
 $departements = $address->getDepartements();
 $regions = $address->getRegions();
 $pays = $address->getPays();
-// var_dump($cities);
-// var_dump($departements);
-// var_dump($regions);
-// var_dump($pays);
 
 require_once("views/registration.html");
 ?>

@@ -38,7 +38,7 @@ Class Address
     }
     public function setDepartements()
     {
-        $sql = "SELECT d.id, d.departement_nom, d.departement_num FROM departements AS d";
+        $sql = "SELECT d.id AS id,  d.departement_nom AS nom, d.departement_num AS num FROM departements AS d";
         $queryDepartements = $this->_db->prepare($sql);
         $queryDepartements->execute();
         $this->_departements = $queryDepartements->fetchAll(PDO::FETCH_ASSOC);
@@ -51,7 +51,7 @@ Class Address
     }
     public function setRegions()
     {
-        $sql = "SELECT r.id, r.region_nom FROM regions AS r";
+        $sql = "SELECT r.id, r.region_nom AS nom FROM regions AS r";
         $queryRegions = $this->_db->prepare($sql);
         $queryRegions->execute();
         $this->_regions = $queryRegions->fetchAll(PDO::FETCH_ASSOC);

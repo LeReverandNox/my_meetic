@@ -178,7 +178,7 @@ Class FormValidator
 
     public function validateGender()
     {
-        if (isset($_POST["gender"]) && ($_POST["gender"] == 0 || $_POST["gender"] == 1))
+        if (isset($_POST["gender"]) && ($_POST["gender"] == "0" || $_POST["gender"] == "1"))
         {
             $gender = intval($_POST["gender"]);
             return $gender;
@@ -191,7 +191,7 @@ Class FormValidator
 
     public function validateOrientation()
     {
-        if (isset($_POST["orientation"]) && ($_POST["orientation"] == 0 || $_POST["orientation"] == 1))
+        if (isset($_POST["orientation"]) && ($_POST["orientation"] == "0" || $_POST["orientation"] == "1"))
         {
             $orientation = intval($_POST["orientation"]);
             return $orientation;
@@ -223,7 +223,7 @@ Class FormValidator
 
     public function validateCity()
     {
-        if (isset($_POST["city"]))
+        if (isset($_POST["city"]) && $_POST["city"] !== "")
         {
             $city = htmlspecialchars($_POST["city"]);
 
@@ -310,6 +310,32 @@ Class FormValidator
         else
         {
             $_SESSION["ERROR"]["region"] = "Veuillez spécifier une région.";
+        }
+    }
+
+    public function validateAddress($city_id, $departement_id, $region_id)
+    {
+        $sql = "SELECT * FROM villes AS v
+        INNER JOIN departements AS d
+        ON v.id_departement = d.id
+        INNER JOIN regions AS r
+        ON d.id_region = r.id
+        WHERE v.id = :v_id AND d.id = :d_id AND r.id = :r_id";
+        $queryAddress = $this->_db->prepare($sql);
+        $queryAddress->bindParam(":v_id", $city_id, PDO::PARAM_INT);
+        $queryAddress->bindParam(":d_id", $departement_id, PDO::PARAM_INT);
+        $queryAddress->bindParam(":r_id", $region_id, PDO::PARAM_INT);
+        $queryAddress->execute();
+        $data = $queryAddress->fetch();
+        $queryAddress->closeCursor();
+
+        if ($data)
+        {
+            return true;
+        }
+        else
+        {
+            $_SESSION["ERROR"]["address"] = "L'adresse indiquée n'existe pas.";
         }
     }
 

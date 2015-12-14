@@ -273,6 +273,8 @@ Class User
         $this->setDepartementId($this->_validator->validateDepartement());
         $this->setRegionId($this->_validator->validateRegion());
 
+        $this->_validator->validateAddress($this->_city_id, $this->_departement_id, $this->_region_id);
+
         if (empty($_SESSION["ERROR"]))
         {
             return true;
@@ -434,6 +436,7 @@ Class User
             }
 
             $_SESSION["id"] = $dataLogin["id"];
+            $_SESSION["INFOS"] = "Vous êtes à présent connecté.";
             return true;
         }
         return false;
