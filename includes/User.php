@@ -11,9 +11,14 @@ Class User
     protected $_lastname;
     protected $_birthdate;
     protected $_gender;
+    protected $_orientation;
+    protected $_avatar;
+    protected $_bio;
     protected $_status;
     protected $_activation_token;
+    protected $_disabled;
 
+    protected $_id_adresse;
     protected $_street;
     protected $_city;
     protected $_city_id;
@@ -24,6 +29,7 @@ Class User
     protected $_region;
     protected $_region_id;
     protected $_pays;
+    protected $_pays_id;
 
     protected $_validator;
 
@@ -36,10 +42,18 @@ Class User
         {
             $this->_id = $id;
 
-            $sql = "SELECT u.user_login, u.user_email, u.user_firstname, u.user_lastname, u.user_birthdate, u.user_gender, u.user_status, u.user_activation_token, u.user_disabled
+            $sql = "SELECT u.user_login, u.user_email, u.user_firstname, u.user_lastname, u.user_birthdate, u.user_gender, u.user_orientation, u.user_avatar, u.user_bio, u.user_status, u.user_activation_token, u.user_disabled, u.id_adresse, a.adresse_rue, a.id_ville, v.ville_nom, v.ville_code_postal, v.id_departement, d.departement_nom, d.departement_num, d.id_region, r.region_nom, r.id_pays, p.pays_nom
             FROM users AS u
-            LEFT JOIN adresses AS a
+            INNER JOIN adresses AS a
             ON u.id_adresse = a.id
+            INNER JOIN villes AS v
+            ON a.id_ville = v.id
+            INNER JOIN departements AS d
+            ON v.id_departement = d.id
+            INNER JOIN regions AS r
+            ON d.id_region = r.id
+            INNER JOIN pays AS p
+            ON r.id_pays = p.id
             WHERE u.id = :id";
             $queryLogin = $this->_db->prepare($sql);
             $queryLogin->bindParam(":id", $this->_id, PDO::PARAM_INT);
@@ -49,8 +63,28 @@ Class User
 
             $this->_login = $dataUser["user_login"];
             $this->_email = $dataUser["user_email"];
-            $this->_status = $dataUser["user_status"];
+            $this->_firstname = $dataUser["user_firstname"];
+            $this->_lastname = $dataUser["user_lastname"];
+            $this->_birthdate = $dataUser["user_birthdate"];
+            $this->_gender = $dataUser["user_gender"];
+            $this->_orientation = $dataUser["user_orientation"];
+            $this->_avatar = $dataUser["user_avatar"];
+            $this->_bio = $dataUser["user_bio"];
             $this->_activation_token = $dataUser["user_activation_token"];
+            $this->_status = $dataUser["user_status"];
+            $this->_disabled = $dataUser["user_disabled"];
+            $this->_id_adresse = $dataUser["id_ville"];
+            $this->_street = $dataUser["adresse_rue"];
+            $this->_city_id = $dataUser["id_ville"];
+            $this->_city = $dataUser["ville_nom"];
+            $this->_city_cp = $dataUser["ville_code_postal"];
+            $this->_departement_id = $dataUser["id_departement"];
+            $this->_departement_num = $dataUser["departement_num"];
+            $this->_departement = $dataUser["departement_nom"];
+            $this->_region_id = $dataUser["id_region"];
+            $this->_region = $dataUser["region_nom"];
+            $this->_pays_id = $dataUser["id_pays"];
+            $this->_pays = $dataUser["pays_nom"];
         }
     }
 
@@ -118,6 +152,34 @@ Class User
         $this->_gender = $gender;
     }
 
+    public function getOrientation()
+    {
+        return $this->_orientation;
+    }
+
+    public function setOrientation($orientation)
+    {
+        $this->_orientation = $orientation;
+    }
+
+    public function getAvatar()
+    {
+        return $this->_avatar;
+    }
+    public function setAvatar($avatar)
+    {
+        $this->_avatar = $avatar;
+    }
+
+    public function getBio()
+    {
+        return $this->_bio;
+    }
+    public function setBio($bio)
+    {
+        $this->_bio = $bio;
+    }
+
     public function getActivationToken()
     {
         return $this->_activation_token;
@@ -141,6 +203,11 @@ Class User
     public function getCity()
     {
         return $this->_city;
+    }
+
+    public function getCityCP()
+    {
+        return $this->_city_cp;
     }
 
     public function getCityId()
@@ -182,6 +249,15 @@ Class User
         $this->_region_id = $region_id;
     }
 
+    public function getPaysId()
+    {
+        return $this->_pays_id;
+    }
+    public function getPays()
+    {
+        return $this->_pays;
+    }
+
     public function prepareRegister()
     {
         $this->setLogin($this->_validator->validateLogin());
@@ -191,6 +267,7 @@ Class User
         $this->setLastname($this->_validator->validateLastname());
         $this->setBirthdate($this->_validator->validateBirthdate());
         $this->setGender($this->_validator->validateGender());
+        $this->setOrientation($this->_validator->validateOrientation());
         $this->setStreet($this->_validator->validateStreet());
         $this->setCityId($this->_validator->validateCity());
         $this->setDepartementId($this->_validator->validateDepartement());
@@ -216,8 +293,8 @@ Class User
             $queryAddress->execute();
             $id_address = $this->_db->lastInsertId();
 
-            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, id_adresse, user_activation_token)
-            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :id_address, :activation_token)";
+            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, user_orientation, id_adresse, user_activation_token)
+            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :orientation, :id_address, :activation_token)";
             $queryRegister = $this->_db->prepare($sql);
             $queryRegister->bindParam(":login", $this->_login, PDO::PARAM_STR);
             $queryRegister->bindParam(":email", $this->_email, PDO::PARAM_STR);
@@ -226,6 +303,7 @@ Class User
             $queryRegister->bindParam(":lastname", $this->_lastname, PDO::PARAM_STR);
             $queryRegister->bindParam(":birthdate", $this->_birthdate, PDO::PARAM_STR);
             $queryRegister->bindParam(":gender", $this->_gender, PDO::PARAM_INT);
+            $queryRegister->bindParam(":orientation", $this->_orientation, PDO::PARAM_INT);
             $queryRegister->bindParam(":id_address", $id_address, PDO::PARAM_INT);
             $queryRegister->bindParam(":activation_token", $this->_activation_token, PDO::PARAM_STR);
             $queryRegister->execute();

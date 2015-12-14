@@ -178,7 +178,6 @@ Class FormValidator
 
     public function validateGender()
     {
-
         if (isset($_POST["gender"]) && ($_POST["gender"] == 0 || $_POST["gender"] == 1))
         {
             $gender = intval($_POST["gender"]);
@@ -187,6 +186,19 @@ Class FormValidator
         else
         {
             $_SESSION["ERROR"]["gender"] = "Veuillez indiquer votre sexe";
+        }
+    }
+
+    public function validateOrientation()
+    {
+        if (isset($_POST["orientation"]) && ($_POST["orientation"] == 0 || $_POST["orientation"] == 1))
+        {
+            $orientation = intval($_POST["orientation"]);
+            return $orientation;
+        }
+        else
+        {
+            $_SESSION["ERROR"]["orientation"] = "Veuillez indiquer votre orientation";
         }
     }
 

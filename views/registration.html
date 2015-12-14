@@ -55,11 +55,19 @@
                 </li>
 
                 <li>
-                    <label>Sexe : </label>
+                    <label>Je suis : </label>
                     <input type="radio" name="gender" id="gender_male" value="0" checked />
-                    <label for="gender_male">Homme</label>
+                    <label for="gender_male">un homme</label>
                     <input type="radio" name="gender" id="gender_female" value="1" />
-                    <label for="gender_female">Femme</label>
+                    <label for="gender_female">une femme</label>
+                </li>
+
+                <li>
+                    <label>Je recherche : </label>
+                    <input type="radio" name="orientation" id="orientation_male" value="0" />
+                    <label for="lf_male">des hommes</label>
+                    <input type="radio" name="orientation" id="orientation_female" value="1" checked/>
+                    <label for="lf_female">des femmes</label>
                 </li>
 
                 <li>
@@ -74,7 +82,11 @@
                     <label for="city">Ville : </label>
                     <input type="text" list="cities" name="city">
                     <datalist id="cities">
-                        <option value="93400 - Saint-Ouen"></option>
+                        <?php foreach ($cities as $city): ?>
+
+                        <option value="<?php echo $city["CP"] ?> - <?php echo $city["nom"] ?>"></option>
+
+                        <?php endforeach ?>
                     </datalist>
                 </li>
 
