@@ -48,7 +48,6 @@ Class FormValidator
 
     public function validateEmail()
     {
-
         if (!empty($_POST["email1"]) && strlen($_POST["email1"]) >= 3)
         {
             if (!empty($_POST["email2"]) && strlen($_POST["email2"]) >= 3)
@@ -205,15 +204,10 @@ Class FormValidator
     public function validateStreet()
     {
 
-        if (!empty($_POST["ad_number"]) && !empty($_POST["street"]))
+        if (!empty($_POST["street"]))
         {
-            $number = htmlspecialchars($_POST["ad_number"]);
             $street = htmlspecialchars($_POST["street"]);
-            return $number . " " . $street;
-        }
-        if (empty($_POST["ad_number"]))
-        {
-            $_SESSION["ERROR"]["ad_number"] = "Veuillez indiquer un numéro de rue.";
+            return $street;
         }
         if (empty($_POST["street"]))
         {
@@ -352,6 +346,18 @@ Class FormValidator
             $_SESSION["ERROR"]["login"] = "Veuillez remplir le champ Pseudo.";
         }
     }
+    public function validateLogEmail()
+    {
+        if (!empty($_POST["connexion_email"]))
+        {
+            $email = htmlspecialchars($_POST["connexion_email"]);
+            return $email;
+        }
+        else
+        {
+            $_SESSION["ERROR"]["email"] = "Veuillez remplir le champ Email.";
+        }
+    }
 
     public function validateLogPassword()
     {
@@ -366,5 +372,186 @@ Class FormValidator
             $_SESSION["ERROR"]["password"] = "Veuillez remplir le champ Mot de passe.";
         }
     }
+
+    public function validateLoginUpdate($current_login)
+    {
+        if (!empty($_POST["login"]) && strlen($_POST["login"]) >= 3)
+        {
+            if (strlen($_POST["login"]) < 21)
+            {
+                $login = htmlspecialchars(strtolower($_POST["login"]));
+                if (strcmp($login, $current_login) !==   0)
+                {
+                    $sql = "SELECT u.user_login FROM users AS u WHERE u.user_login = :login";
+                    $queryLogin = $this->_db->prepare($sql);
+                    $queryLogin->bindParam(":login", $login, PDO::PARAM_STR);
+                    $queryLogin->execute();
+                    $data = $queryLogin->fetch();
+                    $queryLogin->closeCursor();
+
+                    if ($data)
+                    {
+                        $_SESSION["ERROR"]["login"] = "Ce pseudo est déja utilisé.";
+                    }
+                    else
+                    {
+                        return $login;
+                    }
+                }
+                else
+                {
+                    return $login;
+                }
+            }
+            else
+            {
+                $_SESSION["ERROR"]["login"] = "Le pseudo indiqué est trop long.";
+            }
+        }
+        else
+        {
+            $_SESSION["ERROR"]["login"] = "Le pseudo indiqué est trop court.";
+        }
+    }
+
+    public function validateEmailUpdate($current_email)
+    {
+        if (strcmp($_POST["email1"], $current_email) !== 0)
+        {
+            if (!empty($_POST["email1"]) && strlen($_POST["email1"]) >= 3)
+            {
+                if (!empty($_POST["email2"]) && strlen($_POST["email2"]) >= 3)
+                {
+                    $email1 = htmlspecialchars(strtolower($_POST["email1"]));
+                    $email2 = htmlspecialchars(strtolower($_POST["email2"]));
+
+                    if (strcmp($email1, $email2) == 0)
+                    {
+                        $sql = "SELECT u.user_email FROM users AS u WHERE u.user_email = :email";
+                        $queryMail = $this->_db->prepare($sql);
+                        $queryMail->bindValue(":email", $email1, PDO::PARAM_STR);
+                        $queryMail->execute();
+                        $data = $queryMail->fetch();
+                        $queryMail->closeCursor();
+
+                        if ($data)
+                        {
+                            $_SESSION["ERROR"]["email_exist"] = "L'adresse e-mail indiquée est déjà utilisée.";
+                        }
+                        else
+                        {
+                           return $email1;
+                        }
+                    }
+                    else
+                    {
+                        $_SESSION["ERROR"]["email_match"] = "L’adresse e-mail de confirmation indiquée ne correspond pas.";
+                    }
+                }
+                else
+                {
+                    $_SESSION["ERROR"]["email2"] = "L’adresse e-mail de confirmation indiquée est trop courte.";
+                }
+            }
+            else
+            {
+                $_SESSION["ERROR"]["email1"] = "L’adresse e-mail indiquée est trop courte.";
+            }
+        }
+        else
+        {
+            return $current_email;
+        }
+    }
+    public function validatePasswordUpdate($current_password)
+    {
+        if (empty($_POST["password1"]))
+        {
+            return $current_password;
+        }
+
+        if (!empty($_POST["password1"]) && strlen($_POST["password1"]) >= 6)
+        {
+            if (!empty($_POST["password1"]) && strlen($_POST["password1"]) >= 6)
+            {
+                $password1 = $_POST["password1"];
+                $password2 = $_POST["password2"];
+
+                if (strcmp($password1, $password2) != 0)
+                {
+                    $_SESSION["ERROR"]["password_match"] = "Le mot de passe de confirmation indiqué ne correspond pas.";
+                }
+                else
+                {
+                    return md5($password1);
+                }
+            }
+            else
+            {
+                $_SESSION["ERROR"]["password2"] = "Le mot de passe de confirmation indiqué est trop court.";
+            }
+        }
+        else
+        {
+            $_SESSION["ERROR"]["password1"] = "Le mot de passe indiqué est trop court.";
+        }
+    }
+
+    public function validateBio()
+    {
+        if (!empty($_POST["bio"]))
+        {
+            return htmlspecialchars($_POST["bio"]);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public function  validateAvatar($login)
+    {
+        if (!empty($_FILES["avatar"]["name"]))
+        {
+            if ($_FILES["avatar"]["error"] > 0)
+            {
+                $_SESSION["ERROR"]["fail"] ="Upload has failed";
+            }
+            else
+            {
+                if ($_FILES["avatar"]["type"] !== "image/jpeg" && $_FILES["avatar"]["type"] !== "image/png")
+                {
+                    $_SESSION["ERROR"]["wrong_type"] ="Please upload a png or jpeg image";
+                }
+                else
+                {
+                    $extension = $_FILES["avatar"]["type"];
+                    $extension = substr($extension, strpos($extension, "/") + 1);
+                    if ($_FILES["avatar"]["size"] > 1000000)
+                    {
+                        $_SESSION["ERROR"]["too_heavy"] ="This image is too heavy (1 MB max) !";
+                    }
+                    else
+                    {
+                        $image_size = getimagesize($_FILES["avatar"]["tmp_name"]);
+                        if ($image_size[0] > 150 || $image_size[1] > 150)
+                        {
+                            $_SESSION["ERROR"]["oversize"] ="This image is too big (150*150 px max) !";
+                        }
+                        else
+                        {
+                            $curr_path = $_FILES["avatar"]["tmp_name"];
+                            $destination_path = "images/avatars/upload/" . $login . "." . $extension;
+                            move_uploaded_file($curr_path, $destination_path);
+
+                            return $destination_path;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }
 ?>

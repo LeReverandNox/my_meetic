@@ -10,6 +10,7 @@ Class User
     protected $_firstname;
     protected $_lastname;
     protected $_birthdate;
+    protected $_age;
     protected $_gender;
     protected $_orientation;
     protected $_avatar;
@@ -17,6 +18,7 @@ Class User
     protected $_status;
     protected $_activation_token;
     protected $_disabled;
+    protected $_register_date;
 
     protected $_id_adresse;
     protected $_street;
@@ -31,6 +33,10 @@ Class User
     protected $_pays;
     protected $_pays_id;
 
+    protected $_new_login;
+    protected $_new_email;
+    protected $_new_password;
+
     protected $_validator;
 
     public function __construct($db, $id = null)
@@ -42,7 +48,7 @@ Class User
         {
             $this->_id = $id;
 
-            $sql = "SELECT u.user_login, u.user_email, u.user_firstname, u.user_lastname, u.user_birthdate, u.user_gender, u.user_orientation, u.user_avatar, u.user_bio, u.user_status, u.user_activation_token, u.user_disabled, u.id_adresse, a.adresse_rue, a.id_ville, v.ville_nom, v.ville_code_postal, v.id_departement, d.departement_nom, d.departement_num, d.id_region, r.region_nom, r.id_pays, p.pays_nom
+            $sql = "SELECT u.user_login, u.user_email, u.user_password, u.user_firstname, u.user_lastname, u.user_birthdate, u.user_gender, u.user_orientation, u.user_avatar, u.user_bio, u.user_status, u.user_activation_token, u.user_disabled, DATE_FORMAT(u.user_register_date, '%d/%m/%Y') AS register_date, u.id_adresse, a.adresse_rue, a.id_ville, v.ville_nom, v.ville_code_postal, v.id_departement, d.departement_nom, d.departement_num, d.id_region, r.region_nom, r.id_pays, p.pays_nom
             FROM users AS u
             INNER JOIN adresses AS a
             ON u.id_adresse = a.id
@@ -63,9 +69,11 @@ Class User
 
             $this->_login = $dataUser["user_login"];
             $this->_email = $dataUser["user_email"];
+            $this->_password = $dataUser["user_password"];
             $this->_firstname = $dataUser["user_firstname"];
             $this->_lastname = $dataUser["user_lastname"];
             $this->_birthdate = $dataUser["user_birthdate"];
+            $this->calculAge();
             $this->_gender = $dataUser["user_gender"];
             $this->_orientation = $dataUser["user_orientation"];
             $this->_avatar = $dataUser["user_avatar"];
@@ -73,7 +81,7 @@ Class User
             $this->_activation_token = $dataUser["user_activation_token"];
             $this->_status = $dataUser["user_status"];
             $this->_disabled = $dataUser["user_disabled"];
-            $this->_id_adresse = $dataUser["id_ville"];
+            $this->_id_adresse = $dataUser["id_adresse"];
             $this->_street = $dataUser["adresse_rue"];
             $this->_city_id = $dataUser["id_ville"];
             $this->_city = $dataUser["ville_nom"];
@@ -85,6 +93,7 @@ Class User
             $this->_region = $dataUser["region_nom"];
             $this->_pays_id = $dataUser["id_pays"];
             $this->_pays = $dataUser["pays_nom"];
+            $this->_register_date = $dataUser["register_date"];
         }
     }
 
@@ -93,6 +102,10 @@ Class User
         $this->_db = null;
     }
 
+    public function getId()
+    {
+        return $this->_id;
+    }
     public function getLogin()
     {
         return $this->_login;
@@ -143,10 +156,50 @@ Class User
         $this->_birthdate = $birthdate;
     }
 
+    public function getAge()
+    {
+        return $this->_age;
+    }
+    public function calculAge()
+    {
+        // on décortique la date d'aujourd'hui (jour,mois et année):
+        $an_now=date("Y");
+        $mois_now=date("m");
+        $jour_now=date("d");
+
+        //on décortique la date de naissance (jour,mois et année):
+        $an=substr($this->_birthdate, 0, 4);
+        $mois=substr($this->_birthdate, 5, 2);
+        $jour=substr($this->_birthdate, 8, 2);
+
+        //on soustrait l'année de naissance de l'année actuelle :
+        $age=$an_now-$an;
+
+        //si le jour de naissance n'est pas encore passé, on retire une année :
+        if( ($mois>$mois_now) or (($mois==$mois_now) and ($jour>$jour_now)) )
+        {
+           $age=$age-1;
+        }
+        $this->_age = $age;
+    }
+
     public function getGender()
     {
         return $this->_gender;
     }
+
+    public function getGenderText()
+    {
+        if ($this->_gender == 0)
+        {
+            return "Homme";
+        }
+        elseif ($this->_gender ==1)
+        {
+            return "Femme";
+        }
+    }
+
     public function setGender($gender)
     {
         $this->_gender = $gender;
@@ -155,6 +208,17 @@ Class User
     public function getOrientation()
     {
         return $this->_orientation;
+    }
+    public function getOrientationText()
+    {
+        if ($this->_orientation == 0)
+        {
+            return "hommes";
+        }
+        elseif ($this->_orientation == 1)
+        {
+            return "femmes";
+        }
     }
 
     public function setOrientation($orientation)
@@ -188,6 +252,11 @@ Class User
     public function generateToken()
     {
         $this->_activation_token = md5($this->_email);
+    }
+
+    public function getRegisterDate()
+    {
+        return $this->_register_date;
     }
 
     public function getStreet()
@@ -258,6 +327,19 @@ Class User
         return $this->_pays;
     }
 
+    public function setNewLogin($new_login)
+    {
+        $this->_new_login = $new_login;
+    }
+    public function setNewEmail($new_email)
+    {
+        $this->_new_email = $new_email;
+    }
+    public function setNewPassword($new_password)
+    {
+        $this->_new_password = $new_password;
+    }
+
     public function prepareRegister()
     {
         $this->setLogin($this->_validator->validateLogin());
@@ -274,6 +356,16 @@ Class User
         $this->setRegionId($this->_validator->validateRegion());
 
         $this->_validator->validateAddress($this->_city_id, $this->_departement_id, $this->_region_id);
+
+        if ($this->_gender == 0)
+        {
+            $this->setAvatar("images/avatars/default_male.png");
+        }
+        else
+        {
+            $this->setAvatar("images/avatars/default_female.png");
+        }
+
 
         if (empty($_SESSION["ERROR"]))
         {
@@ -295,8 +387,8 @@ Class User
             $queryAddress->execute();
             $id_address = $this->_db->lastInsertId();
 
-            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, user_orientation, id_adresse, user_activation_token)
-            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :orientation, :id_address, :activation_token)";
+            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, user_orientation, user_avatar, id_adresse, user_activation_token)
+            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :orientation, :avatar, :id_address, :activation_token)";
             $queryRegister = $this->_db->prepare($sql);
             $queryRegister->bindParam(":login", $this->_login, PDO::PARAM_STR);
             $queryRegister->bindParam(":email", $this->_email, PDO::PARAM_STR);
@@ -307,6 +399,7 @@ Class User
             $queryRegister->bindParam(":gender", $this->_gender, PDO::PARAM_INT);
             $queryRegister->bindParam(":orientation", $this->_orientation, PDO::PARAM_INT);
             $queryRegister->bindParam(":id_address", $id_address, PDO::PARAM_INT);
+            $queryRegister->bindParam(":avatar", $this->_avatar, PDO::PARAM_STR);
             $queryRegister->bindParam(":activation_token", $this->_activation_token, PDO::PARAM_STR);
             $queryRegister->execute();
 
@@ -323,7 +416,7 @@ Class User
     {
         $from = "lereverandnox@gmail.com";
         $to = $this->_email;
-        $activation_link = "http://localhost/S1%20-%20PHP/PHP_my_meetic/account.php/?action=activate&id=" . $this->_id . "&token=" . $this->_activation_token;
+        $activation_link = "http://localhost/S1%20-%20PHP/PHP_my_meetic/activation.php?action=activate&id=" . $this->_id . "&token=" . $this->_activation_token;
 
         $headers = "From: <" . $from . ">\r\n";
         $headers .= "Reply-To: <" . $from . ">\r\n";
@@ -349,6 +442,90 @@ Class User
         mail($to, $subject, $message, $headers, "-r $from");
 
         return true;
+    }
+
+    public function sendResetPwdMail()
+    {
+        $from = "lereverandnox@gmail.com";
+        $to = $this->_email;
+
+        $headers = "From: <" . $from . ">\r\n";
+        $headers .= "Reply-To: <" . $from . ">\r\n";
+        $headers .= "Return-Path:  < " . $from . " >\r\n";
+        $headers .= "Sender: <" . $from . ">\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Date: <" . date("r", time()). ">\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+
+        $subject = "Réinitialisation de votre mot de passe";
+        $message ="<html><body>";
+        $message .= "<p>Bonjour " . $this->_login. ", vous recevez cette notification car vous avez (ou quelqu’un qui prétend
+                                être vous) demandé qu’un nouveau mot de passe vous soit envoyé pour votre
+                                compte sur « <a href='http://localhost/S1%20-%20PHP/PHP_my_meetic/'>My_Meetic</a>».</p>";
+        $message .= "<p>Voici votre nouveau mot de passe : " . $this->_password . "</p>";
+        $message .= "Une fois connecté, vous pourrez le modifier depuis la rubique Mon Compte.";
+        $message .= "<p>A très vite parmis nous !</p>";
+        $message .= "</body></html>";
+
+        mail($to, $subject, $message, $headers, "-r $from");
+
+        return true;
+    }
+    public function existUserReset()
+    {
+        $sql = "SELECT * FROM users AS u WHERE u.user_login = :login AND u.user_email = :email";
+        $queryPrepareReset = $this->_db->prepare($sql);
+        $queryPrepareReset->bindParam(":login", $this->_login, PDO::PARAM_STR);
+        $queryPrepareReset->bindParam(":email", $this->_email, PDO::PARAM_STR);
+        $queryPrepareReset->execute();
+        $data = $queryPrepareReset->fetch();
+        $queryPrepareReset->closeCursor();
+
+        if (!$data)
+        {
+            $_SESSION["ERROR"]["reset"] = "Cet utilisateur n'existe pas";
+        }
+    }
+
+    public function prepareReset()
+    {
+        $this->setLogin($this->_validator->validateLogLogin());
+        $this->setEmail($this->_validator->validateLogEmail());
+
+        if (empty($_SESSION["ERROR"]))
+        {
+            $this->existUserReset();
+        }
+
+        if (empty($_SESSION["ERROR"]))
+        {
+            return true;
+        }
+    }
+
+    public function resetPassword()
+    {
+        if ($this->prepareReset())
+        {
+            $new_password = substr(md5(time()), 0, 8);
+            $new_password_hash = md5($new_password);
+
+            $this->setPassword($new_password);
+
+            $sql = "UPDATE users AS u SET u.user_password = :password WHERE u.user_login = :login";
+            $queryResetPassword = $this->_db->prepare($sql);
+            $queryResetPassword->bindParam(":password", $new_password_hash, PDO::PARAM_STR);
+            $queryResetPassword->bindParam(":login", $this->_login, PDO::PARAM_STR);
+            $queryResetPassword->execute();
+
+            $this->sendResetPwdMail();
+            $_SESSION["INFOS"] = "Un nouveau mot de passe vous a été envoyé par email.";
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public function activateUser()
@@ -383,9 +560,9 @@ Class User
 
     public function disableUser()
     {
-        $sql = "UPDATE users
-        SET users.user_disabled = 1
-        WHERE user.id = :id";
+        $sql = "UPDATE users AS u
+        SET u.user_disabled = 1
+        WHERE u.id = :id";
         $queryActivate = $this->_db->prepare($sql);
         $queryActivate->bindParam(":id", $this->_id, PDO::PARAM_INT);
         $queryActivate->execute();
@@ -442,5 +619,72 @@ Class User
         return false;
     }
 
+    public function prepareUpdate()
+    {
+        $this->setNewLogin($this->_validator->validateLoginUpdate($this->_login));
+        $this->setNewEmail($this->_validator->validateEmailUpdate($this->_email));
+        $this->setNewPassword($this->_validator->validatePasswordUpdate($this->_password));
+
+        $this->setFirstname($this->_validator->validateFirstname());
+        $this->setLastname($this->_validator->validateLastname());
+        $this->setBirthdate($this->_validator->validateBirthdate());
+        $this->setGender($this->_validator->validateGender());
+        $this->setOrientation($this->_validator->validateOrientation());
+        $this->setStreet($this->_validator->validateStreet());
+        $this->setCityId($this->_validator->validateCity());
+        $this->setDepartementId($this->_validator->validateDepartement());
+        $this->setRegionId($this->_validator->validateRegion());
+        $this->setBio($this->_validator->validateBio());
+
+        if ($avatar = $this->_validator->validateAvatar($this->_login))
+        {
+            $this->_avatar = $avatar;
+        }
+
+        $this->_validator->validateAddress($this->_city_id, $this->_departement_id, $this->_region_id);
+
+        if (empty($_SESSION["ERROR"]))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public function update()
+    {
+        if ($this->prepareUpdate())
+        {
+            $sql1="UPDATE users AS u
+            SET u.user_login = :login, u.user_email = :email, u.user_password = :password, u.user_firstname = :firstname, u.user_lastname = :lastname, u.user_birthdate = :birthdate, u.user_gender = :gender, u.user_orientation = :orientation, u.user_avatar = :avatar, u.user_bio = :bio
+            WHERE u.id = :u_id";
+
+            $sql2 = "UPDATE adresses AS a
+            SET a.adresse_rue = :street, a.id_ville = :city_id
+            WHERE a.id = :a_id";
+
+            $queryUpdateUser = $this->_db->prepare($sql1);
+            $queryUpdateUser->bindParam(":login", $this->_new_login, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":email", $this->_new_email, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":password", $this->_new_password, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":firstname", $this->_firstname, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":lastname", $this->_lastname, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":birthdate", $this->_birthdate, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":gender", $this->_gender, PDO::PARAM_INT);
+            $queryUpdateUser->bindParam(":orientation", $this->_orientation, PDO::PARAM_INT);
+            $queryUpdateUser->bindParam(":avatar", $this->_avatar, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":bio", $this->_bio, PDO::PARAM_STR);
+            $queryUpdateUser->bindParam(":u_id", $this->_id, PDO::PARAM_INT);
+            $queryUpdateUser->execute();
+
+            $queryUpdateAddress = $this->_db->prepare($sql2);
+            $queryUpdateAddress->bindParam(":street", $this->_street, PDO::PARAM_STR);
+            $queryUpdateAddress->bindParam(":city_id", $this->_city_id, PDO::PARAM_INT);
+            $queryUpdateAddress->bindParam(":a_id", $this->_id_adresse, PDO::PARAM_INT);
+            $queryUpdateAddress->execute();
+
+            $_SESSION["INFOS"] = "Vos informations ont été mise à jour.";
+            return true;
+        }
+    }
 }
 ?>

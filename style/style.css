@@ -30,6 +30,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
+    font-family: sans-serif;
 }
 ol, ul {
     list-style: none;
@@ -47,8 +48,80 @@ table {
     border-spacing: 0;
 }
 
+a, a:visited {
+    text-decoration: none;
+    color: black;
+}
 /* MY_MEETIC */
-
-header h1 {
+#main_wrapper {
+    width: 900px;
+    margin: 0 auto;
+}
+#header_title {
+    text-align: center;
+}
+#header_title h1 {
     color: red;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2em;
+}
+#header_navlog nav ul li {
+    display: inline;
+}
+#errors {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#errors li {
+    text-align: center;
+    color: red;
+}
+.registration_block  {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.registration_block h2 {
+    text-align: center;
+}
+#registration_form label{
+    display: inline-block;
+    width: 160px;
+}
+#registration_form li {
+    line-height: 33px;
+}
+#registration_form input, #registration_form select {
+    display: inline-block;
+    width: 300px;
+    vertical-align: top;
+}
+#registration_form #ad_number {
+    width: 50px !important;
+}
+#registration_form #street {
+    width: 240px !important;
+}
+
+#registration_form #submit {
+    text-align: center;
+}
+
+#my_account h2 {
+    text-align: center;
+    font-size: 1.5em;
+}
+
+#profil_section {
+    margin-bottom: 25px;
+}
+#profil_block {
+    text-align: center;
+}
+#contact_link {
+    color: blue;
+}
+#footer {
+    text-align: center;
 }
