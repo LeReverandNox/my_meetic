@@ -686,5 +686,11 @@ Class User
             return true;
         }
     }
+
+    public static function deconnexion()
+    {
+        $_SESSION = array();
+        session_destroy();
+    }
 }
 ?>

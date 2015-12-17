@@ -13,25 +13,14 @@
             <div id="profil_block">
 
                 <h2>Mon compte</h2>
-                <?php if (isset($_SESSION["INFOS"])): ?>
-                    <ul>
-                        <li><?php echo $_SESSION["INFOS"]; ?></li>
-                    </ul>
-                    <?php unset($_SESSION["INFOS"]); ?>
-                <?php endif ?>
+                <?php Display::INFOS(); ?>
 
                 <?php if (isset($_GET["mode"]) && $_GET["mode"] === "edit"): ?>
 
                     <div id="account_edit">
 
-                        <?php if (isset($_SESSION["ERROR"])): ?>
-                            <ul>
-                                <?php foreach ($_SESSION["ERROR"] as $error): ?>
-                                    <li><?php echo $error; ?></li>
-                                <?php endforeach ?>
-                            </ul>
-                            <?php unset($_SESSION["ERROR"]); ?>
-                        <?php endif ?>
+                        <?php Display::ERROR(); ?>
+
                         <form action="" method="POST" id="edit_profile" enctype="multipart/form-data">
                             <div id="avatar_upload">
                                 <img src="<?php echo $user->getAvatar(); ?>" alt="<?php echo $dataUser["firstname"]; ?>'s avatar" id="edit_profile_avatar">
@@ -157,14 +146,14 @@
                 <?php elseif (isset($_GET["mode"]) && $_GET["mode"] === "delete"): ?>
 
                     <div id="account_delete">
-                    <ul>
-                        <li><p>Vous êtes sur le point de supprimer DÉFINITIVEMENT votre compte</li>
-                        <li>Pas de remord ?</li>
-                        <form action="" method="POST">
-                            <button name="delete" value="0">Non</button>
-                            <button name="delete" value="1">Oui</button>
-                        </form>
-                    </ul>
+                        <ul>
+                            <li><p>Vous êtes sur le point de supprimer DÉFINITIVEMENT votre compte</li>
+                            <li>Pas de remord ?</li>
+                            <form action="" method="POST">
+                                <button name="delete" value="0">Non</button>
+                                <button name="delete" value="1">Oui</button>
+                            </form>
+                        </ul>
 
                     </div>
 

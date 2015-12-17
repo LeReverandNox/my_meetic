@@ -4,6 +4,7 @@ require_once("includes/database.php");
 require_once("includes/User.php");
 require_once("includes/FormValidator.php");
 require_once("includes/Address.php");
+require_once("includes/Display.php");
 
 if (isset($_POST["registration"]))
 {
@@ -33,5 +34,5 @@ $departements = $address->getDepartements();
 $regions = $address->getRegions();
 $pays = $address->getPays();
 
-require_once("views/inscription.php");
+require_once("views/inscription.html");
 ?>

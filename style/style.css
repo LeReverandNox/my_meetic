@@ -69,13 +69,17 @@ a, a:visited {
 #header_navlog nav ul li {
     display: inline;
 }
-#errors {
+.errors_list, .infos_list {
     margin-top: 20px;
     margin-bottom: 20px;
 }
-#errors li {
+.errors_list li {
     text-align: center;
     color: red;
+}
+.infos_list li {
+    text-align: center;
+    color: blue;
 }
 .registration_block  {
     width: 500px;
@@ -115,6 +119,7 @@ a, a:visited {
 
 #profil_section {
     margin-bottom: 25px;
+    min-height: 600px;
 }
 #profil_block {
     text-align: center;
@@ -124,4 +129,8 @@ a, a:visited {
 }
 #footer {
     text-align: center;
+}
+
+#header_user {
+    float: right;
 }

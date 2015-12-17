@@ -9,24 +9,9 @@
         <?php require_once("includes/header.php"); ?>
 
         <section>
-         <?php if (isset($_SESSION["INFOS"]))
-         { ?>
-         <ul>
-            <li><?php echo $_SESSION["INFOS"]; ?></li>
-        </ul>
-        <?php }
-        unset($_SESSION["INFOS"]);
-        ?>
-        <?php if (isset($_SESSION["ERROR"]))
-        { ?>
-        <ul id="errors">
-            <?php foreach ($_SESSION["ERROR"] as $error)
-            { ?>
-            <li><?php echo $error ?></li>
-            <?php }
-            unset($_SESSION["ERROR"]); ?>
-        </ul>
-        <?php } ?>
+
+        <?php Display::INFOS(); ?>
+        <?php Display::ERROR(); ?>
 
         <?php if (isset($_GET["mode"]) && $_GET["mode"] === "reset"): ?>
 

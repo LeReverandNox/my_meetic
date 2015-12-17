@@ -4,6 +4,7 @@ require_once("includes/database.php");
 require_once("includes/User.php");
 require_once("includes/FormValidator.php");
 require_once("includes/Address.php");
+require_once("includes/Display.php");
 
 if (!isset($_SESSION["id"]))
 {
@@ -49,5 +50,5 @@ if (isset($_POST["delete"]))
         return true;
     }
 }
-require_once("views/account.php");
+require_once("views/account.html");
 ?>

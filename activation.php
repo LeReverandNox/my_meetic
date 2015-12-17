@@ -3,6 +3,7 @@ session_start();
 require_once("includes/database.php");
 require_once("includes/User.php");
 require_once("includes/FormValidator.php");
+require_once("includes/Display.php");
 
 if (isset($_GET["action"]) && $_GET["action"] === "activate")
 {
@@ -21,5 +22,5 @@ else
     header("Location: index.php");
 }
 
-require_once("views/activation.php");
+require_once("views/activation.html");
 ?>
