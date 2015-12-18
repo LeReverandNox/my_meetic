@@ -64,7 +64,7 @@ Class Address
     }
     public function setPays()
     {
-        $sql = "SELECT p.id, p.pays_nom FROM pays AS p";
+        $sql = "SELECT p.id, p.pays_nom AS nom FROM pays AS p";
         $queryPays = $this->_db->prepare($sql);
         $queryPays->execute();
         $this->_pays = $queryPays->fetchAll(PDO::FETCH_ASSOC);

@@ -10,7 +10,94 @@
         <?php require_once("includes/header.php"); ?>
 
         <section id="profil_section">
-            <div id="search_form"></div>
+            <div id="search_form">
+
+                <?php Display::INFOS(); ?>
+                <?php Display::ERROR(); ?>
+
+                <form action="" method="POST">
+                    <ul>
+                        <li>
+                            Sexe :
+                            <input type="checkbox" name="gender_male" id="gender_male" value="true" <?php if (isset($_SESSION["POST"]["gender_male"])) echo "checked"; ?> />
+                            <label for="gender_male">Homme</label>
+                            <input type="checkbox" name="gender_female" id="gender_female" value="true" <?php if (isset($_SESSION["POST"]["gender_female"])) echo "checked"; ?> />
+                            <label for="gender_female">Femme</label>
+                            <input type="checkbox" name="gender_alien" id="gender_alien" value="true" <?php if (isset($_SESSION["POST"]["gender_alien"])) echo "checked"; ?> />
+                            <label for="gender_alien">Alien</label>
+                        </li>
+
+                        <li>
+                            Orientation :
+                            <input type="checkbox" name="orientation_male" id="orientation_male" value="true" <?php if (isset($_SESSION["POST"]["orientation_male"])) echo "checked"; ?> />
+                            <label for="orientation_male">Homme</label>
+                            <input type="checkbox" name="orientation_female" id="orientation_female" value="true" <?php if (isset($_SESSION["POST"]["orientation_female"])) echo "checked"; ?> />
+                            <label for="orientation_female">Femme</label>
+                            <input type="checkbox" name="orientation_alien" id="orientation_alien" value="true" <?php if (isset($_SESSION["POST"]["orientation_alien"])) echo "checked"; ?> />
+                            <label for="orientation_alien">Alien</label>
+                        </li>
+                        <li>
+                            Tranche d'âge :
+                            <input type="checkbox" name="18-25" id="18-25" value="true" <?php if (isset($_SESSION["POST"]["18-25"])) echo "checked"; ?> />
+                            <label for="18-25">18 / 25 ans</label>
+                            <input type="checkbox" name="25-35" id="25-35" value="true" <?php if (isset($_SESSION["POST"]["25-35"])) echo "checked"; ?> />
+                            <label for="25-35">25 / 35 ans</label>
+                            <input type="checkbox" name="35-45" id="35-45" value="true" <?php if (isset($_SESSION["POST"]["35-45"])) echo "checked"; ?> />
+                            <label for="35-45">35 / 45 ans</label>
+                            <input type="checkbox" name="45" id="45" value="true" <?php if (isset($_SESSION["POST"]["45"])) echo "checked"; ?> />
+                            <label for="45">45 ans et plus</label>
+                        </li>
+
+                        <li>
+                            <label for="pays">Pays : </label>
+                            <select name="pays">
+                                <option value="">Sélectionner dans la liste</option>
+                                <?php foreach ($pays as $pay): ?>
+                                    <option value="<?php echo $pay["id"] ?>" <?php if(isset($_SESSION["POST"]["pays"]) && $_SESSION["POST"]["pays"] === $pay["id"]) echo "selected"; ?>><?php echo $pay["nom"]; ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </li>
+
+                        <li>
+                            <label for="region">Region : </label>
+                            <select name="region">
+                                <option value="">Sélectionner dans la liste</option>
+                                <?php foreach ($regions as $region): ?>
+                                    <option value="<?php echo $region["id"] ?>" <?php if(isset($_SESSION["POST"]["region"]) && $_SESSION["POST"]["region"] === $region["id"]) echo "selected"; ?>><?php echo $region["nom"]; ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </li>
+
+                        <li>
+                            <label for="departement">Département : </label>
+                            <select name="departement">
+                                <option value="">Sélectionner dans la liste</option>
+                                <?php foreach ($departements as $departement): ?>
+                                    <option value="<?php echo $departement["id"] ?>" <?php if(isset($_SESSION["POST"]["departement"]) && $_SESSION["POST"]["departement"] === $departement["id"]) echo "selected"; ?>><?php echo $departement["nom"]; ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </li>
+
+                        <li>
+                            <label for="villes">Ville(s) : </label>
+                            <input type="text" name="villes" id="villes" placeholder="Ex: 93400 - Saint-Ouen, 17000 - La Rochelle" value="<?php if(isset($_SESSION["POST"]["villes"])) echo $_SESSION["POST"]["villes"]; ?>" />
+                        </li>
+
+                        <li>
+                            <input type="hidden" name="recherche" />
+                            <input type="submit" value="Rechercher" />
+                        </li>
+                    </ul>
+
+                    <?php
+                    if (isset($_POST["recherche"]))
+                    {
+                        $search->cleanSessionPOST();
+                    }
+                    ?>
+
+                </form>
+            </div>
         </section>
 
         <?php require_once("includes/footer.php"); ?>

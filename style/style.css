@@ -124,13 +124,32 @@ a, a:visited {
 #profil_block {
     text-align: center;
 }
-#contact_link {
-    color: blue;
-}
 #footer {
     text-align: center;
 }
 
 #header_user {
     float: right;
+}
+
+#search_form {
+    text-align: center;
+}
+
+#edit_link, #delete_link, #contact_link {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+#delete_link {
+    background-color: #FF5B5B;
+}
+#edit_link, #contact_link {
+    background-color: #00DCFF;
+}
+
+#profil_details {
+    border-bottom: 30px;
 }

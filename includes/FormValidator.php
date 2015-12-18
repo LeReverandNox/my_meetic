@@ -148,7 +148,7 @@ Class FormValidator
     {
         if (!empty($_POST["birthdate"]))
         {
-            $regDate = "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/";
+            $regDate = "/^[0-9]{4}[-\/](0[1-9]|1[0-2])[-\/](0[1-9]|[1-2][0-9]|3[0-1])$/";
             $birthdate = htmlspecialchars($_POST["birthdate"]);
             if (preg_match($regDate, $birthdate))
             {
@@ -177,7 +177,7 @@ Class FormValidator
 
     public function validateGender()
     {
-        if (isset($_POST["gender"]) && ($_POST["gender"] == "0" || $_POST["gender"] == "1"))
+        if (isset($_POST["gender"]) && ($_POST["gender"] == "0" || $_POST["gender"] == "1" || $_POST["gender"] == "2"))
         {
             $gender = intval($_POST["gender"]);
             return $gender;
@@ -190,7 +190,7 @@ Class FormValidator
 
     public function validateOrientation()
     {
-        if (isset($_POST["orientation"]) && ($_POST["orientation"] == "0" || $_POST["orientation"] == "1"))
+        if (isset($_POST["orientation"]) && ($_POST["orientation"] == "0" || $_POST["orientation"] == "1" || $_POST["orientation"] == "2"))
         {
             $orientation = intval($_POST["orientation"]);
             return $orientation;
@@ -551,6 +551,34 @@ Class FormValidator
             }
         }
         return false;
+    }
+
+    public function validateCitySearch()
+    {
+        if (isset($_POST["city"]) && $_POST["city"] !== "")
+        {
+            $city = htmlspecialchars($_POST["city"]);
+
+            $cp = substr($city, 0, 5);
+            $city_name = substr($city, 8);
+
+            $sql = "SELECT v.id AS id FROM villes AS v WHERE v.ville_nom = :v_nom AND v.ville_code_postal = :v_cp";
+            $queryCity = $this->_db->prepare($sql);
+            $queryCity->bindParam(":v_nom", $city_name, PDO::PARAM_STR);
+            $queryCity->bindParam(":v_cp", $cp, PDO::PARAM_INT);
+            $queryCity->execute();
+            $data = $queryCity->fetch();
+            $queryCity->closeCursor();
+
+            if ($data)
+            {
+                return $city;
+            }
+            else
+            {
+                $_SESSION["ERROR"]["city"] = "Ville inconnue.";
+            }
+        }
     }
 
 }
