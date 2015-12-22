@@ -194,9 +194,13 @@ Class User
         {
             return "Homme";
         }
-        elseif ($this->_gender ==1)
+        elseif ($this->_gender == 1)
         {
             return "Femme";
+        }
+        elseif ($this->_gender == 2)
+        {
+            return "Alien";
         }
     }
 
@@ -218,6 +222,10 @@ Class User
         elseif ($this->_orientation == 1)
         {
             return "femmes";
+        }
+        elseif ($this->_orientation == 2)
+        {
+            return "aliens";
         }
     }
 

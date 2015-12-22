@@ -88,6 +88,9 @@ a, a:visited {
 }
 .registration_block h2 {
     text-align: center;
+    color: red;
+    font-size: 2em;
+    margin: 15px;
 }
 #registration_form label{
     display: inline-block;
@@ -136,7 +139,7 @@ a, a:visited {
     text-align: center;
 }
 
-#edit_link, #delete_link, #contact_link {
+#edit_link, #delete_link, .contact_link, .profil_link {
     padding: 5px;
     border: 1px solid black;
     border-radius: 5px;
@@ -146,10 +149,28 @@ a, a:visited {
 #delete_link {
     background-color: #FF5B5B;
 }
-#edit_link, #contact_link {
+#edit_link, .contact_link, .profil_link {
     background-color: #00DCFF;
 }
 
 #profil_details {
     border-bottom: 30px;
+}
+.search_result {
+    display: inline-block;
+    width: 300px;
+    height: 220px;
+    border : 1px solid red;
+    padding: 10px;
+}
+.search_result_avatar {
+    max-width: 50px;
+}
+
+.connexion_form {
+    width: 700px;
+}
+.reset_link {
+    display: block;
+    text-align: center;
 }

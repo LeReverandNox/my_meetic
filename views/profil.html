@@ -24,7 +24,7 @@
                     <li><span class="details">Pays : </span><?php echo $user->getPays(); ?></li>
                     <li><span class="details">Biographie : </span><?php echo $user->getBio(); ?></li>
                 </ul>
-                <a href="messagerie.php?to=<?php echo $user->getId(); ?>" id="contact_link">Envoyer un message à <?php echo $user->getFirstname(); ?></a>
+                <a href="messagerie.php?to=<?php echo $user->getId(); ?>" class="contact_link">Envoyer un message à <?php echo $user->getFirstname(); ?></a>
             </div>
         </section>
 

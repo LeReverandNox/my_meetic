@@ -19,7 +19,7 @@
                 <h2>Réinitialisation du mot de passe</h2>
                 <p>Si vous avez oublié votre mot de passe, vous pouvez demander à en recevoir un nouveau par email.</p>
 
-                <form method="POST" action="">
+                <form method="POST">
                     <ul>
                         <li>
                             <label for="connexion_login">Pseudo : </label>
@@ -40,7 +40,7 @@
         <?php else: ?>
             <div class="registration_block">
                 <h2>Connexion</h2>
-                <form method="POST" action="index.php">
+                <form method="POST" action="index.php" class="connexion_form">
                     <label for="connexion_login">Pseudo : </label>
                     <input type="text" name="connexion_login" id="connexion_login" />
 
@@ -50,10 +50,10 @@
                     <input type="hidden" name="connexion" />
                     <input type="submit" value="Connexion" />
                 </form>
-                <a href="inscription.php?mode=reset">Mot de passe oublié ?</a>
+                <a href="inscription.php?mode=reset" class="reset_link">Mot de passe oublié ?</a>
             </div>
 
-            <div id="registration_block">
+            <div class="registration_block">
                 <h2>Inscrivez-vous !</h2>
                 <form method="POST" action="#" id="registration_form">
                     <ul>

@@ -25,13 +25,7 @@ $pays = $address->getPays();
 if (isset($_POST["recherche"]))
 {
     $search = new Search($db);
-    $users = $search->searchUsers();
-    foreach ($users as $resultUser)
-    {
-        // echo "<br />" . $resultUser->getLogin() . "<br />" ;
-        // echo $resultUser->getEmail();
-        echo "<img src='" . $resultUser->getAvatar() . "'/>";
-    }
+    $result_users = $search->searchUsers();
 }
 
 require_once("views/recherche.html");

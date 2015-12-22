@@ -88,15 +88,30 @@
                             <input type="submit" value="Rechercher" />
                         </li>
                     </ul>
-
-                    <?php
-                    if (isset($_POST["recherche"]))
-                    {
-                        $search->cleanSessionPOST();
-                    }
-                    ?>
-
                 </form>
+
+                    <?php if (isset($_POST["recherche"])): ?>
+                        <?php $search->cleanSessionPOST(); ?>
+                        <div id="search_results">
+                            <?php foreach ($result_users as $result_user): ?>
+                                <div class="search_result">
+                                    <img src="<?php echo $result_user->getAvatar(); ?>" alt="L'avatar de <?php echo $result_user->getLogin(); ?>" class="search_result_avatar" />
+                                    <h2><?php echo $result_user->getLogin(); ?></h2>
+                                    <ul>
+                                        <li>Sexe : <?php echo $result_user->getGenderText(); ?></li>
+                                        <li>Recherche des : <?php echo $result_user->getOrientationText(); ?></li>
+                                        <li>Age : <?php echo $result_user->getAge(); ?> ans</li>
+                                        <li>Ville : <?php echo $result_user->getCity(); ?></li>
+                                        <li>Département : <?php echo $result_user->getDepartement(); ?></li>
+                                        <li>Région : <?php echo $result_user->getRegion(); ?></li>
+                                        <li>Pays : <?php echo $result_user->getPays(); ?></li>
+                                    </ul>
+                                    <a href="profil.php?id=<?php echo $result_user->getId(); ?>" class="profil_link">Voir son profil</a>
+                                    <a href="messagerie.php?action=write&amps;to=<?php echo $result_user->getId(); ?>" class="contact_link">Envoyer un message à <?php echo $result_user->getFirstname(); ?></a>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
+                    <?php endif ?>
             </div>
         </section>
 
