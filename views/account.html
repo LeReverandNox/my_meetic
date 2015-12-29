@@ -9,14 +9,14 @@
 
         <?php require_once("includes/header.php"); ?>
 
-        <section id="profil_section">
+        <section class="main_section">
             <div id="profil_block">
 
-                <h2>Mon compte</h2>
                 <?php Display::INFOS(); ?>
 
                 <?php if (isset($_GET["mode"]) && $_GET["mode"] === "edit"): ?>
 
+                    <h2>Mon compte - Edition</h2>
                     <div id="account_edit">
 
                         <?php Display::ERROR(); ?>
@@ -145,6 +145,7 @@
 
                 <?php elseif (isset($_GET["mode"]) && $_GET["mode"] === "delete"): ?>
 
+                    <h2>Mon compte - Suppression</h2>
                     <div id="account_delete">
                         <ul>
                             <li><p>Vous êtes sur le point de supprimer DÉFINITIVEMENT votre compte</li>
@@ -158,6 +159,7 @@
                     </div>
 
                 <?php else: ?>
+                    <h2>Mon compte</h2>
                     <div id="account_resume">
                         <h3><?php echo $user->getFirstname() . " " . $user->getLastname(); ?></h3>
                         <div id="account_image">

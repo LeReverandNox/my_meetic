@@ -5,6 +5,7 @@ require_once("includes/User.php");
 require_once("includes/FormValidator.php");
 require_once("includes/Address.php");
 require_once("includes/Display.php");
+require_once("includes/Message.php");
 
 if (!isset($_SESSION["id"]))
 {

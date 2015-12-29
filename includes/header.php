@@ -13,8 +13,12 @@
                     <li><a href="index.php">Home</a> |</li>
                     <li><a href="profil.php?id=<?php echo $_SESSION["id"]; ?>">Mon profil</a> |</li>
                     <li><a href="account.php">Mon compte</a> |</li>
-                    <li><a href="recherche.php">Recherche</a></li>
-                    <li><a href="messagerie.php">Messagerie</a></li>
+                    <li><a href="recherche.php">Recherche</a> |</li>
+                    <li><a href="messagerie.php">Messagerie
+                    <?php if ($nb = Message::countNewMessages($db, $user->getId())): ?>
+                        <?php echo "(" . $nb . ")"; ?>
+                    <?php endif ?>
+                    </a></li>
                     <?php
                 }
                 ?>

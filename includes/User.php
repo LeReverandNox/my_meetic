@@ -369,9 +369,13 @@ Class User
         {
             $this->setAvatar("images/avatars/default_male.png");
         }
-        else
+        elseif ($this->_gender == 1)
         {
             $this->setAvatar("images/avatars/default_female.png");
+        }
+        elseif ($this->_gender == 2)
+        {
+            $this->setAvatar("images/avatars/default_alien.png");
         }
 
 
@@ -415,6 +419,8 @@ Class User
             $this->sendActivationMail();
 
             $_SESSION["INFOS"] = "Votre compte a été créé. Cependant, il doit être activé. Une clé d’activation vous a été envoyée par e-mail. Vérifiez vos e-mails pour plus d’informations.";
+            $_POST = [];
+
             return true;
         }
         return false;
@@ -445,6 +451,7 @@ Class User
         $message .= "<p>Votre mot de passe est encrypté dans notre base de donnée et ne pourra pas être récuperé.<br />";
         $message .= "En cas d'oubli, vous pourrez le réinitialiser depuis notre site grâce à votre adresse e-mail</p>";
         $message .= "<p>A très vite parmis nous !</p>";
+        $message .= "<p>L'équipe <a href='http://localhost/S1%20-%20PHP/PHP_my_meetic/'>My_Meetic</a></p>";
         $message .= "</body></html>";
 
         mail($to, $subject, $message, $headers, "-r $from");
@@ -473,6 +480,7 @@ Class User
         $message .= "<p>Voici votre nouveau mot de passe : " . $this->_password . "</p>";
         $message .= "Une fois connecté, vous pourrez le modifier depuis la rubique Mon Compte.";
         $message .= "<p>A très vite parmis nous !</p>";
+        $message .= "<p>L'équipe <a href='http://localhost/S1%20-%20PHP/PHP_my_meetic/'>My_Meetic</a></p>";
         $message .= "</body></html>";
 
         mail($to, $subject, $message, $headers, "-r $from");

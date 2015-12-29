@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My_Meetic - Messagerie</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+</head>
+<body>
+    <div id="main_wrapper">
+        <?php require_once("includes/header.php"); ?>
+
+        <section class="main_section">
+        <h2><a href="messagerie.php">Messagerie</a></h2>
+
+        <?php Display::INFOS(); ?>
+        <?php Display::ERROR(); ?>
+
+        <nav class="messagerie_nav">
+            <ul>
+                <li><a href="messagerie.php?mode=write">Nouvau message</a> /</li>
+                <li><a href="messagerie.php">Boite de réception</a> /</li>
+                <li><a href="messagerie.php?mode=sentbox">Messages envoyés</a> /</li>
+                <li><a href="messagerie.php?mode=trashbox">Messages supprimés</a></li>
+            </ul>
+        </nav>
+
+        <?php if (isset($_GET["mode"]) && $_GET["mode"] === "write"): ?>
+            <h3>Écrire un message</h3>
+            <form method="POST" action="" class="msg_write_form">
+                <ul>
+                    <li>
+                        <label for="recipient">Destinataire : </label>
+                        <input type="text" name="recipient" id="recipient"  value="<?php if(isset($_POST["recipient"])) echo htmlspecialchars($_POST["recipient"]); ?>" />
+                    </li>
+                    <li>
+                        <label for="title">Sujet : </label>
+                        <input type="text" name="title" id="title"  value="<?php if(isset($_POST["title"])) echo htmlspecialchars($_POST["title"]); ?>" />
+                    </li>
+                    <li>
+                        <label for="content">Message : </label>
+                        <textarea name="content" id="content"><?php if(isset($_POST["content"])) echo htmlspecialchars($_POST["content"]); ?></textarea>
+                    </li>
+                    <li>
+                        <input type="hidden" name="send" />
+                        <input type="submit" value="Envoyer" class="submit_button" />
+                    </li>
+                </ul>
+            </form>
+
+        <?php elseif (isset($_GET["mode"]) && $_GET["mode"] === "read" && !empty($read_msg)): ?>
+
+            <div class="message">
+                <div class="message_profile">
+                    <img src="<?php echo $author->getAvatar(); ?>" alt="L'avatar de <?php echo $author->getLogin(); ?>" class="message_avatar" />
+                    <ul>
+                        <li>Pseudo : <a href="profil.php?id=<?php echo $author->getId(); ?>"><?php echo $author->getLogin(); ?></a></li>
+                        <li>Sexe : <?php echo $author->getGenderText(); ?></li>
+                        <li>Age : <?php echo $author->getAge(); ?> ans</li>
+                        <li>Ville : <?php echo $author->getCity(); ?></li>
+                        <li>Département : <?php echo $author->getDepartement(); ?></li>
+                        <li>Région : <?php echo $author->getRegion(); ?></li>
+                        <li>Pays : <?php echo $author->getPays(); ?></li>
+                    </ul>
+                </div>
+                <div class="message_body">
+                    <h3><a href="messagerie.php?mode=read&amp;id=<?php echo $read_msg->getId(); ?>"><?php echo $read_msg->getTitle(); ?></a></h3>
+                    <p>Envoyé le <?php echo $read_msg->getDate(); ?></p>
+                    <p>De : <a href="profil.php?id=<?php echo $author->getId(); ?>"><?php echo $author->getLogin(); ?></a></p>
+                    <p>Á : <a href="profil.php?id=<?php echo $recipient->getId(); ?>"><?php echo $recipient->getLogin(); ?></a></p>
+                    <p class="message_content"><?php echo $read_msg->getContent(); ?></p>
+                    <form method="POST" action="messagerie.php?mode=write&amp;to=<?php echo $read_msg->getAuthorId(); ?>">
+                        <input type="hidden" name="title" value="Re: <?php echo $read_msg->getTitle(); ?>" />
+                        <input type="hidden" name="content" value="<?php echo " \n\n------------------------------\nLe " . $read_msg->getDate() . ", " . $author->getLogin() . " a écrit : \n" . $read_msg->getContent(); ?>" />
+                        <input type="submit" value="Répondre" />
+                    </form>
+                </div>
+            </div>
+
+        <?php elseif (isset($_GET["mode"]) && $_GET["mode"] === "sentbox"): ?>
+
+           <h3>Messages envoyés</h3>
+            <table class="msg_table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Titre</th>
+                        <th>Á :</th>
+                        <th>Envoyé le : </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($sent_messages)): ?>
+                        <tr>
+                            <td class="td_no_msg" colspan="5">Vous n'avez pas envoyé de messages</tr>
+                        </tr>
+                    <?php endif ?>
+
+                    <?php foreach ($sent_messages as $message): ?>
+                        <tr>
+                            <td><?php echo $message->getStatusText(); ?></td>
+                            <td><a href="messagerie.php?mode=read&amp;id=<?php echo $message->getId(); ?>"><?php echo $message->getTitle(); ?></a></td>
+                            <td><a href="profil.php?id=<?php echo $message->getRecipientId(); ?>"><?php echo $message->getRecipientName(); ?></a></td>
+                            <td><?php echo $message->getDate(); ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+
+        <?php elseif (isset($_GET["mode"]) && $_GET["mode"] === "trashbox"): ?>
+
+           <h3>Messages supprimés</h3>
+            <table class="msg_table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Titre</th>
+                        <th>De la part de :</th>
+                        <th>Recu le : </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($deleted_messages)): ?>
+                        <tr>
+                            <td class="td_no_msg" colspan="5">Vous n'avez pas de messages supprimés</tr>
+                        </tr>
+                    <?php endif ?>
+
+                    <?php foreach ($deleted_messages as $message): ?>
+                        <tr>
+                            <td><?php echo $message->getStatusText(); ?></td>
+                            <td><a href="messagerie.php?mode=read&amp;id=<?php echo $message->getId(); ?>"><?php echo $message->getTitle(); ?></a></td>
+                            <td><a href="profil.php?id=<?php echo $message->getAuthorId(); ?>"><?php echo $message->getAuthorName(); ?></a></td>
+                            <td><?php echo $message->getDate(); ?></td>
+                            <td><a href="messagerie.php?action=restore&amp;id=<?php echo $message->getId(); ?>">Restaurer</a></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+
+        <?php else: ?>
+            <h3>Boite de réception</h3>
+            <table class="msg_table">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Titre</th>
+                        <th>De la part de :</th>
+                        <th>Recu le : </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($inbox)): ?>
+                        <tr>
+                            <td class="td_no_msg" colspan="5">Vous n'avez pas de messages</tr>
+                        </tr>
+                    <?php endif ?>
+
+                    <?php foreach ($inbox as $message): ?>
+                        <tr>
+                            <td><?php echo $message->getStatusText(); ?></td>
+                            <td><a href="messagerie.php?mode=read&amp;id=<?php echo $message->getId(); ?>"><?php echo $message->getTitle(); ?></a></td>
+                            <td><a href="profil.php?id=<?php echo $message->getAuthorId(); ?>"><?php echo $message->getAuthorName(); ?></a></td>
+                            <td><?php echo $message->getDate(); ?></td>
+                            <td><a href="messagerie.php?action=delete&amp;id=<?php echo $message->getid(); ?>">Supprimer</a></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+
+
+        <?php endif ?>
+
+        </section>
+
+        <?php require_once("includes/footer.php"); ?>
+    </div>
+</body>
+</html>

@@ -57,6 +57,9 @@ a, a:visited {
     width: 900px;
     margin: 0 auto;
 }
+#header {
+    margin-bottom: 40px;
+}
 #header_title {
     text-align: center;
 }
@@ -120,9 +123,13 @@ a, a:visited {
     font-size: 1.5em;
 }
 
-#profil_section {
+.main_section {
     margin-bottom: 25px;
     min-height: 600px;
+}
+.main_section h2 {
+    text-align: center;
+    font-size: 2em;
 }
 #profil_block {
     text-align: center;
@@ -159,7 +166,7 @@ a, a:visited {
 .search_result {
     display: inline-block;
     width: 300px;
-    height: 220px;
+    /*height: 220px;*/
     border : 1px solid red;
     padding: 10px;
 }
@@ -173,4 +180,86 @@ a, a:visited {
 .reset_link {
     display: block;
     text-align: center;
+}
+
+.msg_table{
+    width:100%;
+}
+
+.main_section h3 {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+table, th, td {
+   border: 1px solid black;
+}
+th {
+    height:50px;
+}
+thead {
+    font-weight: bold;
+}
+td {
+    padding: 15px;
+}
+.td_no_msg {
+    text-align: center;
+}
+
+.message_profile, .message_body {
+    display: inline-block;
+    vertical-align: top;
+}
+.message_profile {
+    border-right: 1px solid black;
+    padding-right: 10px;
+    width: 250px;
+}
+.message_body {
+    padding-left: 10px;
+    width: 620px;
+}
+.message_content {
+    margin-top: 15px;
+}
+
+.messagerie_nav {
+    margin: 10px 0;
+}
+.messagerie_nav ul {
+    display: block;
+    text-align: center;
+}
+.messagerie_nav ul li {
+    display: inline;
+}
+.message_avatar {
+    display: block;
+    margin: 0 auto;
+}
+
+.msg_write_form ul{
+    width: 700px;
+    margin: 0 auto;
+}
+.msg_write_form ul li label {
+    display: inline-block;
+    width: 100px;
+}
+.msg_write_form ul li input{
+    width:  450px;
+}
+.msg_write_form ul li textarea {
+    width: 446px;
+    height: 300px;
+    resize: none;
+    vertical-align: top;
+}
+
+.submit_button {
+    display: block;
+    margin: 10px auto;
+    width: 150px !important;
 }

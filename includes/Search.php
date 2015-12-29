@@ -19,8 +19,6 @@ Class Search
     {
         $_SESSION["POST"] = $_POST;
         unset($_SESSION["POST"]["recherche"]);
-
-        // var_dump($_SESSION["POST"]);
     }
 
     public function cleanSessionPOST()
@@ -95,7 +93,6 @@ Class Search
 
                 $cp = substr($ville, 0, 5);
                 $ville_nom = substr($ville, 8);
-                var_dump($ville_nom);
                 array_push($arr_where_city, "v.ville_nom = '$ville_nom' AND v.ville_code_postal = '$cp'");
             }
 
@@ -175,6 +172,7 @@ Class Search
 
     private function generateBigWhere()
     {
+        array_push($this->_big_where, "u.id <> :user_id");
         $arr_big_where = [];
         $big_where = "";
 
@@ -186,7 +184,7 @@ Class Search
         $this->_big_where = $big_where;
     }
 
-    public  function searchUsers()
+    public  function searchUsers($user_id)
     {
         $this->stockSessionPOST();
 
@@ -198,8 +196,6 @@ Class Search
         $this->generateWhereOr();
         $this->generateWhereAnd();
         $this->generateBigWhere();
-
-        var_dump($this->_big_where);
 
         $sql = "SELECT u.id
         FROM users AS u
@@ -215,6 +211,7 @@ Class Search
         ON r.id_pays = p.id " . $this->_big_where;
 
         $querySearch = $this->_db->prepare($sql);
+        $querySearch->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $querySearch->execute();
 
         $data = $querySearch->fetchAll(PDO::FETCH_ASSOC);

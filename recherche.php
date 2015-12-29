@@ -6,6 +6,7 @@ require_once("includes/FormValidator.php");
 require_once("includes/Address.php");
 require_once("includes/Display.php");
 require_once("includes/Search.php");
+require_once("includes/Message.php");
 
 if (!isset($_SESSION["id"]))
 {
@@ -25,7 +26,7 @@ $pays = $address->getPays();
 if (isset($_POST["recherche"]))
 {
     $search = new Search($db);
-    $result_users = $search->searchUsers();
+    $result_users = $search->searchUsers($user->getId());
 }
 
 require_once("views/recherche.html");

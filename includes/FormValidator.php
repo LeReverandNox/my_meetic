@@ -581,5 +581,65 @@ Class FormValidator
         }
     }
 
+    public function validateMessageRecipient($author_id)
+    {
+        if (isset($_POST["recipient"]) && $_POST["recipient"] !== "")
+        {
+            $recipient = htmlspecialchars($_POST["recipient"]);
+
+            $sql = "SELECT u.id FROM users AS u WHERE u.user_login = :recipient";
+            $queryRecipient = $this->_db->prepare($sql);
+            $queryRecipient->bindParam(":recipient", $recipient, PDO::PARAM_STR);
+            $queryRecipient->execute();
+            $data = $queryRecipient->fetch();
+            $queryRecipient->closeCursor();
+
+            if ($data)
+            {
+                if ($data["id"] !== $author_id)
+                {
+                    return $data["id"];
+                }
+                else
+                {
+                    $_SESSION["ERROR"]["recipient"] = "Vous ne pouvez pas vous envoyer de message...";
+                }
+            }
+            else
+            {
+                $_SESSION["ERROR"]["recipient"] = "L'utilisateur demandé n'éxiste pas.";
+            }
+        }
+        else
+        {
+            $_SESSION["ERROR"]["recipient"] = "Veuillez remplir le champs Destinataire.";
+        }
+    }
+
+    public function validateMessageTitle()
+    {
+        if (isset($_POST["title"]) && $_POST["title"] !== "")
+        {
+            $title = htmlspecialchars($_POST["title"]);
+            return $title;
+        }
+        else
+        {
+            $_SESSION["ERROR"]["title"] = "Veuillez remplir le champs Sujet";
+        }
+    }
+
+    public function validateMessageContent()
+    {
+        if (isset($_POST["content"]) && $_POST["content"] !== "")
+        {
+            $content = htmlspecialchars($_POST["content"]);
+            return $content;
+        }
+        else
+        {
+            $_SESSION["ERROR"]["content"] = "Veuillez remplir le champs Message";
+        }
+    }
 }
 ?>
