@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 18 Décembre 2015 à 23:21
+-- Généré le :  Mar 29 Décembre 2015 à 03:06
 -- Version du serveur :  5.6.27-0ubuntu0.15.04.1
 -- Version de PHP :  5.6.4-4ubuntu6.4
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `adresses` (
 `id` int(11) NOT NULL COMMENT 'id de l''adresse',
   `adresse_rue` varchar(255) NOT NULL COMMENT 'Numero + rue',
   `id_ville` int(11) NOT NULL COMMENT 'ID de la ville'
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `adresses`
@@ -45,7 +45,10 @@ TRUNCATE TABLE `adresses`;
 
 INSERT INTO `adresses` (`id`, `adresse_rue`, `id_ville`) VALUES
 (1, '4 rue Aimé Césaire', 35969),
-(17, '59 rue des pierrettes', 6038);
+(17, '59 rue des pierrettes', 6038),
+(18, 'Le Temple Noir', 36851),
+(19, '5 Rue Maurice Ravel', 7721),
+(20, 'Par ici', 12253);
 
 -- --------------------------------------------------------
 
@@ -207,15 +210,45 @@ CREATE TABLE IF NOT EXISTS `privmsgs` (
   `pm_recipient_id` int(11) NOT NULL COMMENT 'ID du destinataire du pm',
   `pm_title` text NOT NULL COMMENT 'Titre du pm',
   `pm_content` longtext NOT NULL COMMENT 'Contenu du pm',
-  `pm_date` datetime NOT NULL COMMENT 'Date du pm',
-  `pm_status` int(11) NOT NULL DEFAULT '0' COMMENT 'Lu / Non Lu / Supprimé'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `pm_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date du pm',
+  `pm_status` int(11) NOT NULL DEFAULT '0' COMMENT 'Non Lu / Lu / Supprimé'
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `privmsgs`
 --
 
 TRUNCATE TABLE `privmsgs`;
+--
+-- Contenu de la table `privmsgs`
+--
+
+INSERT INTO `privmsgs` (`id`, `pm_author_id`, `pm_recipient_id`, `pm_title`, `pm_content`, `pm_date`, `pm_status`) VALUES
+(1, 11, 1, 'Coucou louloute', 'Bisous', '2015-12-28 18:11:38', 1),
+(3, 1, 11, 'Coucou princesse #1', 'Blabla', '2015-12-28 18:40:07', 1),
+(4, 1, 11, 'Coucou chuchu #2', 'blablabla', '2015-12-28 18:40:07', 1),
+(5, 11, 1, 'Coucou mon loulou', 'ploploplopl                                                    ', '2015-12-28 21:28:08', 1),
+(6, 11, 1, 'Coucou', '                                                    ', '2015-12-28 21:43:54', 1),
+(7, 11, 1, 'Re: Coucou chuchu #2', 'Coucou mon loulou ;)', '2015-12-29 00:20:59', 1),
+(8, 1, 11, 'Re: Re: Coucou chuchu #2', 'Re ma chuchu :3', '2015-12-29 00:23:55', 1),
+(9, 11, 1, 'Re: Re: Re: Coucou chuchu #2', 'Ca va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 00:35:44', 1),
+(10, 1, 11, 'Re: Re: Re: Re: Coucou chuchu #2', 'J''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 00:40:56', 1),
+(11, 11, 1, 'Re: Re: Re: Re: Re: Coucou chuchu #2', 'Bisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:14:53', 1),
+(12, 1, 11, 'Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'Toi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:16:00', 1),
+(13, 11, 1, 'Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', ' \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:17:20', 1),
+(14, 1, 11, 'Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'lool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:18:32', 1),
+(15, 11, 1, 'Re: Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'Gouziiii ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:18:32, lereverandnox a écrit : \r\nlool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:20:57', 1),
+(16, 1, 11, 'Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'Golololooo\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:20:57, chuchu a écrit : \r\nGouziiii ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:18:32, lereverandnox a écrit : \r\nlool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:21:47', 1),
+(17, 11, 1, 'Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'OSKDSAdad \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:21:47, lereverandnox a écrit : \r\nGolololooo\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:20:57, chuchu a écrit : \r\nGouziiii ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:18:32, lereverandnox a écrit : \r\nlool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:24:01', 1),
+(18, 12, 11, 'Bonjour je suis un alien', 'oso;sdfsd;fjaslfjs', '2015-12-29 01:37:18', 1),
+(19, 14, 11, 'Coucou tu veux voir ma bible ?', 'Copyright Guicha 2015', '2015-12-29 02:29:47', 1),
+(20, 11, 14, 'Re: Coucou tu veux voir ma bible ?', 'Noooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:35:17', 1),
+(21, 14, 11, 'Re: Re: Coucou tu veux voir ma bible ?', 'Arf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:35:33', 1),
+(22, 11, 14, 'Re: Re: Re: Coucou tu veux voir ma bible ?', 'Trololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:50:24', 1),
+(23, 14, 11, 'Re: Re: Re: Re: Coucou tu veux voir ma bible ?', 'Nom nom nom \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:24, chuchu a écrit : \r\nTrololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:50:34', 1),
+(24, 11, 14, 'Re: Re: Re: Re: Re: Coucou tu veux voir ma bible ?', '&gt;&lt;'' \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:34, magnum a écrit : \r\nNom nom nom \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:24, chuchu a écrit : \r\nTrololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:50:50', 1),
+(25, 14, 11, 'Re: Re: Re: Re: Re: Re: Coucou tu veux voir ma bible ?', 'Stop it ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:50, chuchu a écrit : \r\n&gt;&lt;'' \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:34, magnum a écrit : \r\nNom nom nom \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:24, chuchu a écrit : \r\nTrololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:51:16', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -289,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_activation_token` varchar(255) NOT NULL COMMENT 'Token d''activation par mail',
   `user_disabled` int(11) NOT NULL DEFAULT '0' COMMENT 'Desactivé ou Non',
   `user_register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date d''inscription'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `users`
@@ -301,8 +334,11 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`id`, `user_login`, `user_email`, `user_password`, `user_firstname`, `user_lastname`, `user_birthdate`, `user_gender`, `user_orientation`, `id_adresse`, `user_avatar`, `user_bio`, `user_status`, `user_activation_token`, `user_disabled`, `user_register_date`) VALUES
-(1, 'lereverandnox', 'lereverandnox@gmail.com', '28d96559be245bf658e9d90a3bca4d29', 'Rodolphe', 'Laidet', '1993-11-21', 0, 1, 1, 'images/avatars/default_male.png', '', 1, 'e7c183fe4dff55942f09e315f563b715', 0, '2015-12-16 15:38:04'),
-(11, 'chuchu', 'lybrys@gmail.com', 'd439ba2b7cefa61d636f9f660ebcc331', 'Marie', 'Chu', '1989-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04');
+(1, 'lereverandnox', 'lereverandnox@gmail.com', 'd439ba2b7cefa61d636f9f660ebcc331', 'Rodolphe', 'Laidet', '1993-11-21', 0, 1, 1, 'images/avatars/default_male.png', '', 1, 'e7c183fe4dff55942f09e315f563b715', 0, '2015-12-16 15:38:04'),
+(11, 'chuchu', 'lybrys@gmail.com', '0a2d780ab28fbe19c8aca3da8c6aeb41', 'Marie', 'Chu', '1989-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04'),
+(12, 'illidan', 'laidet.rodolphe@gmail.com', 'de41929f4065207da39cfb1a4485eaf8', 'Illidan', 'Stormrage', '1800-10-03', 2, 1, 18, 'images/avatars/default_alien.png', '', 1, '82cab004034dadf9a470394608c4ac85', 0, '2015-12-29 01:30:50'),
+(13, 'b1gb00bs22', 'rodolphe.laidet@epitech.eu', 'de41929f4065207da39cfb1a4485eaf8', 'Samantha', 'Fox', '1990-12-01', 1, 2, 19, 'images/avatars/default_female.png', '', 1, '03d6dbef9d38f16e78edd769bfdb9ace', 0, '2015-12-29 01:48:34'),
+(14, 'magnum', 'lereverandnox@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Tom', 'Selleck', '1945-01-29', 0, 1, 20, 'images/avatars/upload/magnum.jpeg', 'I''m Tom Selleck baby ;)', 1, '4f1dd18f1dad851420821956e86160a6', 0, '2015-12-29 02:25:40');
 
 -- --------------------------------------------------------
 
@@ -315,7 +351,7 @@ CREATE TABLE IF NOT EXISTS `villes` (
   `ville_nom` varchar(45) DEFAULT NULL,
   `ville_code_postal` varchar(255) DEFAULT NULL,
   `id_departement` int(11) NOT NULL COMMENT 'ID du departement'
-) ENGINE=InnoDB AUTO_INCREMENT=36855 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37021 DEFAULT CHARSET=utf8;
 
 --
 -- Vider la table avant d'insérer `villes`
@@ -2268,7 +2304,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (1938, 'La Gaude', '06610', 6),
 (1939, 'Vence', '06140', 6),
 (1940, 'Gattières', '06510', 6),
-(1941, 'Grasse', '06130-06520', 6),
 (1942, 'Spéracèdes', '06530', 6),
 (1943, 'Courmes', '06620', 6),
 (1944, 'Mujouls', '06910', 6),
@@ -2327,10 +2362,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (1997, 'Saint-André-de-la-Roche', '06730', 6),
 (1998, 'Malaussène', '06710', 6),
 (1999, 'Beuil', '06470', 6),
-(2000, 'Antibes', '06600-06160', 6),
 (2001, 'Èze', '06360', 6),
 (2002, 'Rigaud', '06260', 6),
-(2003, 'Cannes', '06400-06150', 6),
 (2004, 'Villeneuve-Loubet', '06270', 6),
 (2005, 'Saint-Jeannet', '06640', 6),
 (2006, 'Le Bar-sur-Loup', '06620', 6),
@@ -2377,7 +2410,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (2047, 'La Roquette-sur-Siagne', '06550', 6),
 (2048, 'Cantaron', '06340', 6),
 (2049, 'Le Mas', '06910', 6),
-(2050, 'Nice', '06000-06100-06200-06300', 6),
 (2051, 'Caille', '06750', 6),
 (2052, 'Châteauneuf-Grasse', '06740', 6),
 (2053, 'Séranon', '06750', 6),
@@ -3334,13 +3366,13 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (3004, 'Lescousse', '09100', 9),
 (3005, 'Rabat-les-Trois-Seigneurs', '09400', 9),
 (3006, 'Mirepoix', '09500', 9),
-(3007, 'Auzat', '09220', 9);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(3007, 'Auzat', '09220', 9),
 (3008, 'Boussenac', '09320', 9),
 (3009, 'Lapège', '09400', 9),
 (3010, 'Orlu', '09110', 9),
 (3011, 'Bonnac', '09100', 9),
-(3012, 'Loubaut', '09350', 9),
+(3012, 'Loubaut', '09350', 9);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (3013, 'Saint-Julien-de-Gras-Capou', '09500', 9),
 (3014, 'Camon', '09500', 9),
 (3015, 'Montferrier', '09300', 9),
@@ -4746,10 +4778,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (4415, 'Saint-Rémy-de-Provence', '13210', 13),
 (4416, 'Mollégès', '13940', 13),
 (4417, 'Éguilles', '13510', 13),
-(4418, 'Istres', '13118-13800', 13),
 (4419, 'Noves', '13550', 13),
 (4420, 'Rognonas', '13870', 13),
-(4421, 'Aix-en-Provence', '13080-13090-13100-13290-13540', 13),
 (4422, 'Rousset', '13790', 13),
 (4423, 'Allauch', '13190', 13),
 (4424, 'La Fare-les-Oliviers', '13580', 13),
@@ -4768,8 +4798,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (4437, 'Salon-de-Provence', '13300', 13),
 (4438, 'Lamanon', '13113', 13),
 (4439, 'Ceyreste', '13600', 13),
-(4440, 'Marseille', '13001-13002-13003-13004-13005-13006-13007-13008-13009-13010-13011-13012-13013-13014-13015-13016', 13);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (4441, 'Rognes', '13840', 13),
 (4442, 'Eyragues', '13630', 13),
 (4443, 'Port-Saint-Louis-du-Rhône', '13230', 13),
@@ -4779,7 +4807,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (4447, 'Mallemort', '13370', 13),
 (4448, 'La Barben', '13330', 13),
 (4449, 'Cabriès', '13480', 13),
-(4450, 'Saint-Chamas', '13250', 13),
+(4450, 'Saint-Chamas', '13250', 13);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (4451, 'Verquières', '13670', 13),
 (4452, 'Maussane-les-Alpilles', '13520', 13),
 (4453, 'Saint-Mitre-les-Remparts', '13920', 13),
@@ -4788,11 +4817,9 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (4456, 'Plan-de-Cuques', '13380', 13),
 (4457, 'Plan-d''Orgon', '13750', 13),
 (4458, 'Puyloubier', '13114', 13),
-(4459, 'Arles', '13104-13123-13129-13200-13280', 13),
 (4460, 'Venelles', '13770', 13),
 (4461, 'Alleins', '13980', 13),
 (4462, 'Aubagne', '13400', 13),
-(4463, 'Martigues', '13117-13500', 13),
 (4464, 'Port-de-Bouc', '13110', 13),
 (4465, 'Vernègues', '13116', 13),
 (4466, 'Graveson', '13690', 13),
@@ -6186,8 +6213,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (5854, 'Gensac-la-Pallue', '16130', 16),
 (5855, 'Chassors', '16200', 16),
 (5856, 'Rioux-Martin', '16210', 16),
-(5857, 'Vervant', '16330', 16);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(5857, 'Vervant', '16330', 16),
 (5858, 'Gardes-le-Pontaroux', '16320', 16),
 (5859, 'Confolens', '16500', 16),
 (5860, 'Aignes-et-Puypéroux', '16190', 16),
@@ -6199,7 +6225,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (5866, 'Champniers', '16430', 16),
 (5867, 'Pleuville', '16490', 16),
 (5868, 'L''Isle-d''Espagnac', '16340', 16),
-(5869, 'Bazac', '16210', 16),
+(5869, 'Bazac', '16210', 16);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (5870, 'Bonneville', '16170', 16),
 (5871, 'Mazerolles', '16310', 16),
 (5872, 'Mornac', '16600', 16),
@@ -7563,7 +7590,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (7230, 'Flacey', '21490', 22),
 (7231, 'Sainte-Colombe', '21350', 22),
 (7232, 'Verrey-sous-Salmaise', '21690', 22),
-(7233, 'Dijon', '21000-21100', 22),
 (7234, 'Échenon', '21170', 22),
 (7235, 'Maligny', '21230', 22),
 (7236, 'Époisses', '21460', 22),
@@ -7603,8 +7629,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (7270, 'Saint-Martin-de-la-Mer', '21210', 22),
 (7271, 'Fussey', '21700', 22),
 (7272, 'Millery', '21140', 22),
-(7273, 'Nicey', '21330', 22);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(7273, 'Nicey', '21330', 22),
 (7274, 'Le Meix', '21580', 22),
 (7275, 'Voudenay', '21230', 22),
 (7276, 'Perrigny-lès-Dijon', '21160', 22),
@@ -7617,7 +7642,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (7283, 'Duesme', '21510', 22),
 (7284, 'Magny-sur-Tille', '21110', 22),
 (7285, 'Cussy-la-Colonne', '21360', 22),
-(7286, 'Étrochey', '21400', 22),
+(7286, 'Étrochey', '21400', 22);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (7287, 'Thorey-en-Plaine', '21110', 22),
 (7288, 'Villargoix', '21210', 22),
 (7289, 'Mont-Saint-Jean', '21320', 22),
@@ -9005,8 +9031,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (8671, 'Festalemps', '24410', 25),
 (8672, 'Mauzens-et-Miremont', '24260', 25),
 (8673, 'Campagne', '24260', 25),
-(8674, 'La Dornac', '24120', 25);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(8674, 'La Dornac', '24120', 25),
 (8675, 'Sainte-Foy-de-Longas', '24510', 25),
 (8676, 'Saint-Félix-de-Reillac-et-Mortemart', '24260', 25),
 (8677, 'Biron', '24540', 25),
@@ -9019,7 +9044,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (8684, 'Montagnac-d''Auberoche', '24210', 25),
 (8685, 'Sagelat', '24170', 25),
 (8686, 'Monsec', '24340', 25),
-(8687, 'Pontours', '24150', 25),
+(8687, 'Pontours', '24150', 25);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (8688, 'La Douze', '24330', 25),
 (8689, 'Monsaguel', '24560', 25),
 (8690, 'Montpon-Ménestérol', '24700', 25),
@@ -10406,8 +10432,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (10071, 'Conteville', '27210', 28),
 (10072, 'Bazoques', '27230', 28),
 (10073, 'Radepont', '27380', 28),
-(10074, 'Brionne', '27800', 28);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(10074, 'Brionne', '27800', 28),
 (10075, 'Guiseniers', '27700', 28),
 (10076, 'Angerville-la-Campagne', '27930', 28),
 (10077, 'Grainville', '27380', 28),
@@ -10419,7 +10444,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (10083, 'Nojeon-en-Vexin', '27150', 28),
 (10084, 'Étrépagny', '27150', 28),
 (10085, 'Livet-sur-Authou', '27800', 28),
-(10086, 'Bois-le-Roi', '27220', 28),
+(10086, 'Bois-le-Roi', '27220', 28);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (10087, 'Saint-Grégoire-du-Vièvre', '27450', 28),
 (10088, 'Burey', '27190', 28),
 (10089, 'Nagel-Séez-Mesnil', '27190', 28),
@@ -11669,7 +11695,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (11333, 'Barjac', '30430', 31),
 (11334, 'Meynes', '30840', 31),
 (11335, 'Sabran', '30200', 31),
-(11336, 'Nîmes', '30000-30900', 31),
 (11337, 'Gajan', '30730', 31),
 (11338, 'Saint-Paul-la-Coste', '30480', 31),
 (11339, 'Orsan', '30200', 31),
@@ -11767,8 +11792,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (11431, 'Mauressargues', '30350', 31),
 (11432, 'Branoux-les-Taillades', '30110', 31),
 (11433, 'Montclus', '30630', 31),
-(11434, 'Brouzet-lès-Alès', '30580', 31);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(11434, 'Brouzet-lès-Alès', '30580', 31),
 (11435, 'Pougnadoresse', '30330', 31),
 (11436, 'Saint-André-de-Majencoules', '30570', 31),
 (11437, 'Saint-Hilaire-d''Ozilhan', '30210', 31),
@@ -11781,7 +11805,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (11444, 'Saint-Ambroix', '30500', 31),
 (11445, 'Uzès', '30700', 31),
 (11446, 'Salindres', '30340', 31),
-(11447, 'Marguerittes', '30320', 31),
+(11447, 'Marguerittes', '30320', 31);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (11448, 'Soustelle', '30110', 31),
 (11449, 'Sommières', '30250', 31),
 (11450, 'Calvisson', '30420', 31),
@@ -12053,7 +12078,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (11716, 'Saint-Félix-Lauragais', '31540', 32),
 (11717, 'Mondilhan', '31350', 32),
 (11718, 'Lavernose-Lacasse', '31410', 32),
-(11719, 'Toulouse', '31000-31100-31200-31300-31400-31500', 32),
 (11720, 'Rieumajou', '31290', 32),
 (11721, 'Frouzins', '31270', 32),
 (11722, 'Montgeard', '31560', 32),
@@ -13013,7 +13037,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (12676, 'Bouliac', '33270', 34),
 (12677, 'Vignonet', '33330', 34),
 (12678, 'Valeyrac', '33340', 34),
-(12679, 'Bordeaux', '33000-33100-33200-33300-33800', 34),
 (12680, 'Berthez', '33124', 34),
 (12681, 'Cubzac-les-Ponts', '33240', 34),
 (12682, 'Saint-Côme', '33430', 34),
@@ -13185,8 +13208,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (12848, 'Lagorce', '33230', 34),
 (12849, 'Saint-Germain-d''Esteuil', '33340', 34),
 (12850, 'Saint-Michel-de-Castelnau', '33840', 34),
-(12851, 'Haux', '33550', 34);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(12851, 'Haux', '33550', 34),
 (12852, 'Baigneaux', '33760', 34),
 (12853, 'Bruges', '33520', 34),
 (12854, 'Saint-Quentin-de-Caplong', '33220', 34),
@@ -13202,7 +13224,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (12864, 'Dardenac', '33420', 34),
 (12865, 'Donzac', '33410', 34),
 (12866, 'Saint-Quentin-de-Baron', '33750', 34),
-(12867, 'Camiac-et-Saint-Denis', '33420', 34),
+(12867, 'Camiac-et-Saint-Denis', '33420', 34);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (12868, 'Lignan-de-Bazas', '33430', 34),
 (12869, 'Barie', '33190', 34),
 (12870, 'Pujols', '33350', 34),
@@ -13674,7 +13697,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (13336, 'Marseillan', '34340', 35),
 (13337, 'Saint-Maurice-Navacelles', '34520', 35),
 (13338, 'Le Crès', '34920', 35),
-(13339, 'Montpellier', '34000-34070-34080-34090', 35),
 (13340, 'Aumelas', '34230', 35),
 (13341, 'Plaissan', '34230', 35),
 (13342, 'Usclas-d''Hérault', '34230', 35),
@@ -13803,7 +13825,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (13465, 'Moutiers', '35130', 36),
 (13466, 'La Chapelle-Erbrée', '35500', 36),
 (13467, 'Roz-sur-Couesnon', '35610', 36),
-(13468, 'Rennes', '35000-35200-35700', 36),
 (13469, 'Saint-Gilles', '35590', 36),
 (13470, 'Tresbœuf', '35320', 36),
 (13471, 'Andouillé-Neuville', '35250', 36),
@@ -14459,7 +14480,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (14121, 'Trogues', '37220', 38),
 (14122, 'Chambray-lès-Tours', '37170', 38),
 (14123, 'Saché', '37190', 38),
-(14124, 'Tours', '37000-37100-37200', 38),
 (14125, 'Beaumont-Village', '37460', 38),
 (14126, 'Saint-Roch', '37390', 38),
 (14127, 'Le Petit-Pressigny', '37350', 38),
@@ -14565,8 +14585,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (14227, 'Fondettes', '37230', 38),
 (14228, 'Neuillé-le-Lierre', '37380', 38),
 (14229, 'Saint-Quentin-sur-Indrois', '37310', 38),
-(14230, 'Athée-sur-Cher', '37270', 38);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(14230, 'Athée-sur-Cher', '37270', 38),
 (14231, 'Le Louroux', '37240', 38),
 (14232, 'Savigny-en-Véron', '37420', 38),
 (14233, 'Faye-la-Vineuse', '37120', 38),
@@ -14585,7 +14604,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (14246, 'Veigné', '37250', 38),
 (14247, 'Luzillé', '37150', 38),
 (14248, 'Saint-Ouen-les-Vignes', '37530', 38),
-(14249, 'Mouzay', '37600', 38),
+(14249, 'Mouzay', '37600', 38);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (14250, 'Avon-les-Roches', '37220', 38),
 (14251, 'Brèches', '37330', 38),
 (14252, 'Sonzay', '37360', 38),
@@ -14841,7 +14861,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (14502, 'Hières-sur-Amby', '38118', 39),
 (14503, 'Bresson', '38320', 39),
 (14504, 'Montalieu-Vercieu', '38390', 39),
-(14505, 'Grenoble', '38000-38100', 39),
 (14506, 'Varces-Allières-et-Risset', '38760', 39),
 (14507, 'Brangues', '38510', 39),
 (14508, 'Saint-Siméon-de-Bressieux', '38870', 39),
@@ -15986,8 +16005,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (15647, 'Nerbis', '40250', 41),
 (15648, 'Herm', '40990', 41),
 (15649, 'Cazères-sur-l''Adour', '40270', 41),
-(15650, 'Lourquen', '40250', 41);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(15650, 'Lourquen', '40250', 41),
 (15651, 'Herré', '40310', 41),
 (15652, 'Le Vignau', '40270', 41),
 (15653, 'Bats', '40320', 41),
@@ -16008,7 +16026,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (15668, 'Saint-Martin-de-Seignanx', '40390', 41),
 (15669, 'Saint-Jean-de-Marsacq', '40230', 41),
 (15670, 'Roquefort', '40120', 41),
-(15671, 'Sainte-Marie-de-Gosse', '40390', 41),
+(15671, 'Sainte-Marie-de-Gosse', '40390', 41);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (15672, 'Payros-Cazautets', '40320', 41),
 (15673, 'Mugron', '40250', 41),
 (15674, 'Ousse-Suzan', '40110', 41),
@@ -16461,7 +16480,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (16121, 'Changy', '42310', 43),
 (16122, 'Salt-en-Donzy', '42110', 43),
 (16123, 'Sainte-Croix-en-Jarez', '42800', 43),
-(16124, 'Saint-Étienne', '42000-42100-42230', 43),
 (16125, 'Vérin', '42410', 43),
 (16126, 'Saint-Romain-en-Jarez', '42800', 43),
 (16127, 'Saint-Jean-Bonnefonds', '42650', 43),
@@ -17093,7 +17111,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (16753, 'Petit-Mars', '44390', 45),
 (16754, 'Vertou', '44120', 45),
 (16755, 'La Meilleraye-de-Bretagne', '44520', 45),
-(16756, 'Nantes', '44000-44100-44200-44300', 45),
 (16757, 'Rougé', '44660', 45),
 (16758, 'Sainte-Luce-sur-Loire', '44980', 45),
 (16759, 'Saint-Molf', '44350', 45),
@@ -17349,8 +17366,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (17009, 'Boisseaux', '45480', 46),
 (17010, 'Beaulieu-sur-Loire', '45630', 46),
 (17011, 'Morville-en-Beauce', '45300', 46),
-(17012, 'Briarres-sur-Essonne', '45390', 46);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(17012, 'Briarres-sur-Essonne', '45390', 46),
 (17013, 'Bordes', '45460', 46),
 (17014, 'Beaune-la-Rolande', '45340', 46),
 (17015, 'Saint-Aignan-le-Jaillard', '45600', 46),
@@ -17372,7 +17388,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (17031, 'Viglain', '45600', 46),
 (17032, 'Tivernon', '45170', 46),
 (17033, 'Saint-Cyr-en-Val', '45590', 46),
-(17034, 'Attray', '45170', 46),
+(17034, 'Attray', '45170', 46);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (17035, 'Germigny-des-Prés', '45110', 46),
 (17036, 'Guigneville', '45300', 46),
 (17037, 'Ousson-sur-Loire', '45250', 46),
@@ -17500,7 +17517,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (17159, 'Saint-Denis-en-Val', '45560', 46),
 (17160, 'Le Charme', '45230', 46),
 (17161, 'Aulnay-la-Rivière', '45390', 46),
-(17162, 'Orléans', '45000-45100', 46),
 (17163, 'Villemurlin', '45600', 46),
 (17164, 'Châteauneuf-sur-Loire', '45110', 46),
 (17165, 'Ondreville-sur-Essonne', '45390', 46),
@@ -18411,7 +18427,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (18070, 'Champtocé-sur-Loire', '49123', 50),
 (18071, 'Chavagnes', '49380', 50),
 (18072, 'La Chapelle-Rousselin', '49120', 50),
-(18073, 'Angers', '49000-49100', 50),
 (18074, 'Gesté', '49600', 50),
 (18075, 'Champ-sur-Layon', '49380', 50),
 (18076, 'Vihiers', '49310', 50),
@@ -18716,8 +18731,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (18375, 'Aviré', '49500', 50),
 (18376, 'Sœurdres', '49330', 50),
 (18377, 'Beauficel', '50150', 51),
-(18378, 'Mortain', '50140', 51);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(18378, 'Mortain', '50140', 51),
 (18379, 'Sacey', '50170', 51),
 (18380, 'Vernix', '50370', 51),
 (18381, 'Champrepus', '50800', 51),
@@ -18742,7 +18756,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (18400, 'Aucey-la-Plaine', '50170', 51),
 (18401, 'Huberville', '50700', 51),
 (18402, 'Liesville-sur-Douve', '50480', 51),
-(18403, 'Bérigny', '50810', 51),
+(18403, 'Bérigny', '50810', 51);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (18404, 'Montmartin-sur-Mer', '50590', 51),
 (18405, 'Dangy', '50750', 51),
 (18406, 'Agon-Coutainville', '50230', 51),
@@ -19061,7 +19076,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (18719, 'Saint-Fromond', '50620', 51),
 (18720, 'Longueville', '50290', 51),
 (18721, 'Giéville', '50160', 51),
-(18722, 'Cherbourg-Octeville', '50100-50130', 51),
 (18723, 'Roncey', '50210', 51),
 (18724, 'Vauville', '50440', 51),
 (18725, 'Saint-Georges-de-Rouelley', '50720', 51),
@@ -20078,8 +20092,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (19736, 'Torcenay', '52600', 53),
 (19737, 'Colmier-le-Bas', '52160', 53),
 (19738, 'Chatonrupt-Sommermont', '52300', 53),
-(19739, 'Vraincourt', '52310', 53);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(19739, 'Vraincourt', '52310', 53),
 (19740, 'Oudincourt', '52310', 53),
 (19741, 'Juzennecourt', '52330', 53),
 (19742, 'Rouvroy-sur-Marne', '52300', 53),
@@ -20105,7 +20118,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (19762, 'Choilley-Dardenay', '52190', 53),
 (19763, 'Riaucourt', '52000', 53),
 (19764, 'Rangecourt', '52140', 53),
-(19765, 'Blessonville', '52120', 53),
+(19765, 'Blessonville', '52120', 53);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (19766, 'Brethenay', '52000', 53),
 (19767, 'Valleroy', '52500', 53),
 (19768, 'Bassoncourt', '52240', 53),
@@ -21449,8 +21463,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (21106, 'Rupt-aux-Nonains', '55170', 56),
 (21107, 'Épiez-sur-Meuse', '55140', 56),
 (21108, 'Remennecourt', '55800', 56),
-(21109, 'Ranzières', '55300', 56);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(21109, 'Ranzières', '55300', 56),
 (21110, 'Saint-Germain-sur-Meuse', '55140', 56),
 (21111, 'Montzéville', '55100', 56),
 (21112, 'Void-Vacon', '55190', 56),
@@ -21477,7 +21490,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (21133, 'Laheycourt', '55800', 56),
 (21134, 'Béthelainville', '55100', 56),
 (21135, 'Ancemont', '55320', 56),
-(21136, 'Neuvilly-en-Argonne', '55120', 56),
+(21136, 'Neuvilly-en-Argonne', '55120', 56);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (21137, 'Vaux-devant-Damloup', '55400', 56),
 (21138, 'Pagny-sur-Meuse', '55190', 56),
 (21139, 'Bonnet', '55130', 56),
@@ -22255,7 +22269,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (21911, 'Enchenberg', '57410', 58),
 (21912, 'Saint-Jean-de-Bassel', '57930', 58),
 (21913, 'Entrange', '57330', 58),
-(21914, 'Metz', '57000-57050-57070', 58),
 (21915, 'Russange', '57390', 58),
 (21916, 'Chailly-lès-Ennery', '57365', 58),
 (21917, 'Lindre-Basse', '57260', 58),
@@ -22869,8 +22882,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (22525, 'Lanty', '58250', 59),
 (22526, 'Moux-en-Morvan', '58230', 59),
 (22527, 'Montambert', '58250', 59),
-(22528, 'Montapas', '58110', 59);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(22528, 'Montapas', '58110', 59),
 (22529, 'Alligny-en-Morvan', '58230', 59),
 (22530, 'Saint-Léger-de-Fougeret', '58120', 59),
 (22531, 'Neuffontaines', '58190', 59),
@@ -22898,7 +22910,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (22553, 'Saint-Andelain', '58150', 59),
 (22554, 'Poiseux', '58130', 59),
 (22555, 'Champlemy', '58210', 59),
-(22556, 'Brèves', '58530', 59),
+(22556, 'Brèves', '58530', 59);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (22557, 'Saint-Loup', '58200', 59),
 (22558, 'Ouagne', '58500', 59),
 (22559, 'Menestreau', '58410', 59),
@@ -23071,7 +23084,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (22726, 'Saint-Aubert', '59188', 60),
 (22727, 'Rieux-en-Cambrésis', '59277', 60),
 (22728, 'Wattrelos', '59150', 60),
-(22729, 'Villeneuve-d''Ascq', '59491-59493-59650', 60),
 (22730, 'Larouillies', '59219', 60),
 (22731, 'Wervicq-Sud', '59117', 60),
 (22732, 'Trith-Saint-Léger', '59125', 60),
@@ -23087,7 +23099,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (22742, 'Caëstre', '59190', 60),
 (22743, 'Montigny-en-Cambrésis', '59225', 60),
 (22744, 'Genech', '59242', 60),
-(22745, 'Lille', '59000-59160-59260-59777-59800', 60),
 (22746, 'Mortagne-du-Nord', '59158', 60),
 (22747, 'Marquette-en-Ostrevant', '59252', 60),
 (22748, 'Bellaing', '59135', 60),
@@ -23442,7 +23453,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (23097, 'Villers-Pol', '59530', 60),
 (23098, 'Ochtezeele', '59670', 60),
 (23099, 'La Sentinelle', '59174', 60),
-(23100, 'Dunkerque', '59140-59240-59430-59640-59279', 60),
 (23101, 'Saint-Martin-sur-Écaillon', '59213', 60),
 (23102, 'Clairfayts', '59740', 60),
 (23103, 'Douchy-les-Mines', '59282', 60),
@@ -24277,8 +24287,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (23932, 'Sarcus', '60210', 61),
 (23933, 'Babœuf', '60400', 61),
 (23934, 'Bacouël', '60120', 61),
-(23935, 'Nourard-le-Franc', '60130', 61);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(23935, 'Nourard-le-Franc', '60130', 61),
 (23936, 'Breteuil', '60120', 61),
 (23937, 'Litz', '60510', 61),
 (23938, 'Estrées-Saint-Denis', '60190', 61),
@@ -24312,7 +24321,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (23966, 'Crapeaumesnil', '60310', 61),
 (23967, 'Trie-Château', '60590', 61),
 (23968, 'Rivecourt', '60126', 61),
-(23969, 'Beaurepaire', '60700', 61),
+(23969, 'Beaurepaire', '60700', 61);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (23970, 'Morvillers', '60380', 61),
 (23971, 'Grémévillers', '60380', 61),
 (23972, 'Laigneville', '60290', 61),
@@ -25660,8 +25670,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (25314, 'Rimboval', '62990', 63),
 (25315, 'Nesles', '62152', 63),
 (25316, 'Flers', '62270', 63),
-(25317, 'Sains-lès-Fressin', '62310', 63);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(25317, 'Sains-lès-Fressin', '62310', 63),
 (25318, 'Vacquerie-le-Boucq', '62270', 63),
 (25319, 'Saint-Michel-sur-Ternoise', '62130', 63),
 (25320, 'Éleu-dit-Leauwette', '62300', 63),
@@ -25693,7 +25702,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (25346, 'Bezinghem', '62650', 63),
 (25347, 'Wardrecques', '62120', 63),
 (25348, 'Bomy', '62960', 63),
-(25349, 'Écoivres', '62270', 63),
+(25349, 'Écoivres', '62270', 63);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (25350, 'Wavrans-sur-l''Aa', '62380', 63),
 (25351, 'Équihen-Plage', '62224', 63),
 (25352, 'Marœuil', '62161', 63),
@@ -25829,7 +25839,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (25482, 'Saint-Diéry', '63320', 64),
 (25483, 'Sainte-Agathe', '63120', 64),
 (25484, 'Clémensat', '63320', 64),
-(25485, 'Clermont-Ferrand', '63000-63100', 64),
 (25486, 'Ravel', '63190', 64),
 (25487, 'Le Crest', '63450', 64),
 (25488, 'Saint-Amant-Roche-Savine', '63890', 64),
@@ -27100,8 +27109,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (26753, 'Lubret-Saint-Luc', '65220', 66),
 (26754, 'Cheust', '65100', 66),
 (26755, 'Artalens-Souin', '65400', 66),
-(26756, 'Galez', '65330', 66);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(26756, 'Galez', '65330', 66),
 (26757, 'Tarasteix', '65320', 66),
 (26758, 'Grust', '65120', 66),
 (26759, 'Rabastens-de-Bigorre', '65140', 66),
@@ -27138,7 +27146,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (26790, 'Saint-Créac', '65100', 66),
 (26791, 'Argelès-Bagnères', '65200', 66),
 (26792, 'Ouzous', '65400', 66),
-(26793, 'Aubarède', '65350', 66),
+(26793, 'Aubarède', '65350', 66);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (26794, 'Izaux', '65250', 66),
 (26795, 'Siradan', '65370', 66),
 (26796, 'Barbachen', '65140', 66),
@@ -27489,7 +27498,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (27141, 'Estagel', '66310', 67),
 (27142, 'Vivès', '66400', 67),
 (27143, 'Toulouges', '66350', 67),
-(27144, 'Perpignan', '66000-66100', 67),
 (27145, 'Finestret', '66320', 67),
 (27146, 'Oreilla', '66360', 67),
 (27147, 'Fossé', '66220', 67),
@@ -27649,7 +27657,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (27301, 'Surbourg', '67250', 68),
 (27302, 'Dossenheim-Kochersberg', '67117', 68),
 (27303, 'Burbach', '67260', 68),
-(27304, 'Strasbourg', '67000-67100-67200', 68),
 (27305, 'Schillersdorf', '67340', 68),
 (27306, 'Maisonsgoutte', '67220', 68),
 (27307, 'Lampertheim', '67450', 68),
@@ -28394,7 +28401,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (28046, 'Fislis', '68480', 69),
 (28047, 'Rombach-le-Franc', '68660', 69),
 (28048, 'Fréland', '68240', 69),
-(28049, 'Mulhouse', '68100-68200', 69),
 (28050, 'Waltenheim', '68510', 69),
 (28051, 'Kruth', '68820', 69),
 (28052, 'Kientzheim', '68240', 69),
@@ -28498,7 +28504,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (28150, 'Haute-Rivoire', '69610', 70),
 (28151, 'Nuelles', '69210', 70),
 (28152, 'Fontaines-Saint-Martin', '69270', 70),
-(28153, 'Lyon', '69001-69002-69003-69004-69005-69006-69007-69008-69009', 70),
 (28154, 'Saint-Laurent-d''Oingt', '69620', 70),
 (28155, 'Le Breuil', '69620', 70),
 (28156, 'Oingt', '69620', 70),
@@ -28535,8 +28540,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (28187, 'Couzon-au-Mont-d''Or', '69270', 70),
 (28188, 'Belleville', '69220', 70),
 (28189, 'Pont-Trambouze', '69240', 70),
-(28190, 'Chassieu', '69680', 70);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(28190, 'Chassieu', '69680', 70),
 (28191, 'Montmelas-Saint-Sorlin', '69640', 70),
 (28192, 'Lozanne', '69380', 70),
 (28193, 'Meaux-la-Montagne', '69550', 70),
@@ -28574,7 +28578,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (28225, 'Saint-Just-d''Avray', '69870', 70),
 (28226, 'Saint-Genis-l''Argentière', '69610', 70),
 (28227, 'Brignais', '69530', 70),
-(28228, 'Trèves', '69420', 70),
+(28228, 'Trèves', '69420', 70);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (28229, 'Saint-Étienne-des-Oullières', '69460', 70),
 (28230, 'Saint-Romain-en-Gal', '69560', 70),
 (28231, 'Orliénas', '69530', 70),
@@ -29829,7 +29834,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (29480, 'Dangeul', '72260', 73),
 (29481, 'La Milesse', '72650', 73),
 (29482, 'Saint-Denis-d''Orques', '72350', 73),
-(29483, 'Le Mans', '72000-72100', 73),
 (29484, 'Souillé', '72380', 73),
 (29485, 'Sillé-le-Guillaume', '72140', 73),
 (29486, 'Clermont-Créans', '72200', 73),
@@ -29901,8 +29905,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (29552, 'Oisseau-le-Petit', '72610', 73),
 (29553, 'Saint-Mars-sous-Ballon', '72290', 73),
 (29554, 'Roullée', '72670', 73),
-(29555, 'Beaumont-sur-Dême', '72340', 73);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(29555, 'Beaumont-sur-Dême', '72340', 73),
 (29556, 'Melleray', '72320', 73),
 (29557, 'Prévelles', '72110', 73),
 (29558, 'Ruillé-sur-Loir', '72340', 73),
@@ -29941,7 +29944,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (29591, 'Courtillers', '72300', 73),
 (29592, 'La Quinte', '72550', 73),
 (29593, 'Malicorne-sur-Sarthe', '72270', 73),
-(29594, 'Rouillon', '72700', 73),
+(29594, 'Rouillon', '72700', 73);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (29595, 'Louzes', '72670', 73),
 (29596, 'Viré-en-Champagne', '72350', 73),
 (29597, 'Parennes', '72140', 73),
@@ -31245,7 +31249,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (30896, 'Biville-sur-Mer', '76630', 77),
 (30897, 'La Chapelle-du-Bourgay', '76590', 77),
 (30898, 'Pommeréval', '76680', 77),
-(30899, 'Rouen', '76000-76100', 77),
 (30900, 'Boos', '76520', 77),
 (30901, 'Tourville-sur-Arques', '76550', 77),
 (30902, 'Saint-Victor-l''Abbaye', '76890', 77),
@@ -31253,8 +31256,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (30904, 'Veauville-lès-Baons', '76190', 77),
 (30905, 'Saint-Germain-sur-Eaulne', '76270', 77),
 (30906, 'Vibeuf', '76760', 77),
-(30907, 'Allouville-Bellefosse', '76190', 77);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(30907, 'Allouville-Bellefosse', '76190', 77),
 (30908, 'Saint-Clair-sur-les-Monts', '76190', 77),
 (30909, 'Fréville', '76190', 77),
 (30910, 'Saint-Martin-le-Gaillard', '76260', 77),
@@ -31291,7 +31293,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (30941, 'Limpiville', '76540', 77),
 (30942, 'Le Thil-Riberpré', '76440', 77),
 (30943, 'Gonfreville-Caillot', '76110', 77),
-(30944, 'Carville-Pot-de-Fer', '76560', 77),
+(30944, 'Carville-Pot-de-Fer', '76560', 77);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (30945, 'Vergetot', '76280', 77),
 (30946, 'La Vieux-Rue', '76160', 77),
 (30947, 'Sigy-en-Bray', '76780', 77),
@@ -31513,7 +31516,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (31163, 'Mesnil-Follemprise', '76660', 77),
 (31164, 'Bellengreville', '76630', 77),
 (31165, 'Martainville-Épreville', '76116', 77),
-(31166, 'Le Havre', '76600-76610-76620', 77),
 (31167, 'Croisy-sur-Andelle', '76780', 77),
 (31168, 'Bénouville', '76790', 77),
 (31169, 'Yainville', '76480', 77),
@@ -32603,8 +32605,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (32253, 'Thorigny-sur-le-Mignon', '79360', 80),
 (32254, 'Maisonnay', '79500', 80),
 (32255, 'Argenton-les-Vallées', '79150', 80),
-(32256, 'Soutiers', '79310', 80);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(32256, 'Soutiers', '79310', 80),
 (32257, 'Prahecq', '79230', 80),
 (32258, 'Mellé', '79500', 80),
 (32259, 'Périgné', '79170', 80),
@@ -32647,7 +32648,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (32296, 'Maison-Roland', '80135', 81),
 (32297, 'Le Hamel', '80800', 81),
 (32298, 'Berneuil', '80620', 81),
-(32299, 'Clairy-Saulchoix', '80540', 81),
+(32299, 'Clairy-Saulchoix', '80540', 81);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (32300, 'Vaudricourt', '80230', 81),
 (32301, 'Avesnes-Chaussoy', '80140', 81),
 (32302, 'Tailly', '80270', 81),
@@ -33281,7 +33283,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (32930, 'Vercourt', '80120', 81),
 (32931, 'Neuilly-l''Hôpital', '80132', 81),
 (32932, 'Varennes', '80560', 81),
-(32933, 'Amiens', '80000-80080-80090', 81),
 (32934, 'Assevillers', '80200', 81),
 (32935, 'Fréchencourt', '80260', 81),
 (32936, 'Offoy', '80400', 81),
@@ -34002,7 +34003,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (33651, 'Le Val', '83143', 84),
 (33652, 'Trans-en-Provence', '83720', 84),
 (33653, 'Le Muy', '83490', 84),
-(33654, 'Fréjus', '83600-83370', 84),
 (33655, 'Correns', '83570', 84),
 (33656, 'Signes', '83870', 84),
 (33657, 'La Roquebrussanne', '83136', 84),
@@ -34020,13 +34020,11 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (33669, 'Tourrettes', '83440', 84),
 (33670, 'Le Lavandou', '83980', 84),
 (33671, 'Salernes', '83690', 84),
-(33672, 'Salles-sur-Verdon', '83630', 84);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(33672, 'Salles-sur-Verdon', '83630', 84),
 (33673, 'Gassin', '83580', 84),
 (33674, 'Baudinard-sur-Verdon', '83630', 84),
 (33675, 'Forcalqueiret', '83136', 84),
 (33676, 'La Motte', '83920', 84),
-(33677, 'Toulon', '83000-83100-83200', 84),
 (33678, 'La Môle', '83310', 84),
 (33679, 'Puget-Ville', '83390', 84),
 (33680, 'Le Beausset', '83330', 84),
@@ -34037,7 +34035,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (33685, 'Aiguines', '83630', 84),
 (33686, 'Tourtour', '83690', 84),
 (33687, 'Brignoles', '83170', 84),
-(33688, 'Saint-Raphaël', '83700-83530', 84),
 (33689, 'Collobrières', '83610', 84),
 (33690, 'Sainte-Anastasie-sur-Issole', '83136', 84),
 (33691, 'La Garde-Freinet', '83680', 84),
@@ -34068,7 +34065,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (33716, 'Trigance', '83840', 84),
 (33717, 'Ginasservis', '83560', 84),
 (33718, 'Villes-sur-Auzon', '84570', 85),
-(33719, 'Visan', '84820', 85),
+(33719, 'Visan', '84820', 85);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (33720, 'Rasteau', '84110', 85),
 (33721, 'Saint-Saturnin-lès-Apt', '84490', 85),
 (33722, 'Bédarrides', '84370', 85),
@@ -34837,7 +34835,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (34485, 'Fromental', '87250', 88),
 (34486, 'Châteauponsac', '87290', 88),
 (34487, 'Mézières-sur-Issoire', '87330', 88),
-(34488, 'Limoges', '87000-87100-87280', 88),
 (34489, 'Saint-Gence', '87510', 88),
 (34490, 'Saint-Cyr', '87310', 88),
 (34491, 'Saint-Yrieix-la-Perche', '87500', 88),
@@ -35389,8 +35386,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (35037, 'Rancourt', '88270', 89),
 (35038, 'La Neuveville-sous-Montfort', '88800', 89),
 (35039, 'Auzainvilliers', '88140', 89),
-(35040, 'Thiraucourt', '88500', 89);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(35040, 'Thiraucourt', '88500', 89),
 (35041, 'Chantraine', '88000', 89),
 (35042, 'Étival-Clairefontaine', '88480', 89),
 (35043, 'Dounoux', '88220', 89),
@@ -35439,7 +35435,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (35086, 'Jésonville', '88260', 89),
 (35087, 'Viviers-le-Gras', '88260', 89),
 (35088, 'Wisembach', '88520', 89),
-(35089, 'Sans-Vallois', '88260', 89),
+(35089, 'Sans-Vallois', '88260', 89);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (35090, 'Sainte-Hélène', '88700', 89),
 (35091, 'Taintrux', '88100', 89),
 (35092, 'Saint-Gorgon', '88700', 89),
@@ -35920,7 +35917,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (35567, 'Ouanne', '89560', 90),
 (35568, 'Serrigny', '89700', 90),
 (35569, 'Sainte-Colombe-sur-Loing', '89520', 90),
-(35570, 'Auxerre', '89000-89290', 90),
 (35571, 'Malicorne', '89120', 90),
 (35572, 'Saint-Georges-sur-Baulche', '89000', 90),
 (35573, 'Champlay', '89300', 90),
@@ -36256,7 +36252,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (35903, 'Bois-Colombes', '92270', 93),
 (35904, 'Puteaux', '92800', 93),
 (35905, 'Clamart', '92140', 93),
-(35906, 'Meudon', '92190-92360', 93),
 (35907, 'Marnes-la-Coquette', '92430', 93),
 (35908, 'Issy-les-Moulineaux', '92130', 93),
 (35909, 'Vaucresson', '92420', 93),
@@ -36300,7 +36295,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (35947, 'Coubron', '93470', 94),
 (35948, 'Villetaneuse', '93430', 94),
 (35949, 'Le Raincy', '93340', 94),
-(35950, 'Saint-Denis', '93200-93210', 94),
 (35951, 'Lilas', '93260', 94),
 (35952, 'Clichy-sous-Bois', '93390', 94),
 (35953, 'Noisy-le-Grand', '93160', 94),
@@ -36348,7 +36342,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (35995, 'Valenton', '94460', 95),
 (35996, 'Nogent-sur-Marne', '94130', 95),
 (35997, 'Cachan', '94230', 95),
-(35998, 'Saint-Maur-des-Fossés', '94100-94210', 95),
 (35999, 'Rungis', '94150', 95),
 (36000, 'Thiais', '94320', 95),
 (36001, 'Sucy-en-Brie', '94880', 95),
@@ -36378,7 +36371,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36025, 'Osny', '95520', 96),
 (36026, 'Hodent', '95420', 96),
 (36027, 'Montreuil-sur-Epte', '95770', 96),
-(36028, 'Cergy', '95000-95800', 96),
 (36029, 'Chennevières-lès-Louvres', '95380', 96),
 (36030, 'Montlignon', '95680', 96),
 (36031, 'Fontenay-en-Parisis', '95190', 96),
@@ -36582,9 +36574,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36229, 'Arro', '20151', 20),
 (36230, 'Casaglione', '20111', 20),
 (36231, 'Ambiegna', '20151', 20),
-(36232, 'Coggia', '20160-20118', 20),
 (36233, 'Orto', '20125', 20),
-(36234, 'Poggiolo', '20125-20160', 20),
 (36235, 'Soccia', '20125', 20),
 (36236, 'Marignana', '20141', 20),
 (36237, 'Renno', '20160', 20),
@@ -36625,7 +36615,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36272, 'Cauro', '20117', 20),
 (36273, 'Eccica-Suarella', '20117', 20),
 (36274, 'Bastelicaccia', '20129', 20),
-(36275, 'Ajaccio', '20000-20090', 20),
 (36276, 'Sari-Solenzara', '20145', 20),
 (36277, 'Olivese', '20140', 20),
 (36278, 'Forciolo', '20190', 20),
@@ -36633,7 +36622,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36280, 'Zigliara', '20190', 20),
 (36281, 'Argiusta-Moriccio', '20140', 20),
 (36282, 'Cardo-Torgia', '20190', 20),
-(36283, 'Grosseto-Prugna', '20128-20166', 20),
 (36284, 'Cognocoli-Monticchi', '20123', 20),
 (36285, 'Guargualé', '20128', 20),
 (36286, 'Urbalacone', '20128', 20),
@@ -36641,7 +36629,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36288, 'Pietrosella', '20166', 20),
 (36289, 'Conca', '20135', 20),
 (36290, 'Quenza', '20122', 20),
-(36291, 'Zonza', '20124-20144', 20),
 (36292, 'Serra-di-Scopamène', '20127', 20),
 (36293, 'Sorbollano', '20152', 20),
 (36294, 'Aullène', '20116', 20),
@@ -36800,9 +36787,7 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36447, 'Tomino', '20248', 21),
 (36448, 'Morsiglia', '20238', 21),
 (36449, 'Centuri', '20238', 21),
-(36450, 'Rogliano', '20247-20248', 21),
-(36451, 'Cagnano', '20228', 21);
-INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
+(36451, 'Cagnano', '20228', 21),
 (36452, 'Barrettali', '20228', 21),
 (36453, 'Pino', '20228', 21),
 (36454, 'Luri', '20228', 21),
@@ -36815,7 +36800,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36461, 'Santa-Maria-di-Lota', '20200', 21),
 (36462, 'Olmeta-di-Capocorso', '20217', 21),
 (36463, 'Nonza', '20217', 21),
-(36464, 'Bastia', '20200-20600', 21),
 (36465, 'San-Martino-di-Lota', '20200', 21),
 (36466, 'Ville-di-Pietrabugno', '20200', 21),
 (36467, 'Barbaggio', '20253', 21),
@@ -36845,7 +36829,6 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36491, 'Monticello', '20220', 21),
 (36492, 'Sant''Antonino', '20220', 21),
 (36493, 'Santa-Reparata-di-Balagna', '20220', 21),
-(36494, 'Corbara', '20220-20256', 21),
 (36495, 'Algajola', '20220', 21),
 (36496, 'Vignale', '20290', 21),
 (36497, 'Lucciana', '20290', 21),
@@ -36869,7 +36852,8 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36515, 'Zilia', '20214', 21),
 (36516, 'Nessa', '20225', 21),
 (36517, 'Feliceto', '20225', 21),
-(36518, 'Montegrosso', '20214', 21),
+(36518, 'Montegrosso', '20214', 21);
+INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) VALUES
 (36519, 'Lavatoggio', '20225', 21),
 (36520, 'Cateri', '20225', 21),
 (36521, 'Lumio', '20260', 21),
@@ -37071,7 +37055,167 @@ INSERT INTO `villes` (`id`, `ville_nom`, `ville_code_postal`, `id_departement`) 
 (36851, 'Paris 18e Arrondissement', '75018', 76),
 (36852, 'Paris 19e Arrondissement', '75019', 76),
 (36853, 'Paris 20e Arrondissement', '75020', 76),
-(36854, 'Paris 16e Arrondissement', '75116', 76);
+(36854, 'Paris 16e Arrondissement', '75116', 76),
+(36855, 'Grasse', '06130', 6),
+(36856, 'Grasse', '06520', 6),
+(36857, 'Antibes', '06600', 6),
+(36858, 'Antibes', '06160', 6),
+(36859, 'Cannes', '06400', 6),
+(36860, 'Cannes', '06150', 6),
+(36861, 'Istres', '13118', 13),
+(36862, 'Istres', '13800', 13),
+(36863, 'Martigues', '13117', 13),
+(36864, 'Martigues', '13500', 13),
+(36865, 'Dijon', '21000', 22),
+(36866, 'Dijon', '21100', 22),
+(36867, 'Nîmes', '30000', 31),
+(36868, 'Nîmes', '30900', 31),
+(36869, 'Nice', '06000', 6),
+(36870, 'Nice', '06100', 6),
+(36871, 'Nice', '06200', 6),
+(36872, 'Nice', '06300', 6),
+(36873, 'Aix-en-Provence', '13080', 13),
+(36874, 'Aix-en-Provence', '13100', 13),
+(36875, 'Aix-en-Provence', '13090', 13),
+(36876, 'Aix-en-Provence', '13290', 13),
+(36877, 'Aix-en-Provence', '13540', 13),
+(36878, 'Marseille 1er Arrondissement', '13001', 13),
+(36879, 'Marseille 2e Arrondissement', '13002', 13),
+(36880, 'Marseille 3e Arrondissement', '13003', 13),
+(36881, 'Marseille 4e Arrondissement', '13004', 13),
+(36882, 'Marseille 5e Arrondissement', '13005', 13),
+(36883, 'Marseille 6e Arrondissement', '13006', 13),
+(36884, 'Marseille 7e Arrondissement', '13007', 13),
+(36885, 'Marseille 8e Arrondissement', '13008', 13),
+(36886, 'Marseille 9e Arrondissement', '13009', 13),
+(36887, 'Marseille 10e Arrondissement', '13010', 13),
+(36888, 'Marseille 11e Arrondissement', '13011', 13),
+(36889, 'Marseille 12e Arrondissement', '13012', 13),
+(36890, 'Marseille 13e Arrondissement', '13013', 13),
+(36891, 'Marseille 14e Arrondissement', '13014', 13),
+(36892, 'Marseille 15e Arrondissement', '13015', 13),
+(36893, 'Marseille 16e Arrondissement', '13016', 13),
+(36900, 'Arles', '13104', 13),
+(36901, 'Arles', '13123', 13),
+(36902, 'Arles', '13129', 13),
+(36903, 'Arles', '13200', 13),
+(36904, 'Arles', '13280', 13),
+(36905, 'Toulouse', '31000', 32),
+(36906, 'Toulouse', '31100', 32),
+(36907, 'Toulouse', '31200', 32),
+(36908, 'Toulouse', '31300', 32),
+(36909, 'Toulouse', '31400', 32),
+(36910, 'Toulouse', '31500', 32),
+(36911, 'Bordeaux', '33000', 34),
+(36912, 'Bordeaux', '33100', 34),
+(36913, 'Bordeaux', '33200', 34),
+(36914, 'Bordeaux', '33300', 34),
+(36915, 'Bordeaux', '33800', 34),
+(36916, 'Montpellier', '34000', 35),
+(36917, 'Montpellier', '34070', 35),
+(36918, 'Montpellier', '34080', 35),
+(36919, 'Montpellier', '34090', 35),
+(36920, 'Rennes', '35000', 36),
+(36921, 'Rennes', '35200', 36),
+(36922, 'Rennes', '35700', 36),
+(36923, 'Tours', '37000', 38),
+(36924, 'Tours', '37100', 38),
+(36925, 'Tours', '37200', 38),
+(36926, 'Grenoble', '38000', 39),
+(36927, 'Grenoble', '38100', 39),
+(36928, 'Saint-Étienne', '42000', 43),
+(36929, 'Saint-Étienne', '42100', 43),
+(36930, 'Saint-Étienne', '42230', 43),
+(36931, 'Nantes', '44000', 45),
+(36932, 'Nantes', '44100', 45),
+(36933, 'Nantes', '44200', 45),
+(36934, 'Nantes', '44300', 45),
+(36935, 'Orléans', '45000', 46),
+(36936, 'Orléans', '45100', 46),
+(36937, 'Angers', '49000', 50),
+(36938, 'Angers', '49100', 50),
+(36939, 'Cherbourg-Octeville', '50100', 51),
+(36940, 'Cherbourg-Octeville', '50130', 51),
+(36941, 'Metz', '57000', 58),
+(36942, 'Metz', '57050', 58),
+(36943, 'Metz', '57070', 58),
+(36944, 'Villeneuve-d''Ascq', '59491', 60),
+(36945, 'Villeneuve-d''Ascq', '59493', 60),
+(36946, 'Villeneuve-d''Ascq', '59650', 60),
+(36947, 'Lille', '59000', 60),
+(36948, 'Lille', '59160', 60),
+(36949, 'Lille', '59260', 60),
+(36950, 'Lille', '59777', 60),
+(36951, 'Lille', '59800', 60),
+(36952, 'Dunkerque', '59140', 60),
+(36953, 'Dunkerque', '59240', 60),
+(36954, 'Dunkerque', '59430', 60),
+(36955, 'Dunkerque', '59640', 60),
+(36956, 'Dunkerque', '59279', 60),
+(36957, 'Clermont-Ferrand', '63000', 64),
+(36958, 'Clermont-Ferrand', '63100', 64),
+(36959, 'Perpignan', '66000', 67),
+(36960, 'Perpignan', '66100', 67),
+(36961, 'Strasbourg', '67000', 68),
+(36962, 'Strasbourg', '67100', 68),
+(36963, 'Strasbourg', '67200', 68),
+(36964, 'Mulhouse', '68100', 69),
+(36965, 'Mulhouse', '68200', 69),
+(36966, 'Lyon 1er Arrondissement', '69001', 70),
+(36967, 'Lyon 2e Arrondissement', '69002', 70),
+(36968, 'Lyon 3e Arrondissement', '69003', 70),
+(36969, 'Lyon 4e Arrondissement', '69004', 70),
+(36970, 'Lyon 5e Arrondissement', '69005', 70),
+(36971, 'Lyon 6e Arrondissement', '69006', 70),
+(36972, 'Lyon 7e Arrondissement', '69007', 70),
+(36973, 'Lyon 8e Arrondissement', '69008', 70),
+(36974, 'Lyon 9e Arrondissement', '69009', 70),
+(36975, 'Le Mans', '72000', 73),
+(36976, 'Le Mans', '72100', 73),
+(36977, 'Rouen', '76000', 77),
+(36978, 'Rouen', '76100', 77),
+(36979, 'Le Havre', '76600', 77),
+(36980, 'Le Havre', '76610', 77),
+(36981, 'Le Havre', '76620', 77),
+(36982, 'Amiens', '80000', 81),
+(36983, 'Amiens', '80080', 81),
+(36984, 'Amiens', '80090', 81),
+(36985, 'Fréjus', '83600', 84),
+(36986, 'Fréjus', '83370', 84),
+(36987, 'Toulon', '83000', 84),
+(36988, 'Toulon', '83100', 84),
+(36989, 'Toulon', '83200', 84),
+(36990, 'Saint-Raphaël', '83700', 84),
+(36991, 'Saint-Raphaël', '83530', 84),
+(36992, 'Limoges', '87000', 88),
+(36993, 'Limoges', '87100', 88),
+(36994, 'Limoges', '87280', 88),
+(36995, 'Auxerre', '89000', 90),
+(36996, 'Auxerre', '89290', 90),
+(36997, 'Meudon', '92190', 93),
+(36998, 'Meudon', '92360', 93),
+(36999, 'Saint-Denis', '93200', 94),
+(37000, 'Saint-Denis', '93210', 94),
+(37001, 'Saint-Maur-des-Fossés', '94100', 95),
+(37002, 'Saint-Maur-des-Fossés', '94210', 95),
+(37003, 'Cergy', '95000', 96),
+(37004, 'Cergy', '95800', 96),
+(37005, 'Coggia', '20160', 20),
+(37006, 'Coggia', '20118', 20),
+(37007, 'Poggiolo', '20125', 20),
+(37008, 'Poggiolo', '20160', 20),
+(37009, 'Ajaccio', '20000', 20),
+(37010, 'Ajaccio', '20090', 20),
+(37011, 'Grosseto-Prugna', '20128', 20),
+(37012, 'Grosseto-Prugna', '20166', 20),
+(37013, 'Zonza', '20124', 20),
+(37014, 'Zonza', '20144', 20),
+(37015, 'Rogliano', '20247', 21),
+(37016, 'Rogliano', '20248', 21),
+(37017, 'Bastia', '20200', 21),
+(37018, 'Bastia', '20600', 21),
+(37019, 'Corbara', '20220', 21),
+(37020, 'Corbara', '20256', 21);
 
 --
 -- Index pour les tables exportées
@@ -37127,7 +37271,7 @@ ALTER TABLE `villes`
 -- AUTO_INCREMENT pour la table `adresses`
 --
 ALTER TABLE `adresses`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''adresse',AUTO_INCREMENT=18;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''adresse',AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT pour la table `departements`
 --
@@ -37142,7 +37286,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID des pays',AUTO_INCREMENT
 -- AUTO_INCREMENT pour la table `privmsgs`
 --
 ALTER TABLE `privmsgs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID du pm';
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID du pm',AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT pour la table `regions`
 --
@@ -37152,12 +37296,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID des regions',AUTO_INCREM
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT pour la table `villes`
 --
 ALTER TABLE `villes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la ville',AUTO_INCREMENT=36855;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de la ville',AUTO_INCREMENT=37021;
 --
 -- Contraintes pour les tables exportées
 --

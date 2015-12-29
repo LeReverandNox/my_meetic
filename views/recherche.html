@@ -16,7 +16,7 @@
                 <?php Display::INFOS(); ?>
                 <?php Display::ERROR(); ?>
 
-                <form action="" method="POST">
+                <form method="POST">
                     <ul>
                         <li>
                             Sexe :
@@ -51,7 +51,7 @@
 
                         <li>
                             <label for="pays">Pays : </label>
-                            <select name="pays">
+                            <select name="pays" id="pays">
                                 <option value="">Sélectionner dans la liste</option>
                                 <?php foreach ($pays as $pay): ?>
                                     <option value="<?php echo $pay["id"] ?>" <?php if(isset($_SESSION["POST"]["pays"]) && $_SESSION["POST"]["pays"] === $pay["id"]) echo "selected"; ?>><?php echo $pay["nom"]; ?></option>
@@ -61,7 +61,7 @@
 
                         <li>
                             <label for="region">Region : </label>
-                            <select name="region">
+                            <select name="region" id="region">
                                 <option value="">Sélectionner dans la liste</option>
                                 <?php foreach ($regions as $region): ?>
                                     <option value="<?php echo $region["id"] ?>" <?php if(isset($_SESSION["POST"]["region"]) && $_SESSION["POST"]["region"] === $region["id"]) echo "selected"; ?>><?php echo $region["nom"]; ?></option>
@@ -71,7 +71,7 @@
 
                         <li>
                             <label for="departement">Département : </label>
-                            <select name="departement">
+                            <select name="departement" id="departement">
                                 <option value="">Sélectionner dans la liste</option>
                                 <?php foreach ($departements as $departement): ?>
                                     <option value="<?php echo $departement["id"] ?>" <?php if(isset($_SESSION["POST"]["departement"]) && $_SESSION["POST"]["departement"] === $departement["id"]) echo "selected"; ?>><?php echo $departement["nom"]; ?></option>

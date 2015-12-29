@@ -25,7 +25,7 @@
 
         <?php if (isset($_GET["mode"]) && $_GET["mode"] === "write"): ?>
             <h3>Écrire un message</h3>
-            <form method="POST" action="" class="msg_write_form">
+            <form method="POST" class="msg_write_form">
                 <ul>
                     <li>
                         <label for="recipient">Destinataire : </label>
@@ -121,7 +121,7 @@
                 <tbody>
                     <?php if (empty($deleted_messages)): ?>
                         <tr>
-                            <td class="td_no_msg" colspan="5">Vous n'avez pas de messages supprimés</tr>
+                            <td class="td_no_msg" colspan="5">Vous n'avez pas de messages supprimés</td>
                         </tr>
                     <?php endif ?>
 

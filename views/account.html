@@ -21,7 +21,7 @@
 
                         <?php Display::ERROR(); ?>
 
-                        <form action="" method="POST" id="edit_profile" enctype="multipart/form-data">
+                        <form method="POST" id="edit_profile" enctype="multipart/form-data">
                             <div id="avatar_upload">
                                 <img src="<?php echo $user->getAvatar(); ?>" alt="<?php echo $dataUser["firstname"]; ?>'s avatar" id="edit_profile_avatar">
 
@@ -73,7 +73,7 @@
 
                                 <li>
                                     <label for="birthdate">Date de naissance : </label>
-                                    <input type="date" name="birthdate" id="birthdate" placeholder="AAAA/MM/JJ" value="<?php echo $user->getBirthdate(); ?>" />
+                                    <input type="date" name="birthdate" id="birthdate" value="<?php echo $user->getBirthdate(); ?>" />
                                 </li>
 
                                 <li>
@@ -101,11 +101,11 @@
 
                                 <li>
                                     <label for="city">Ville : </label>
-                                    <input type="text" list="cities" name="city" placeholder="Ex: 93400 - Saint-Ouen" value="<?php echo $user->getCityCP() . " - " . $user->getCity(); ?>" />
+                                    <input type="text" list="cities" name="city" id="city" placeholder="Ex: 93400 - Saint-Ouen" value="<?php echo $user->getCityCP() . " - " . $user->getCity(); ?>" />
                                     <datalist id="cities">
                                         <?php foreach ($cities as $city): ?>
 
-                                            <option value="<?php echo $city["CP"] ?> - <?php echo $city["nom"] ?>"></option>
+                                            <option value="<?php echo $city["CP"] ?> - <?php echo $city["nom"] ?>"><?php echo $city["CP"] ?> - <?php echo $city["nom"] ?></option>
 
                                         <?php endforeach ?>
                                     </datalist>
@@ -113,20 +113,20 @@
 
                                 <li>
                                     <label for="departement">Departement : </label>
-                                    <input type="text" list="departements" name="departement" placeholder="Ex: 93 - Seine-Saint-Denis" value="<?php echo $user->getDepartementNum() . " - " . $user->getDepartement(); ?>" />
+                                    <input type="text" list="departements" name="departement" id="departement" placeholder="Ex: 93 - Seine-Saint-Denis" value="<?php echo $user->getDepartementNum() . " - " . $user->getDepartement(); ?>" />
                                     <datalist id="departements">
                                         <?php foreach ($departements as $departement): ?>
-                                            <option value="<?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?>"></option>
+                                            <option value="<?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?>"><?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?></option>
                                         <?php endforeach ?>
                                     </datalist>
                                 </li>
 
                                 <li>
-                                    <label for="regions">Region : </label>
-                                    <input type="text" list="regions" name="region" placeholder="Ex: Île-de-France" value="<?php echo $user->getRegion(); ?>" />
+                                    <label for="region">Region : </label>
+                                    <input type="text" list="regions" name="region" id="region" placeholder="Ex: Île-de-France" value="<?php echo $user->getRegion(); ?>" />
                                     <datalist id="regions">
                                         <?php foreach ($regions as $region): ?>
-                                            <option value="<?php echo $region["nom"] ?>"></option>
+                                            <option value="<?php echo $region["nom"] ?>"><?php echo $region["nom"] ?></option>
                                         <?php endforeach ?>
                                     </datalist>
                                 </li>
@@ -148,14 +148,13 @@
                     <h2>Mon compte - Suppression</h2>
                     <div id="account_delete">
                         <ul>
-                            <li><p>Vous êtes sur le point de supprimer DÉFINITIVEMENT votre compte</li>
+                            <li>Vous êtes sur le point de supprimer DÉFINITIVEMENT votre compte</li>
                             <li>Pas de remord ?</li>
-                            <form action="" method="POST">
-                                <button name="delete" value="0">Non</button>
-                                <button name="delete" value="1">Oui</button>
-                            </form>
                         </ul>
-
+                        <form method="POST">
+                            <button name="delete" value="0">Non</button>
+                            <button name="delete" value="1">Oui</button>
+                        </form>
                     </div>
 
                 <?php else: ?>
@@ -181,9 +180,9 @@
                         <a href="account.php?mode=delete" id="delete_link">Supprimer votre compte</a>
                     </div>
                     <div id="account_edit">
+                    </div>
                     <?php endif ?>
 
-                </div>
             </div>
         </section>
         <?php require_once("includes/footer.php"); ?>

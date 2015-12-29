@@ -94,7 +94,7 @@
 
                         <li>
                             <label for="birthdate">Date de naissance : </label>
-                            <input type="date" name="birthdate" id="birthdate" placeholder="AAAA/MM/JJ" value="<?php if (isset($_POST["birthdate"])) echo htmlspecialchars($_POST["birthdate"]); ?>" />
+                            <input type="date" name="birthdate" id="birthdate" value="<?php if (isset($_POST["birthdate"])) echo htmlspecialchars($_POST["birthdate"]); ?>" />
                         </li>
 
                         <li>
@@ -124,11 +124,11 @@
 
                         <li>
                             <label for="city">Ville : </label>
-                            <input type="text" list="cities" name="city" placeholder="Ex: 93400 - Saint-Ouen" value="<?php if (isset($_POST["city"])) echo htmlspecialchars($_POST["city"]); ?>" />
+                            <input type="text" list="cities" name="city" id="city" placeholder="Ex: 93400 - Saint-Ouen" value="<?php if (isset($_POST["city"])) echo htmlspecialchars($_POST["city"]); ?>" />
                             <datalist id="cities">
                                 <?php foreach ($cities as $city): ?>
 
-                                    <option value="<?php echo $city["CP"] ?> - <?php echo $city["nom"] ?>"></option>
+                                    <option value="<?php echo $city["CP"] ?> - <?php echo $city["nom"] ?>"><?php echo $city["CP"] ?> - <?php echo $city["nom"] ?></option>
 
                                 <?php endforeach ?>
                             </datalist>
@@ -136,20 +136,20 @@
 
                         <li>
                             <label for="departement">Departement : </label>
-                            <input type="text" list="departements" name="departement" placeholder="Ex: 93 - Seine-Saint-Denis" value="<?php if (isset($_POST["departement"])) echo htmlspecialchars($_POST["departement"]); ?>" />
+                            <input type="text" list="departements" name="departement" id="departement" placeholder="Ex: 93 - Seine-Saint-Denis" value="<?php if (isset($_POST["departement"])) echo htmlspecialchars($_POST["departement"]); ?>" />
                             <datalist id="departements">
                                 <?php foreach ($departements as $departement): ?>
-                                    <option value="<?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?>"></option>
+                                    <option value="<?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?>"><?php echo $departement["num"] ?> - <?php echo $departement["nom"] ?></option>
                                 <?php endforeach ?>
                             </datalist>
                         </li>
 
                         <li>
-                            <label for="regions">Region : </label>
-                            <input type="text" list="regions" name="region" placeholder="Ex: Île-de-France" value="<?php if (isset($_POST["region"])) echo htmlspecialchars($_POST["region"]); ?>" />
+                            <label for="region">Region : </label>
+                            <input type="text" list="regions" name="region" id="region" placeholder="Ex: Île-de-France" value="<?php if (isset($_POST["region"])) echo htmlspecialchars($_POST["region"]); ?>" />
                             <datalist id="regions">
                                 <?php foreach ($regions as $region): ?>
-                                    <option value="<?php echo $region["nom"] ?>"></option>
+                                    <option value="<?php echo $region["nom"] ?>"><?php echo $region["nom"] ?></option>
                                 <?php endforeach ?>
                             </datalist>
                         </li>
