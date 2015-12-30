@@ -24,7 +24,9 @@
                     <li><span class="details">Pays : </span><?php echo $profil->getPays(); ?></li>
                     <li><span class="details">Biographie : </span><?php echo $profil->getBio(); ?></li>
                 </ul>
-                <a href="messagerie.php?mode=write&amp;to=<?php echo $profil->getId(); ?>" class="contact_link">Envoyer un message à <?php echo $profil->getFirstname(); ?></a>
+                <?php if ($profil->getId() !== $user->getId()): ?>
+                    <a href="messagerie.php?mode=write&amp;to=<?php echo $profil->getId(); ?>" class="contact_link">Envoyer un message à <?php echo $profil->getFirstname(); ?></a>
+                <?php endif ?>
             </div>
         </section>
 
