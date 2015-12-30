@@ -67,9 +67,9 @@
                     <p>De : <a href="profil.php?id=<?php echo $author->getId(); ?>"><?php echo $author->getLogin(); ?></a></p>
                     <p>Á : <a href="profil.php?id=<?php echo $recipient->getId(); ?>"><?php echo $recipient->getLogin(); ?></a></p>
                     <p class="message_content"><?php echo $read_msg->getContent(); ?></p>
-                    <form method="POST" action="messagerie.php?mode=write&amp;to=<?php echo $read_msg->getAuthorId(); ?>">
+                    <form method="POST" class="message_form_reply" action="messagerie.php?mode=write&amp;to=<?php echo $read_msg->getAuthorId(); ?>">
                         <input type="hidden" name="title" value="Re: <?php echo $read_msg->getTitle(); ?>" />
-                        <input type="hidden" name="content" value="<?php echo " \n\n------------------------------\nLe " . $read_msg->getDate() . ", " . $author->getLogin() . " a écrit : \n" . $read_msg->getContent(); ?>" />
+                        <input type="hidden" name="content" value="<?php echo "\r\r\r------------------------------\rLe " . $read_msg->getDate() . ", " . $author->getLogin() . " a écrit : \r" . $read_msg->getContentBr(); ?>" />
                         <input type="submit" value="Répondre" />
                     </form>
                 </div>

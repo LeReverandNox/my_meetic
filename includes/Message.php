@@ -72,6 +72,10 @@ Class Message
     {
         return $this->_content;
     }
+    public function getContentBr()
+    {
+        return preg_replace("/<br \/>/", "", $this->_content);
+    }
     public function getDate()
     {
         return $this->_date;

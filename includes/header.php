@@ -10,7 +10,7 @@
                 if (isset($_SESSION["id"]))
                 {
                     ?>
-                    <li><a href="index.php">Home</a> |</li>
+                    <li><a href="index.php">Accueil</a> |</li>
                     <li><a href="profil.php?id=<?php echo $_SESSION["id"]; ?>">Mon profil</a> |</li>
                     <li><a href="account.php">Mon compte</a> |</li>
                     <li><a href="recherche.php">Recherche</a> |</li>

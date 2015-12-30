@@ -633,7 +633,8 @@ Class FormValidator
     {
         if (isset($_POST["content"]) && $_POST["content"] !== "")
         {
-            $content = htmlspecialchars($_POST["content"]);
+            $content = strip_tags($_POST["content"], "<br>");
+            $content = nl2br($content);
             return $content;
         }
         else
