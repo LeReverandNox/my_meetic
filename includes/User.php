@@ -583,6 +583,7 @@ Class User
         $queryActivate->bindParam(":id", $this->_id, PDO::PARAM_INT);
         $queryActivate->execute();
 
+        $_SESSION["INFOS"] = "Votre compte a été supprimé.";
         return true;
     }
 

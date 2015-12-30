@@ -82,6 +82,7 @@
                                         <option value="">Sélectionner dans la liste</option>
                                         <option value="0" <?php if ($user->getGender() == 0) echo "selected"; ?>>un homme</option>
                                         <option value="1" <?php if ($user->getGender() == 1) echo "selected"; ?>>une femme</option>
+                                        <option value="2" <?php if ($user->getGender() == 2) echo "selected"; ?>>un alien</option>
                                     </select>
                                 </li>
 
@@ -91,6 +92,7 @@
                                         <option value="">Sélectionner dans la liste</option>
                                         <option value="0" <?php if ($user->getOrientation() == 0) echo "selected"; ?>>un homme</option>
                                         <option value="1" <?php if ($user->getOrientation() == 1) echo "selected"; ?>>une femme</option>
+                                        <option value="2" <?php if ($user->getOrientation() == 2) echo "selected"; ?>>un alien</option>
                                     </select>
                                 </li>
 
@@ -137,7 +139,7 @@
 
                                 <li id="submit">
                                     <input type="hidden" name="edit" />
-                                    <input type="submit" value="Modify" />
+                                    <input type="submit" value="Modifier" />
                                 </li>
                             </ul>
                         </form>

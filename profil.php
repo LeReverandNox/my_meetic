@@ -12,9 +12,11 @@ if (!isset($_GET["id"]) || !isset($_SESSION["id"]))
     header("Location: index.php");
 }
 
-$user = new User($db, $_GET["id"]);
+$user = new User($db, $_SESSION["id"]);
 
-if (empty($user->getLogin()))
+$profil = new User($db, $_GET["id"]);
+
+if (empty($profil->getLogin()))
 {
     header("Location: index.php");
 }

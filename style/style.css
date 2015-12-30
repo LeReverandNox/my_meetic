@@ -263,3 +263,26 @@ td {
     margin: 10px auto;
     width: 150px !important;
 }
+
+.recover_block  {
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+.recover_block h2 {
+    text-align: center;
+    color: red;
+    font-size: 2em;
+    margin: 15px;
+}
+.recover_block p {
+    text-align: center;
+}
+.recover_block form {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.intro_index p {
+    text-align: center;
+}
