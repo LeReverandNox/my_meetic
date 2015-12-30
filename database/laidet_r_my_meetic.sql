@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 30 Décembre 2015 à 16:34
+-- Généré le :  Mer 30 Décembre 2015 à 23:04
 -- Version du serveur :  5.6.27-0ubuntu0.15.04.1
 -- Version de PHP :  5.6.4-4ubuntu6.4
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `adresses` (
 `id` int(11) NOT NULL COMMENT 'id de l''adresse',
   `adresse_rue` varchar(255) NOT NULL COMMENT 'Numero + rue',
   `id_ville` int(11) NOT NULL COMMENT 'ID de la ville'
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `adresses`
@@ -48,7 +48,12 @@ INSERT INTO `adresses` (`id`, `adresse_rue`, `id_ville`) VALUES
 (17, '59 rue des pierrettes', 6038),
 (18, 'Le Temple Noir', 36851),
 (19, '5 Rue Maurice Ravel', 7721),
-(20, 'Par ici', 12253);
+(20, 'Par ici', 12253),
+(21, 'Epitech', 35987),
+(23, 'Le pays imaginaire', 36947),
+(24, 'Tatoine', 8227),
+(25, 'Grognon-Land', 17272),
+(26, '404 avenue de l''HTML', 27367);
 
 -- --------------------------------------------------------
 
@@ -212,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `privmsgs` (
   `pm_content` longtext NOT NULL COMMENT 'Contenu du pm',
   `pm_date` datetime NOT NULL COMMENT 'Date du pm',
   `pm_status` int(11) NOT NULL DEFAULT '0' COMMENT 'Non Lu / Lu / Supprimé'
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `privmsgs`
@@ -224,30 +229,7 @@ TRUNCATE TABLE `privmsgs`;
 --
 
 INSERT INTO `privmsgs` (`id`, `pm_author_id`, `pm_recipient_id`, `pm_title`, `pm_content`, `pm_date`, `pm_status`) VALUES
-(1, 11, 1, 'Coucou louloute', 'Bisous', '2015-12-28 18:11:38', 1),
-(3, 1, 11, 'Coucou princesse #1', 'Blabla', '2015-12-28 18:40:07', 1),
-(4, 1, 11, 'Coucou chuchu #2', 'blablabla', '2015-12-28 18:40:07', 1),
-(5, 11, 1, 'Coucou mon loulou', 'ploploplopl                                                    ', '2015-12-28 21:28:08', 1),
-(6, 11, 1, 'Coucou', '                                                    ', '2015-12-28 21:43:54', 1),
-(7, 11, 1, 'Re: Coucou chuchu #2', 'Coucou mon loulou ;)', '2015-12-29 00:20:59', 1),
-(8, 1, 11, 'Re: Re: Coucou chuchu #2', 'Re ma chuchu :3', '2015-12-29 00:23:55', 1),
-(9, 11, 1, 'Re: Re: Re: Coucou chuchu #2', 'Ca va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 00:35:44', 1),
-(10, 1, 11, 'Re: Re: Re: Re: Coucou chuchu #2', 'J''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 00:40:56', 1),
-(11, 11, 1, 'Re: Re: Re: Re: Re: Coucou chuchu #2', 'Bisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:14:53', 1),
-(12, 1, 11, 'Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'Toi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:16:00', 1),
-(13, 11, 1, 'Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', ' \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:17:20', 1),
-(14, 1, 11, 'Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'lool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:18:32', 1),
-(15, 11, 1, 'Re: Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'Gouziiii ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:18:32, lereverandnox a écrit : \r\nlool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:20:57', 1),
-(16, 1, 11, 'Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'Golololooo\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:20:57, chuchu a écrit : \r\nGouziiii ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:18:32, lereverandnox a écrit : \r\nlool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:21:47', 1),
-(17, 11, 1, 'Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Re: Coucou chuchu #2', 'OSKDSAdad \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:21:47, lereverandnox a écrit : \r\nGolololooo\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:20:57, chuchu a écrit : \r\nGouziiii ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:18:32, lereverandnox a écrit : \r\nlool\r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:17:20, chuchu a écrit : \r\n \r\nplop\r\n------------------------------\r\nLe 29/12/2015 à 01:16:00, lereverandnox a écrit : \r\nToi aussi ma belle ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 01:14:53, chuchu a écrit : \r\nBisous ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:40:56, lereverandnox a écrit : \r\nJ''en ai plein le cul des feuilles de bananier !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:35:44, chuchu a écrit : \r\nCa va princesse ?\r\n\r\n------------------------------\r\nLe 29/12/2015 à 00:23:55, lereverandnox a écrit : \r\nRe ma chuchu :3', '2015-12-29 01:24:01', 1),
-(18, 12, 11, 'Bonjour je suis un alien', 'oso;sdfsd;fjaslfjs', '2015-12-29 01:37:18', 1),
-(19, 14, 11, 'Coucou tu veux voir ma bible ?', 'Copyright Guicha 2015', '2015-12-29 02:29:47', 1),
-(20, 11, 14, 'Re: Coucou tu veux voir ma bible ?', 'Noooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:35:17', 1),
-(21, 14, 11, 'Re: Re: Coucou tu veux voir ma bible ?', 'Arf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:35:33', 1),
-(22, 11, 14, 'Re: Re: Re: Coucou tu veux voir ma bible ?', 'Trololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:50:24', 1),
-(23, 14, 11, 'Re: Re: Re: Re: Coucou tu veux voir ma bible ?', 'Nom nom nom \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:24, chuchu a écrit : \r\nTrololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:50:34', 1),
-(24, 11, 14, 'Re: Re: Re: Re: Re: Coucou tu veux voir ma bible ?', '&gt;&lt;'' \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:34, magnum a écrit : \r\nNom nom nom \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:24, chuchu a écrit : \r\nTrololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:50:50', 1),
-(25, 14, 11, 'Re: Re: Re: Re: Re: Re: Coucou tu veux voir ma bible ?', 'Stop it ! \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:50, chuchu a écrit : \r\n&gt;&lt;'' \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:34, magnum a écrit : \r\nNom nom nom \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:50:24, chuchu a écrit : \r\nTrololooo \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:33, magnum a écrit : \r\nArf ! =/ \r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:35:17, chuchu a écrit : \r\nNoooon merci !\r\n\r\n------------------------------\r\nLe 29/12/2015 à 02:29:47, magnum a écrit : \r\nCopyright Guicha 2015', '2015-12-29 02:51:16', 1);
+(1, 20, 18, 'Bonjour vous !', 'Je m''appelle Sophie, et je suis directrice du Samsung Campus :)', '2015-12-30 23:03:04', 0);
 
 -- --------------------------------------------------------
 
@@ -322,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_activation_token` varchar(255) NOT NULL COMMENT 'Token d''activation par mail',
   `user_disabled` int(11) NOT NULL DEFAULT '0' COMMENT 'Desactivé ou Non',
   `user_register_date` datetime NOT NULL COMMENT 'Date d''inscription'
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `users`
@@ -338,7 +320,12 @@ INSERT INTO `users` (`id`, `user_login`, `user_email`, `user_password`, `user_fi
 (11, 'chuchu', 'lybrys@gmail.com', '0a2d780ab28fbe19c8aca3da8c6aeb41', 'Marie', 'Chu', '1991-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04'),
 (12, 'illidan', 'laidet.rodolphe@gmail.com', 'de41929f4065207da39cfb1a4485eaf8', 'Illidan', 'Stormrage', '1800-10-03', 2, 1, 18, 'images/avatars/default_alien.png', '', 1, '82cab004034dadf9a470394608c4ac85', 0, '2015-12-29 01:30:50'),
 (13, 'b1gb00bs22', 'rodolphe.laidet@epitech.eu', 'de41929f4065207da39cfb1a4485eaf8', 'Samantha', 'Fox', '1990-12-01', 1, 2, 19, 'images/avatars/default_female.png', '', 1, '03d6dbef9d38f16e78edd769bfdb9ace', 0, '2015-12-29 01:48:34'),
-(14, 'magnum', 'lereverandnox@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Tom', 'Selleck', '1945-01-29', 0, 1, 20, 'images/avatars/upload/magnum.jpeg', 'I''m Tom Selleck baby ;)', 1, '4f1dd18f1dad851420821956e86160a6', 0, '2015-12-29 02:25:40');
+(14, 'magnum', 'lereverandnox@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Tom', 'Selleck', '1945-01-29', 0, 1, 20, 'images/avatars/upload/magnum.jpeg', 'I''m Tom Selleck baby ;)', 1, '4f1dd18f1dad851420821956e86160a6', 0, '2015-12-29 02:25:40'),
+(15, 'dasilv_b', 'no-reply1@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Anthony', 'Dasilva', '1990-07-01', 0, 2, 21, 'images/avatars/upload/dasilv_b.jpeg', 'Je suis un super pangolin et j''adore les 2B3 !', 1, 'fc52f99e5b73bd2cbeeb05a77345d3cd', 0, '2015-12-30 16:48:22'),
+(17, 'bourea_v', 'no-reply2@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Valentin', 'Boureaud', '1994-12-09', 0, 0, 23, 'images/avatars/upload/bourea_v.jpeg', '', 1, 'fc52f99e5b73bd2cbeeb05a77345d3ce', 0, '2015-12-30 16:58:02'),
+(18, 'deslog_m', 'no-reply3@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Mathias', 'Desloges', '1985-07-09', 0, 1, 24, 'images/avatars/upload/deslog_m.jpeg', 'Ich bin das YODA DU CODE !', 1, 'fc52f99e5b73bd2cbeeb05a77345d3cg', 0, '2015-12-30 17:00:44'),
+(19, 'primo_j', 'no-reply4@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Jules', 'Primo', '1990-04-23', 2, 1, 25, 'images/avatars/upload/primo_j.jpeg', 'Turkey for everyone !', 1, 'fc52f99e5b73bd2cbeeb05a77345d3ch', 0, '2015-12-30 17:04:01'),
+(20, 'viger_s', 'no-reply@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Sophie', 'Viger', '1980-02-12', 1, 0, 26, 'images/avatars/upload/viger_s.jpeg', 'Maman du HTML', 1, 'fc52f99e5b73bd2cbeeb05a77345d3cf', 0, '2015-12-30 17:09:48');
 
 -- --------------------------------------------------------
 
@@ -37271,7 +37258,7 @@ ALTER TABLE `villes`
 -- AUTO_INCREMENT pour la table `adresses`
 --
 ALTER TABLE `adresses`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''adresse',AUTO_INCREMENT=21;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''adresse',AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT pour la table `departements`
 --
@@ -37286,7 +37273,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID des pays',AUTO_INCREMENT
 -- AUTO_INCREMENT pour la table `privmsgs`
 --
 ALTER TABLE `privmsgs`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID du pm',AUTO_INCREMENT=26;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID du pm',AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `regions`
 --
@@ -37296,7 +37283,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID des regions',AUTO_INCREM
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',AUTO_INCREMENT=15;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT pour la table `villes`
 --
