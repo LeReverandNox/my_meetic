@@ -32,7 +32,7 @@
                 ?>
                 <p id="header_username">Bienvenue <?php echo $user->getLogin(); ?> !</p>
                 <ul>
-                    <li><a href="index.php?mode=deconnexion">Déconnexion</a></li>
+                    <li><a href="index.php?mode=deconnexion" class="deco_link">Déconnexion</a></li>
                 </ul>
                 <?php
             }

@@ -53,21 +53,35 @@ a, a:visited {
     color: black;
 }
 /* MY_MEETIC */
+
+body {
+    background-image: url("bg.jpg");
+}
 #main_wrapper {
     width: 900px;
-    margin: 0 auto;
+    margin: 20px auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 10px;
 }
 #header {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid black;
+    padding-bottom: 40px;
 }
 #header_title {
     text-align: center;
+    margin-bottom: 20px;
 }
 #header_title h1 {
     color: red;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 2em;
+    font-size: 3em;
+}
+#header_navlog nav {
+    display: inline-block;
 }
 #header_navlog nav ul li {
     display: inline;
@@ -130,6 +144,7 @@ a, a:visited {
 .main_section h2 {
     text-align: center;
     font-size: 2em;
+    margin-bottom: 10px;
 }
 #profil_block {
     text-align: center;
@@ -167,7 +182,8 @@ a, a:visited {
     display: inline-block;
     width: 300px;
     margin-bottom: 5px;
-    border : 1px solid red;
+    border : 1px solid black;
+    border-radius: 5px;
     padding: 10px;
 }
 .search_result_avatar {
@@ -285,4 +301,15 @@ td {
 
 .intro_index p {
     text-align: center;
+}
+
+.deco_link {
+    background-color: pink;
+    text-align: center;
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
 }
