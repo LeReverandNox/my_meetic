@@ -515,13 +515,13 @@ Class FormValidator
         {
             if ($_FILES["avatar"]["error"] > 0)
             {
-                $_SESSION["ERROR"]["fail"] ="Upload has failed";
+                $_SESSION["ERROR"]["fail"] ="L'envoi a échoué";
             }
             else
             {
                 if ($_FILES["avatar"]["type"] !== "image/jpeg" && $_FILES["avatar"]["type"] !== "image/png")
                 {
-                    $_SESSION["ERROR"]["wrong_type"] ="Please upload a png or jpeg image";
+                    $_SESSION["ERROR"]["wrong_type"] ="Votre image n'est pas au bon format";
                 }
                 else
                 {
@@ -529,14 +529,14 @@ Class FormValidator
                     $extension = substr($extension, strpos($extension, "/") + 1);
                     if ($_FILES["avatar"]["size"] > 1000000)
                     {
-                        $_SESSION["ERROR"]["too_heavy"] ="This image is too heavy (1 MB max) !";
+                        $_SESSION["ERROR"]["too_heavy"] ="L'image est trop grosse (1 MB max.) !";
                     }
                     else
                     {
                         $image_size = getimagesize($_FILES["avatar"]["tmp_name"]);
                         if ($image_size[0] > 150 || $image_size[1] > 150)
                         {
-                            $_SESSION["ERROR"]["oversize"] ="This image is too big (150*150 px max) !";
+                            $_SESSION["ERROR"]["oversize"] ="L'image est trop grande (150*150 px max.) !";
                         }
                         else
                         {

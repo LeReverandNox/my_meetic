@@ -26,8 +26,8 @@
                                 <img src="<?php echo $user->getAvatar(); ?>" alt="<?php echo $dataUser["firstname"]; ?>'s avatar" id="edit_profile_avatar">
 
                                 <ul>
-                                    <li>Max. dimensions : 150*150px</li>
-                                    <li>Max. weight : 1MB</li>
+                                    <li>Dimensions max. : 150*150px</li>
+                                    <li>Poids max. : 1MB</li>
                                     <li>Type : jpeg, png</li>
                                     <li>
                                         <input type="file" accept="image/*" name="avatar" id="avatar" />
@@ -137,7 +137,7 @@
                                     <textarea name="bio" id="bio"><?php echo $user->getBio(); ?></textarea>
                                 </li>
 
-                                <li id="submit">
+                                <li id="edit_profile_submit">
                                     <input type="hidden" name="edit" />
                                     <input type="submit" value="Modifier" />
                                 </li>

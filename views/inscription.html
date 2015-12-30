@@ -38,7 +38,7 @@
             </div>
 
         <?php else: ?>
-            <div class="registration_block">
+            <div class="login_block">
                 <h2>Connexion</h2>
                 <form method="POST" action="index.php" class="connexion_form">
                     <label for="connexion_login">Pseudo : </label>
@@ -48,7 +48,7 @@
                     <input type="password" name="connexion_password" id="connexion_password" />
 
                     <input type="hidden" name="connexion" />
-                    <input type="submit" value="Connexion" />
+                    <input type="submit" id="connexion_button" value="Connexion" />
                 </form>
                 <a href="inscription.php?mode=reset" class="reset_link">Mot de passe oublié ?</a>
             </div>
@@ -119,7 +119,7 @@
 
                         <li>
                             <label>Adresse : </label>
-                            <input type="text" name="street" id="street" placeholder="Ex: Rue Fructidor" value="<?php if (isset($_POST["street"])) echo htmlspecialchars($_POST["street"]); ?>" />
+                            <input type="text" name="street" id="street" placeholder="Ex: 14 Rue Fructidor" value="<?php if (isset($_POST["street"])) echo htmlspecialchars($_POST["street"]); ?>" />
                         </li>
 
                         <li>

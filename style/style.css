@@ -69,6 +69,8 @@ body {
     margin-bottom: 20px;
     border-bottom: 2px solid black;
     padding-bottom: 40px;
+    margin: 0 auto;
+    width: 90%;
 }
 #header_title {
     text-align: center;
@@ -80,15 +82,36 @@ body {
     font-weight: bold;
     font-size: 3em;
 }
+#header_title h1 a img {
+    width: 550px;
+}
+#header_title h2 {
+    font-size: 2em;
+}
+#header_navlog {
+    margin-top: 40px;
+}
 #header_navlog nav {
     display: inline-block;
 }
 #header_navlog nav ul li {
     display: inline;
 }
+#header_navlog nav ul li a:hover{
+    border-bottom: 1px solid black;
+}
+.display_holder {
+    text-align: center;
+}
 .errors_list, .infos_list {
-    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin: 0 auto;
+    margin-top: 25px;
     margin-bottom: 20px;
+    padding: 20px;
 }
 .errors_list li {
     text-align: center;
@@ -121,12 +144,6 @@ body {
     width: 300px;
     vertical-align: top;
 }
-#registration_form #ad_number {
-    width: 50px !important;
-}
-#registration_form #street {
-    width: 240px !important;
-}
 
 #registration_form #submit {
     text-align: center;
@@ -145,6 +162,7 @@ body {
     text-align: center;
     font-size: 2em;
     margin-bottom: 10px;
+    margin-top: 20px;
 }
 #profil_block {
     text-align: center;
@@ -154,10 +172,9 @@ body {
     padding-top: 35px;
     padding-bottom: 20px;
     border-top: solid 2px black;
+    margin: 0 auto;
+    width: 90%;
 }
-#copyright {
-}
-
 #header_user {
     float: right;
 }
@@ -179,7 +196,9 @@ body {
 #edit_link, .contact_link, .profil_link {
     background-color: #00DCFF;
 }
-
+#avatar_upload {
+    margin-bottom: 15px;
+}
 #profil_details {
     border-bottom: 30px;
 }
@@ -194,13 +213,13 @@ body {
 .search_result_avatar {
     max-width: 50px;
 }
-
-.connexion_form {
-    width: 700px;
-}
 .reset_link {
+    margin-top: 5px;
     display: block;
     text-align: center;
+}
+.reset_link:hover {
+    color: red;
 }
 
 .msg_table{
@@ -219,6 +238,7 @@ table, th, td {
 th {
     height: 25px;
     vertical-align: middle;
+    min-width: 75px;
 }
 thead {
     font-weight: bold;
@@ -260,6 +280,10 @@ td {
 .messagerie_nav ul li {
     display: inline;
 }
+.messagerie_nav ul li a:hover{
+    border-bottom: 1px solid black;
+}
+
 .message_avatar {
     display: block;
     margin: 0 auto;
@@ -331,4 +355,47 @@ td {
     height: 35px;
     display: block;
     margin: auto;
+}
+
+.login_block  {
+    width: 550px;
+    margin: 0 auto;
+    border-bottom: 1px solid black;
+    padding-bottom: 30px;
+}
+.login_block h2 {
+    text-align: center;
+    color: red;
+    font-size: 2em;
+    margin: 15px;
+}
+
+#connexion_button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+#edit_profile ul li label{
+    display: inline-block;
+    width: 160px;
+    text-align: left;
+}
+#edit_profile ul li {
+    line-height: 25px;
+}
+#edit_profile ul li input, #edit_profile ul li select, #edit_profile ul li textarea {
+    display: inline-block;
+    width: 300px;
+    vertical-align: top;
+}
+#edit_profile ul li textarea {
+    height: 150px;
+    resize: none;
+}
+#edit_profile_submit {
+    margin-top: 20px;
+}
+#edit_profile_submit input {
+    width: auto !important;
 }

@@ -1,3 +1,3 @@
 <footer id="footer">
-    <p id="copyright">Made by Rodolphe Laidet</p>
+    <p id="copyright">Propulsé par Rodolphe Laidet</p>
 </footer>

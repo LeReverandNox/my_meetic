@@ -1,6 +1,6 @@
 <header id="header">
     <div id="header_title">
-        <h1><a href="index.php" title="Viens pécho !">My_Meetic</a></h1>
+        <h1><a href="index.php" title="Viens pécho !"><img src="style/logo.png" alt="Le logo de My_Meetic"></a></h1>
         <h2>(Better than Meetic !)</h2>
     </div>
     <div id="header_navlog">
