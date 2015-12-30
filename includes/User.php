@@ -399,8 +399,8 @@ Class User
             $queryAddress->execute();
             $id_address = $this->_db->lastInsertId();
 
-            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, user_orientation, user_avatar, id_adresse, user_activation_token)
-            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :orientation, :avatar, :id_address, :activation_token)";
+            $sql = "INSERT INTO users (user_login, user_email, user_password, user_firstname, user_lastname, user_birthdate, user_gender, user_orientation, user_avatar, id_adresse, user_activation_token, user_register_date)
+            VALUES (:login, :email, :password, :firstname, :lastname, :birthdate, :gender, :orientation, :avatar, :id_address, :activation_token, NOW())";
             $queryRegister = $this->_db->prepare($sql);
             $queryRegister->bindParam(":login", $this->_login, PDO::PARAM_STR);
             $queryRegister->bindParam(":email", $this->_email, PDO::PARAM_STR);

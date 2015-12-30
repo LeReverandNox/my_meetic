@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 29 Décembre 2015 à 03:06
+-- Généré le :  Mer 30 Décembre 2015 à 16:34
 -- Version du serveur :  5.6.27-0ubuntu0.15.04.1
 -- Version de PHP :  5.6.4-4ubuntu6.4
 
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `privmsgs` (
   `pm_recipient_id` int(11) NOT NULL COMMENT 'ID du destinataire du pm',
   `pm_title` text NOT NULL COMMENT 'Titre du pm',
   `pm_content` longtext NOT NULL COMMENT 'Contenu du pm',
-  `pm_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date du pm',
+  `pm_date` datetime NOT NULL COMMENT 'Date du pm',
   `pm_status` int(11) NOT NULL DEFAULT '0' COMMENT 'Non Lu / Lu / Supprimé'
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
@@ -321,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_status` int(1) NOT NULL DEFAULT '0' COMMENT 'Actif ou Non',
   `user_activation_token` varchar(255) NOT NULL COMMENT 'Token d''activation par mail',
   `user_disabled` int(11) NOT NULL DEFAULT '0' COMMENT 'Desactivé ou Non',
-  `user_register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date d''inscription'
+  `user_register_date` datetime NOT NULL COMMENT 'Date d''inscription'
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
@@ -335,7 +335,7 @@ TRUNCATE TABLE `users`;
 
 INSERT INTO `users` (`id`, `user_login`, `user_email`, `user_password`, `user_firstname`, `user_lastname`, `user_birthdate`, `user_gender`, `user_orientation`, `id_adresse`, `user_avatar`, `user_bio`, `user_status`, `user_activation_token`, `user_disabled`, `user_register_date`) VALUES
 (1, 'lereverandnox', 'lereverandnox@gmail.com', 'd439ba2b7cefa61d636f9f660ebcc331', 'Rodolphe', 'Laidet', '1993-11-21', 0, 1, 1, 'images/avatars/default_male.png', '', 1, 'e7c183fe4dff55942f09e315f563b715', 0, '2015-12-16 15:38:04'),
-(11, 'chuchu', 'lybrys@gmail.com', '0a2d780ab28fbe19c8aca3da8c6aeb41', 'Marie', 'Chu', '1989-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04'),
+(11, 'chuchu', 'lybrys@gmail.com', '0a2d780ab28fbe19c8aca3da8c6aeb41', 'Marie', 'Chu', '1991-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04'),
 (12, 'illidan', 'laidet.rodolphe@gmail.com', 'de41929f4065207da39cfb1a4485eaf8', 'Illidan', 'Stormrage', '1800-10-03', 2, 1, 18, 'images/avatars/default_alien.png', '', 1, '82cab004034dadf9a470394608c4ac85', 0, '2015-12-29 01:30:50'),
 (13, 'b1gb00bs22', 'rodolphe.laidet@epitech.eu', 'de41929f4065207da39cfb1a4485eaf8', 'Samantha', 'Fox', '1990-12-01', 1, 2, 19, 'images/avatars/default_female.png', '', 1, '03d6dbef9d38f16e78edd769bfdb9ace', 0, '2015-12-29 01:48:34'),
 (14, 'magnum', 'lereverandnox@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Tom', 'Selleck', '1945-01-29', 0, 1, 20, 'images/avatars/upload/magnum.jpeg', 'I''m Tom Selleck baby ;)', 1, '4f1dd18f1dad851420821956e86160a6', 0, '2015-12-29 02:25:40');
