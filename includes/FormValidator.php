@@ -501,7 +501,9 @@ Class FormValidator
     {
         if (!empty($_POST["bio"]))
         {
-            return htmlspecialchars($_POST["bio"]);
+            $bio = htmlspecialchars($_POST["bio"]);
+            $bio = nl2br($bio);
+            return $bio;
         }
         else
         {
@@ -633,7 +635,7 @@ Class FormValidator
     {
         if (isset($_POST["content"]) && $_POST["content"] !== "")
         {
-            $content = strip_tags($_POST["content"], "<br>");
+            $content = htmlspecialchars($_POST["content"]);
             $content = nl2br($content);
             return $content;
         }

@@ -147,6 +147,10 @@ Class User
         $this->_lastname = $lastname;
     }
 
+    public function getBirthdateClean($format)
+    {
+        return date($format, strtotime($this->_birthdate));
+    }
     public function getBirthdate()
     {
         return $this->_birthdate;
@@ -243,6 +247,10 @@ Class User
         $this->_avatar = $avatar;
     }
 
+    public function getBioBr()
+    {
+        return preg_replace("/<br \/>/", "", $this->_bio);
+    }
     public function getBio()
     {
         return $this->_bio;

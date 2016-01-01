@@ -134,7 +134,7 @@
                                 </li>
                                 <li>
                                     <label for="bio">Biographie : </label>
-                                    <textarea name="bio" id="bio"><?php echo $user->getBio(); ?></textarea>
+                                    <textarea name="bio" id="bio"><?php echo $user->getBioBr(); ?></textarea>
                                 </li>
 
                                 <li id="edit_profile_submit">
@@ -168,9 +168,12 @@
                         </div>
                         <ul id="profil_details">
                             <li><span class="details">Pseudo : </span><?php echo $user->getLogin(); ?></li>
+                            <li><span class="details">Adresse email : </span><?php echo $user->getEmail(); ?></li>
                             <li><span class="details">Sexe : </span><?php echo $user->getGenderText(); ?></li>
-                            <li><span class="details">Je recherche : </span>des <?php echo $user->getOrientationText(); ?></li>
+                            <li><span class="details">Date de naissance : </span><?php echo $user->getBirthdateClean("d/m/Y"); ?></li>
                             <li><span class="details">Age : </span><?php echo $user->getAge(); ?> ans</li>
+                            <li><span class="details">Je recherche : </span>des <?php echo $user->getOrientationText(); ?></li>
+                            <li><span class="details">Adresse : </span><?php echo $user->getStreet(); ?></li>
                             <li><span class="details">Ville : </span><?php echo $user->getCity(); ?></li>
                             <li><span class="details">Département : </span><?php echo $user->getDepartement(); ?></li>
                             <li><span class="details">Région : </span><?php echo $user->getRegion(); ?></li>
