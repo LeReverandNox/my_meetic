@@ -343,6 +343,15 @@ Class User
         return $this->_pays;
     }
 
+    public function getStatus()
+    {
+        return $this->_status;
+    }
+    public function getDisabled()
+    {
+        return $this->_disabled;
+    }
+
     public function setNewLogin($new_login)
     {
         $this->_new_login = $new_login;

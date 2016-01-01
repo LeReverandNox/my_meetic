@@ -16,7 +16,7 @@ $user = new User($db, $_SESSION["id"]);
 
 $profil = new User($db, $_GET["id"]);
 
-if (empty($profil->getLogin()))
+if (empty($profil->getLogin()) || $profil->getDisabled() == 1)
 {
     header("Location: index.php");
 }

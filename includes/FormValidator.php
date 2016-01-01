@@ -589,7 +589,7 @@ Class FormValidator
         {
             $recipient = htmlspecialchars($_POST["recipient"]);
 
-            $sql = "SELECT u.id FROM users AS u WHERE u.user_login = :recipient";
+            $sql = "SELECT u.id FROM users AS u WHERE u.user_login = :recipient AND u.user_disabled = 0";
             $queryRecipient = $this->_db->prepare($sql);
             $queryRecipient->bindParam(":recipient", $recipient, PDO::PARAM_STR);
             $queryRecipient->execute();

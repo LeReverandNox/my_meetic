@@ -173,6 +173,7 @@ Class Search
     private function generateBigWhere()
     {
         array_push($this->_big_where, "u.id <> :user_id");
+        array_push($this->_big_where, "u.user_disabled = 0");
         $arr_big_where = [];
         $big_where = "";
 
