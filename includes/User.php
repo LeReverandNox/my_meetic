@@ -568,7 +568,7 @@ Class User
             $token = htmlspecialchars($_GET["token"]);
             if ($this->_status == 1)
             {
-                $_SESSION["INFOS"] = "Votre compte est déjà activé";
+                $_SESSION["INFOS"] = "Votre compte est déjà activé.<br />Vous allez être redirigé dans 5 secondes.";
                 return false;
             }
             elseif ($token === $this->_activation_token)
@@ -580,12 +580,13 @@ Class User
                 $queryActivate->bindParam(":id", $this->_id, PDO::PARAM_INT);
                 $queryActivate->execute();
 
-                $_SESSION["INFOS"] = "Votre compte a bien été activé.";
+                $_SESSION["INFOS"] = "Votre compte a bien été activé.<br />Vous allez être redirigé dans 5 secondes.";
+                $_SESSION["id"] = $this->_id;
                 return true;
             }
             else
             {
-                $_SESSION["INFOS"] = "Erreur lors de l'activation du compte";
+                $_SESSION["INFOS"] = "Erreur lors de l'activation du compte.<br />Vous allez être redirigé dans 5 secondes.";
                 return false;
             }
         }

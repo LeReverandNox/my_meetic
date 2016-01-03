@@ -12,6 +12,8 @@ if (isset($_GET["action"]) && $_GET["action"] === "activate")
     {
         $user= new User($db, intval($_GET["id"]));
         $user->activateUser();
+
+        header("refresh:5;url=index.php");
     }
     else
     {
