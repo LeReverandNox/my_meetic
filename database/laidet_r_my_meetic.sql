@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 30 Décembre 2015 à 23:04
+-- Généré le :  Dim 03 Janvier 2016 à 22:30
 -- Version du serveur :  5.6.27-0ubuntu0.15.04.1
 -- Version de PHP :  5.6.4-4ubuntu6.4
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `adresses` (
 `id` int(11) NOT NULL COMMENT 'id de l''adresse',
   `adresse_rue` varchar(255) NOT NULL COMMENT 'Numero + rue',
   `id_ville` int(11) NOT NULL COMMENT 'ID de la ville'
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `adresses`
@@ -53,7 +53,8 @@ INSERT INTO `adresses` (`id`, `adresse_rue`, `id_ville`) VALUES
 (23, 'Le pays imaginaire', 36947),
 (24, 'Tatoine', 8227),
 (25, 'Grognon-Land', 17272),
-(26, '404 avenue de l''HTML', 27367);
+(26, '404 avenue de l''HTML', 27367),
+(27, '36 quai des Orfèvres', 36831);
 
 -- --------------------------------------------------------
 
@@ -304,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_activation_token` varchar(255) NOT NULL COMMENT 'Token d''activation par mail',
   `user_disabled` int(11) NOT NULL DEFAULT '0' COMMENT 'Desactivé ou Non',
   `user_register_date` datetime NOT NULL COMMENT 'Date d''inscription'
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
 
 --
 -- Vider la table avant d'insérer `users`
@@ -317,7 +318,7 @@ TRUNCATE TABLE `users`;
 
 INSERT INTO `users` (`id`, `user_login`, `user_email`, `user_password`, `user_firstname`, `user_lastname`, `user_birthdate`, `user_gender`, `user_orientation`, `id_adresse`, `user_avatar`, `user_bio`, `user_status`, `user_activation_token`, `user_disabled`, `user_register_date`) VALUES
 (1, 'lereverandnox', 'lereverandnox@gmail.com', 'd439ba2b7cefa61d636f9f660ebcc331', 'Rodolphe', 'Laidet', '1993-11-21', 0, 1, 1, 'images/avatars/default_male.png', '', 1, 'e7c183fe4dff55942f09e315f563b715', 0, '2015-12-16 15:38:04'),
-(11, 'chuchu', 'lybrys@gmail.com', '0a2d780ab28fbe19c8aca3da8c6aeb41', 'Marie', 'Chu', '1991-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04'),
+(11, 'chuchu', 'lybrys@gmail.com', '0a2d780ab28fbe19c8aca3da8c6aeb41', 'Marie', 'Chu', '1992-03-11', 1, 0, 17, 'images/avatars/upload/chuchu.jpeg', 'Blablabla', 1, '261b47e0abcbe3a96cc379d0a02b5806', 0, '2015-12-16 15:38:04'),
 (12, 'illidan', 'laidet.rodolphe@gmail.com', 'de41929f4065207da39cfb1a4485eaf8', 'Illidan', 'Stormrage', '1800-10-03', 2, 1, 18, 'images/avatars/default_alien.png', '', 1, '82cab004034dadf9a470394608c4ac85', 0, '2015-12-29 01:30:50'),
 (13, 'b1gb00bs22', 'rodolphe.laidet@epitech.eu', 'de41929f4065207da39cfb1a4485eaf8', 'Samantha', 'Fox', '1990-12-01', 1, 2, 19, 'images/avatars/default_female.png', '', 1, '03d6dbef9d38f16e78edd769bfdb9ace', 0, '2015-12-29 01:48:34'),
 (14, 'magnum', 'lereverandnox@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Tom', 'Selleck', '1945-01-29', 0, 1, 20, 'images/avatars/upload/magnum.jpeg', 'I''m Tom Selleck baby ;)', 1, '4f1dd18f1dad851420821956e86160a6', 0, '2015-12-29 02:25:40'),
@@ -325,7 +326,8 @@ INSERT INTO `users` (`id`, `user_login`, `user_email`, `user_password`, `user_fi
 (17, 'bourea_v', 'no-reply2@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Valentin', 'Boureaud', '1994-12-09', 0, 0, 23, 'images/avatars/upload/bourea_v.jpeg', '', 1, 'fc52f99e5b73bd2cbeeb05a77345d3ce', 0, '2015-12-30 16:58:02'),
 (18, 'deslog_m', 'no-reply3@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Mathias', 'Desloges', '1985-07-09', 0, 1, 24, 'images/avatars/upload/deslog_m.jpeg', 'Ich bin das YODA DU CODE !', 1, 'fc52f99e5b73bd2cbeeb05a77345d3cg', 0, '2015-12-30 17:00:44'),
 (19, 'primo_j', 'no-reply4@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Jules', 'Primo', '1990-04-23', 2, 1, 25, 'images/avatars/upload/primo_j.jpeg', 'Turkey for everyone !', 1, 'fc52f99e5b73bd2cbeeb05a77345d3ch', 0, '2015-12-30 17:04:01'),
-(20, 'viger_s', 'no-reply@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Sophie', 'Viger', '1980-02-12', 1, 0, 26, 'images/avatars/upload/viger_s.jpeg', 'Maman du HTML', 1, 'fc52f99e5b73bd2cbeeb05a77345d3cf', 0, '2015-12-30 17:09:48');
+(20, 'viger_s', 'no-reply5@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Sophie', 'Viger', '1980-02-12', 1, 0, 26, 'images/avatars/upload/viger_s.jpeg', 'Maman du HTML', 1, 'fc52f99e5b73bd2cbeeb05a77345d3ci', 0, '2015-12-30 17:09:48'),
+(21, 'bobbycarotte', 'no-reply@hyperfreespin.fr', 'de41929f4065207da39cfb1a4485eaf8', 'Bobby', 'Carrotus', '1975-01-03', 0, 2, 27, 'images/avatars/default_male.png', '', 1, 'fc52f99e5b73bd2cbeeb05a77345d3cf', 0, '2016-01-03 22:20:31');
 
 -- --------------------------------------------------------
 
@@ -37258,7 +37260,7 @@ ALTER TABLE `villes`
 -- AUTO_INCREMENT pour la table `adresses`
 --
 ALTER TABLE `adresses`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''adresse',AUTO_INCREMENT=27;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id de l''adresse',AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT pour la table `departements`
 --
@@ -37283,7 +37285,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID des regions',AUTO_INCREM
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',AUTO_INCREMENT=21;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID de l''utilisateur',AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT pour la table `villes`
 --

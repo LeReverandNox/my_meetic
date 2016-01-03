@@ -246,6 +246,9 @@ thead {
 td {
     padding: 8px;
 }
+td a:hover {
+    border-bottom: 1px solid black;
+}
 .td_no_msg {
     text-align: center;
 }
@@ -262,9 +265,15 @@ td {
     padding-right: 10px;
     width: 250px;
 }
+.message_profile ul li a:hover {
+    border-bottom: 1px solid black;
+}
 .message_body {
     padding-left: 10px;
     width: 620px;
+}
+.message_body p a:hover {
+    border-bottom: 1px solid black;
 }
 .message_content {
     margin-top: 15px;
