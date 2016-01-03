@@ -15,7 +15,7 @@ Class FormValidator
     {
         if (!empty($_POST["login"]) && strlen($_POST["login"]) >= 3)
         {
-            if (strlen($_POST["login"]) < 21)
+            if (strlen($_POST["login"]) < 30)
             {
                 $login = htmlspecialchars(strtolower($_POST["login"]));
 
@@ -57,20 +57,27 @@ Class FormValidator
 
                 if (strcmp($email1, $email2) == 0)
                 {
-                    $sql = "SELECT u.user_email FROM users AS u WHERE u.user_email = :email";
-                    $queryMail = $this->_db->prepare($sql);
-                    $queryMail->bindValue(":email", $email1, PDO::PARAM_STR);
-                    $queryMail->execute();
-                    $data = $queryMail->fetch();
-                    $queryMail->closeCursor();
-
-                    if ($data)
+                    if (strlen($email1 > 255))
                     {
-                        $_SESSION["ERROR"]["email_exist"] = "L'adresse e-mail indiquée est déjà utilisée.";
+                            $_SESSION["ERROR"]["email_long"] = "L'adresse e-mail indiquée est trop longue";
                     }
                     else
                     {
-                       return $email1;
+                        $sql = "SELECT u.user_email FROM users AS u WHERE u.user_email = :email";
+                        $queryMail = $this->_db->prepare($sql);
+                        $queryMail->bindValue(":email", $email1, PDO::PARAM_STR);
+                        $queryMail->execute();
+                        $data = $queryMail->fetch();
+                        $queryMail->closeCursor();
+
+                        if ($data)
+                        {
+                            $_SESSION["ERROR"]["email_exist"] = "L'adresse e-mail indiquée est déjà utilisée.";
+                        }
+                        else
+                        {
+                           return $email1;
+                        }
                     }
                 }
                 else
@@ -104,7 +111,14 @@ Class FormValidator
                 }
                 else
                 {
-                    return md5($password1);
+                    if (strlen($password1) > 50)
+                    {
+                        $_SESSION["ERROR"]["password_long"] = "Le mot de passe indiqué est trop long";
+                    }
+                    else
+                    {
+                        return md5($password1);
+                    }
                 }
             }
             else
@@ -127,7 +141,14 @@ Class FormValidator
         else
         {
             $firstname = htmlspecialchars(ucwords($_POST["firstname"], " -"));
-            return $firstname;
+            if (strlen($firstname) > 255)
+            {
+                $_SESSION["ERROR"]["firstname_long"] = "Le prénom indiqué est trop long.";
+            }
+            else
+            {
+                return $firstname;
+            }
         }
     }
 
@@ -140,7 +161,14 @@ Class FormValidator
         else
         {
             $lastname = htmlspecialchars(ucwords($_POST["lastname"], " -"));
-            return $lastname;
+            if (strlen($lastname) > 255)
+            {
+                $_SESSION["ERROR"]["lastname_long"] = "Le nom indiqué est trop long.";
+            }
+            else
+            {
+                return $lastname;
+            }
         }
     }
 
@@ -207,7 +235,14 @@ Class FormValidator
         if (!empty($_POST["street"]))
         {
             $street = htmlspecialchars($_POST["street"]);
-            return $street;
+            if (strlen($street) >255)
+            {
+                $_SESSION["ERROR"]["street"] = "La rue indiquée est trop longue.";
+            }
+            else
+            {
+                return $street;
+            }
         }
         if (empty($_POST["street"]))
         {
@@ -427,20 +462,27 @@ Class FormValidator
 
                     if (strcmp($email1, $email2) == 0)
                     {
-                        $sql = "SELECT u.user_email FROM users AS u WHERE u.user_email = :email";
-                        $queryMail = $this->_db->prepare($sql);
-                        $queryMail->bindValue(":email", $email1, PDO::PARAM_STR);
-                        $queryMail->execute();
-                        $data = $queryMail->fetch();
-                        $queryMail->closeCursor();
-
-                        if ($data)
+                        if (strlen($email1 > 255))
                         {
-                            $_SESSION["ERROR"]["email_exist"] = "L'adresse e-mail indiquée est déjà utilisée.";
+                            $_SESSION["ERROR"]["email_long"] = "L'adresse e-mail indiquée est trop longue";
                         }
                         else
                         {
-                           return $email1;
+                            $sql = "SELECT u.user_email FROM users AS u WHERE u.user_email = :email";
+                            $queryMail = $this->_db->prepare($sql);
+                            $queryMail->bindValue(":email", $email1, PDO::PARAM_STR);
+                            $queryMail->execute();
+                            $data = $queryMail->fetch();
+                            $queryMail->closeCursor();
+
+                            if ($data)
+                            {
+                                $_SESSION["ERROR"]["email_exist"] = "L'adresse e-mail indiquée est déjà utilisée.";
+                            }
+                            else
+                            {
+                               return $email1;
+                            }
                         }
                     }
                     else
@@ -483,7 +525,14 @@ Class FormValidator
                 }
                 else
                 {
-                    return md5($password1);
+                    if (strlen($password1) > 50)
+                    {
+                        $_SESSION["ERROR"]["password_long"] = "Le mot de passe indiqué est trop long.";
+                    }
+                    else
+                    {
+                        return md5($password1);
+                    }
                 }
             }
             else
@@ -544,9 +593,15 @@ Class FormValidator
                         {
                             $curr_path = $_FILES["avatar"]["tmp_name"];
                             $destination_path = "images/avatars/upload/" . $login . "." . $extension;
-                            move_uploaded_file($curr_path, $destination_path);
-
-                            return $destination_path;
+                            if (strlen($destination_path) > 255)
+                            {
+                                $_SESSION["ERROR"]["toolong"] ="Le nom de l'image  est trop long.";
+                            }
+                            else
+                            {
+                                move_uploaded_file($curr_path, $destination_path);
+                                return $destination_path;
+                            }
                         }
                     }
                 }
